@@ -1,0 +1,19 @@
+<div class="body__accordion">
+    <accordion id="{{ block.id }}">
+        {% for row in block.accordion %}
+            <accordion-tab {% if loop.first %}:selected="true"{% endif %} title="{{ row.title }}" id="{{ block.id }}" class="body__accordion__tab">
+                <h4 slot="tab_title" class="body__accordion__tab__title">
+                    <button aria-expanded="{% if loop.first %}true{% else %}false{% endif %}">
+                        <span class="c_section_subheader">{{ row.title }}</span>
+                        <span class="c_button c_button--outline">{% if block.dropDownButtonLabel %}{{ block.dropDownButtonLabel }}{% else %}Read More{% endif %} <span aria-hidden="true">{{ svg('@basePath/icon/arrow_go.svg') }}</span></span>
+                    </button>
+                </h4>
+                <div class="body__accordion__tab__content" hidden>
+                    <div class="body__accordion__tab__content__inner">
+                        {{ row.content|markdown }}
+                    </div>
+                </div>
+            </accordion-tab>
+        {% endfor %}
+    </accordion>
+</div>

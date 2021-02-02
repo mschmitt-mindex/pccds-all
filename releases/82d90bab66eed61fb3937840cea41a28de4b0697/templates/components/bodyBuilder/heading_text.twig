@@ -1,0 +1,71 @@
+{% import 'macros/component.twig' as component %}
+
+{% set style = block.style.one().colors ?? null %}
+
+{% switch style %}
+
+    {% case "bgLightGrayH2DarkRedTextDarkGray" %}
+        {% set backgroundColor = 'off-white' %}
+        {% set borderColor = 'off-white' %}
+        {% set headingColor = 'dark-red' %}
+        {% set textColor = 'dark-gray' %}
+    {% case "bgLightGrayH2BlueTextDarkGray" %}
+        {% set backgroundColor = 'off-white' %}
+        {% set borderColor = 'off-white' %}
+        {% set headingColor = 'blue' %}
+        {% set textColor = 'dark-gray' %}
+    {% case "bgLightGrayH2DarkGrayTextDarkGray" %}
+        {% set backgroundColor = 'off-white' %}
+        {% set borderColor = 'off-white' %}
+        {% set headingColor = 'dark-gray' %}
+        {% set textColor = 'dark-gray' %}
+    {% case "bgOutlineH2DarkRedTextDarkGray" %}
+        {% set backgroundColor = 'none' %}
+        {% set borderColor = 'dark-red' %}
+        {% set headingColor = 'dark-red' %}
+        {% set textColor = 'dark-red' %}
+    {% case "bgOutlineH2BlueTextDarkGray" %}
+        {% set backgroundColor = 'none' %}
+        {% set borderColor = 'blue' %}
+        {% set headingColor = 'blue' %}
+        {% set textColor = 'dark-gray' %}
+    {% case "bgOutlineH2DarkGrayTextDarkGray" %}
+        {% set backgroundColor = 'none' %}
+        {% set borderColor = 'dark-gray' %}
+        {% set headingColor = 'dark-gray' %}
+        {% set textColor = 'dark-gray' %}
+    {% case "bgDarkRedH2WhiteTextWhite" %}
+        {% set backgroundColor = 'dark-red' %}
+        {% set borderColor = 'dark-red' %}
+        {% set headingColor = 'white' %}
+        {% set textColor = 'white' %}
+    {% case "bgBlueH2WhiteTextWhite" %}
+        {% set backgroundColor = 'blue' %}
+        {% set borderColor = 'blue' %}
+        {% set headingColor = 'white' %}
+        {% set textColor = 'white' %}
+    {% default %}
+        {% set backgroundColor = 'white' %}
+        {% set borderColor = 'white' %}
+        {% set headingColor = 'dark-red' %}
+        {% set textColor = 'dark-red' %}
+{% endswitch %}
+
+{% set heading = block.heading ?? null %}
+{% set text = block.text ?? null %}
+{% set spacing = block.style.one().spacing.value ?? 'large' %}
+
+<div class="c_section c_heading_text {% if spacing == 'small' %}c_section--spacing-small{% endif %}">
+    <div class="c_heading_text_inner_wrapper {{ text ? 'c_heading_text--has-text': 'c_heading_text--no-text' }} {{ 'background--' ~ backgroundColor }} {{ 'border--' ~ borderColor }}">
+        {% if heading|length %}
+            <h2 class="c_section_header {{ 'text--' ~ headingColor }}">
+                {{ heading }}
+            </h2>
+        {% endif %}
+        {% if text|length %}
+            <div class="c_heading_text_text {{ 'text--' ~ textColor }}">
+                {{ text|raw }}
+            </div>
+        {% endif %}
+    </div>
+</div>

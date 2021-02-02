@@ -1,0 +1,286 @@
+@include critical-split('home.css') {
+  .featured {
+    margin: 0 auto;
+    padding-top: pxConversion(40, rem);
+    padding-bottom: pxConversion(84, rem);
+    width: 92%;
+
+    @include mq(500px) {
+      width: 80%;
+    }
+    @include mq(850px) {
+      max-width: 750px;
+    }
+    @at-root #{&}__h3 {
+      color: $color_maroon;
+      text-align: center;
+      font-size: pxConversion(28, rem);
+      padding-bottom: pxConversion(42, rem);
+    }
+    @at-root #{&}__content {
+      $self: &;
+
+      @include mq(750px) {
+        display: flex;
+        flex-flow: row nowrap;
+      }
+
+      @at-root #{&}__media {
+        max-width: 350px;
+        flex: 0 1 auto;
+        text-align: center;
+        padding-bottom: pxConversion(30, rem);
+        margin: 0 auto;
+        @include mq(750px) {
+          flex: 0 1 50%;
+          text-align: left;
+          padding-bottom: 0;
+          padding-right: pxConversion(25, rem);
+        }
+      }
+
+      @at-root #{&}__content {
+        flex: 0 1 auto;
+        @include mq(750px) {
+          flex: 0 1 50%;
+          padding-left: pxConversion(25, rem);
+          background-color: $color_maroon;
+        }
+      }
+      @at-root #{&}--no_image {
+        z-index: 53;
+        .featured__content__content {
+          @include mq(750px) {
+            padding-left: 0;
+            flex: 0 1 auto;
+          }
+        }
+      }
+    }
+  }
+
+  .prime_care_colored_icon {
+    margin-bottom: pxConversion(24, rem);
+    margin-top: pxConversion(60, rem);
+  }
+
+  .intro {
+    .c_text {
+      font-size: pxConversion(22, rem);
+      padding-bottom: pxConversion(60, rem);
+    }
+    .intro__divider {
+      padding-bottom: pxConversion(60, rem);
+    }
+  }
+
+  .services {
+    padding-bottom: pxConversion(35, rem);
+    text-align: center;
+    .c_text {
+      text-align: left;
+      font-size: pxConversion(22, rem);
+      padding-bottom: pxConversion(60, rem);
+    }
+    .c_button {
+      margin: 0 auto;
+      margin-bottom: pxConversion(60, rem);
+    }
+  }
+
+  .services__list {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: center;
+    align-items: center;
+    @at-root #{&}__item {
+      flex: 0 1 auto;
+      @include mq(525px) {
+        flex: 0 1 50%;
+      }
+      @include mq(800px) {
+        flex: 0 1 33.33%;
+      }
+      text-align: center;
+      font-size: pxConversion(22, rem);
+      box-sizing: border-box;
+      & > div {
+        padding: 0 pxConversion(30, rem) pxConversion(60, rem) pxConversion(30, rem);
+      }
+      p {
+        color: $color_maroon;
+        font-weight: bold;
+      }
+    }
+  }
+
+  .service_area {
+    background: $color_primary;
+    padding-top: pxConversion(65, rem);
+    padding-bottom: pxConversion(65, rem);
+
+    .inner_wrapper {
+      display: flex;
+      flex-flow: column nowrap;
+      @include mq(750px) {
+        flex-flow: row nowrap;
+      }
+    }
+    .c_section_subheader {
+      text-transform: uppercase;
+    }
+    .c_text {
+      color: $color_white_default;
+      font-size: pxConversion(22, rem);
+      @include mq(750px) {
+        font-size: pxConversion(18, rem);
+      }
+      @include mq(900px) {
+        font-size: pxConversion(22, rem);
+      }
+    }
+    &__content_contain {
+      flex: 0 1 100%;
+      padding-bottom: pxConversion(60, rem);
+      @include mq(750px) {
+        flex: 0 1 40%;
+        padding-right: 5.75%;
+      }
+      @include mq(900px) {
+        flex: 0 1 50%;
+      }
+      &--full {
+        flex: 1 1 auto;
+      }
+      .c_button {
+        margin: 0 auto;
+        margin-top: pxConversion(40, rem);
+      }
+    }
+    &__image {
+      flex: 0 1 100%;
+      @include mq(750px) {
+        flex: 0 1 60%;
+        padding-left: 5.75%;
+      }
+      @include mq(900px) {
+        flex: 0 1 50%;
+      }
+    }
+  }
+
+  .events {
+    padding-top: pxConversion(72, rem);
+    padding-bottom: pxConversion(80, rem);
+    text-align: center;
+    .p-inside & {
+      padding-top: 0;
+    }
+    @at-root #{&}__event {
+      text-align: left;
+      padding: pxConversion(20, rem) 0;
+      border-bottom: 1px solid $color_black_default;
+      @at-root #{&}__nbsp {
+        display: inline;
+        @include mq(700px) {
+          display: none;
+        }
+      }
+      &:last-of-type {
+        border-bottom: 0;
+      }
+      a {
+        $self_event: &;
+
+        text-decoration: none;
+        @include mq(525px) {
+          display: flex;
+          flex-flow: row nowrap;
+          justify-content: space-between;
+          align-items: center;
+        }
+        h5 {
+          color: $color_black_default;
+          font-size: pxConversion(18, rem);
+          font-weight: bold;
+          padding-bottom: pxConversion(10, rem);
+          padding-right: pxConversion(40, rem);
+          @include mq(700px) {
+            padding-bottom: 0;
+            padding-right: pxConversion(30, rem);
+          }
+        }
+        & > div {
+          display: flex;
+          flex-flow: column nowrap;
+          flex: 1 1 auto;
+          padding-bottom: pxConversion(20, rem);
+          @include mq(525px) {
+            padding-bottom: 0;
+          }
+          @include mq(700px) {
+            flex-flow: row nowrap;
+            justify-content: space-between;
+            align-items: center;
+          }
+          p {
+            @include font('proxima_nova__bold');
+            color: $color_primary;
+            //margin-bottom:pxConversion(20, rem);
+            flex: 0 1 20%;
+
+            padding-right: pxConversion(30, rem);
+            @include mq(700px) {
+              margin-bottom: 0;
+              min-width: 150px;
+            }
+            & > span {
+              display: inline-block;
+              text-align: left;
+              @include mq(700px) {
+                display: block;
+                text-align: right;
+              }
+            }
+          }
+          &:hover {
+            h5 {
+              color: $color_primary;
+            }
+          }
+        }
+        .c_button {
+          min-width: 175px;
+        }
+        @at-root #{$self_event}:hover {
+          .c_button {
+            background: $color_primary;
+            color: $color_white_default;
+            &__icon {
+              svg {
+                polyline {
+                  stroke: $color_white_default;
+                }
+                polygon {
+                  fill: $color_white_default;
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+    .c_section_subheader {
+      text-align: left;
+    }
+    & > div {
+      padding-bottom: pxConversion(54, rem);
+      .events_no_button {
+        padding-bottom: 0;
+      }
+    }
+    & > a {
+      margin: 0 auto;
+    }
+  }
+}

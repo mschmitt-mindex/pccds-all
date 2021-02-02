@@ -1,0 +1,68 @@
+{# @var craft \craft\web\twig\variables\CraftVariable #}
+
+
+
+
+
+
+
+
+<div class="styles">
+    <div class="styles__menu">
+    
+        <a href="/dev/inv/index">Style Inventory</a>
+    
+        <a href="/dev/inv/globals">Globals</a>
+    
+        <a href="/dev/inv/animations">Animations</a>
+    
+        <a href="/dev/inv/buttons">Buttons</a>
+    
+        <a href="/dev/inv/forms">Forms</a>
+    
+        <a href="/dev/inv/grid">Grids</a>
+    
+        <a href="/dev/inv/icons">Icons</a>
+    
+        <a href="/dev/inv/media">Media</a>
+    
+        <a href="/dev/inv/messages">Messages</a>
+    
+        <a href="/dev/inv/nav">Navigation</a>
+    
+        <a class="active" href="/dev/inv/overlays"><span class="styles__menu__active_spacer"></span>Overlays<span class="styles__menu__active_indicator"></span></a>
+    
+        <a href="/dev/inv/sliders">Sliders</a>
+    
+</div>
+    <div>
+        
+
+        
+            <div class="styles__example">
+                <div class="styles__example__title"><h2>Overlay</h2></div>
+                <div class="styles__example__description"><p>Display content in front of the current page. The `overlayIsVisible` global variable is available to the Vue root and it changes based on the `show-overlay` and `hide-overlay` events.</p></div>
+                <div class="styles__example__display" style="background-color: #FFFFFF;">
+                  <button @click="showOverlay('overlay_1')">Show Overlay</button>
+<overlay overlay-id="overlay_1" v-cloak>
+    {% import 'macros/component.twig' as component %}
+    {{ component.c('video', { lazyLoad: false, source: 'youtube', videoId: 'G4Sn91t1V4g' }) }}
+</overlay>
+                </div>
+                <div class="styles__example__code styles__example__code--twig">
+                    {% verbatim %}<pre><code>&lt;button @click=&#34;showOverlay(&#39;overlay_1&#39;)&#34;&gt;Show Overlay&lt;/button&gt;
+&lt;overlay overlay-id=&#34;overlay_1&#34; v-cloak&gt;
+    {% import &#39;macros/component.twig&#39; as component %}
+    {{ component.c(&#39;video&#39;, { lazyLoad: false, source: &#39;youtube&#39;, videoId: &#39;G4Sn91t1V4g&#39; }) }}
+&lt;/overlay&gt;</code></pre>{% endverbatim %}
+                </div>
+            </div>
+        
+    </div>
+</div>
+
+
+    {% set devStyleJs -%}
+        loadCSS("/css/dev-styles.css?v=1.0.371");
+    {%- endset %}
+    {% js devStyleJs %}

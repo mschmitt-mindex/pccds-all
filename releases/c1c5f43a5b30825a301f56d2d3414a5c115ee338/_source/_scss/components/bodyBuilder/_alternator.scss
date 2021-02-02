@@ -1,0 +1,118 @@
+.c_alternator {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  align-items: flex-start;
+  align-content: center;
+
+  .c_section_header {
+    @include mq(950px) {
+      margin: 0 calculateRem(50) calculateRem(40);
+    }
+  }
+
+  &_smallFlower {
+    width: 80%;
+    text-align: right;
+  }
+
+  &_content {
+    @include font-size(12, 17, 25, 28, 0.3, 0.42);
+    padding: calculateRem(0) calculateRem(0) calculateRem(76);
+    @include mq(950px) {
+      width: 60%;
+      padding: calculateRem(88) calculateRem(74) calculateRem(40) calculateRem(106);
+      margin-bottom: calculateRem(-15);
+    }
+    @include mq(768px) {
+      // width: 60%;
+      // padding: calculateRem(88) calculateRem(74) calculateRem(40) calculateRem(106);
+      margin-bottom: calculateRem(-15);
+    }
+
+    a {
+      &:not(.c_button) {
+        color: $color_blue !important;
+        &:hover,
+        &:focus {
+          color: $color_blue;
+          text-decoration: none;
+        }
+      }
+    }
+  }
+
+  &_svg {
+    margin: calculateRem(17) 0 0 0;
+    width: 25.2px;
+    height: 25.2px;
+  }
+
+  &_image {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    align-content: flex-start;
+
+    .c_alternator_image_wrapper {
+      width: 60%;
+      @include mq(950px) {
+        width: auto;
+      }
+    }
+
+    @include mq(950px) {
+      display: block;
+    }
+  }
+
+  &_image_overlay {
+    position: absolute;
+    z-index: 10;
+    bottom: -36px;
+
+    &--blue {
+      width: 184px;
+      height: 99px;
+      @include mq(950px) {
+        width: 460px;
+        height: 248px;
+      }
+    }
+
+    &--pink {
+      width: 181px;
+      height: 90px;
+      @include mq(950px) {
+        width: 449px;
+        height: 214px;
+      }
+    }
+  }
+
+  &_image {
+    @include mq(950px) {
+      width: 40%;
+    }
+
+    &_wrapper {
+      position: relative;
+    }
+
+    &--left {
+      .c_alternator_image_overlay {
+        right: -36px;
+      }
+    }
+
+    &--right {
+      .c_alternator_image_overlay {
+        left: -36px;
+      }
+    }
+  }
+
+  .c_section_header {
+    flex-basis: 100%;
+  }
+}

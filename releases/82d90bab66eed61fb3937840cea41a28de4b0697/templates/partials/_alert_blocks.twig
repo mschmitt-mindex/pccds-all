@@ -1,0 +1,23 @@
+{# @var craft \craft\web\twig\variables\CraftVariable #}
+
+{% import 'macros/component.twig' as component %}
+{% import _self as self %}
+
+{% for block in blocks.all() %}
+    {% set blockIndex = loop.index %}
+
+    {% switch block.type.handle %}
+        {% case "justRichText" %}
+            {% if block.richText ?? null %}
+                <div class="c_text">
+                    {{- block.richText -}}
+                </div>
+            {% endif %}
+        {% case "button" %}
+            {% if block.buttonDetails|length %}
+                <div class="c_buttons">
+                    {{ component.c('button', { linkField: block.buttonDetails ?? null, modifiers: ['blue_to_white'] }) }}
+                </div>
+            {% endif %}
+    {% endswitch %}
+{% endfor %}

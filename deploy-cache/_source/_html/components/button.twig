@@ -1,0 +1,30 @@
+{# @var craft \craft\web\twig\variables\CraftVariable #}
+
+{% extends 'components/_component.twig' %}
+
+{# Component element overrides #}
+{#{% set element = 'a' %}#}
+
+
+{# Variables #}
+{% set label = label ?? '' %}
+{% set target = target ?? '' %}
+{% set url = url ?? '#' %}
+{% set internalLink = false %}
+{% set svgIdPrefix = svgIdPrefix ?? null %}
+{% set ariaLabel = ariaLabel ?? null %}
+{% set element = elementOverride ?? 'a' %}
+{% if currentSite.baseUrl|trim('/') in url or 'http' not in url %}
+    {% set internalLink = true %}
+{% endif %}
+
+
+{% set attributes -%}
+    {% if element == 'a' %}href="{{ url }}"{% endif %}{% if target ?? false %} target="{{ target }}"{% endif %}{% if ariaLabel ?? false %}aria-label="{{ ariaLabel|t }}"{% endif %} {{ attributes ?? null }}
+{%- endset %}
+
+{% block content -%}
+    <span class="c_button__content">
+        <span class="c_button__label">{{ label|t }}</span> 
+    </span>
+{%- endblock %}

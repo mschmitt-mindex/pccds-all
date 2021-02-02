@@ -1,0 +1,95 @@
+{# @var craft \craft\web\twig\variables\CraftVariable #}
+{# @var entry \craft\elements\Entry #}
+
+{% extends "_layout.twig" %}
+
+{% import 'macros/component.twig' as component %}
+
+{% set pageSection = pageSection ?? 'inside' %}
+
+{% block critcss %}
+    <style>{{ source('_critcss/inside.css') }}</style>
+{% endblock %}
+
+
+
+{% block content %}
+    {% cache %}
+    <div class="title_and_breadcrumbs">
+        <div class="inner_wrapper">
+            <h1 class="c_section_subheader">{{ entry.title }}</h1>
+            {% if craft.entries.section('menu').relatedTo(entry.id).one() ?? false  %}
+                {% set menuItem = craft.entries.section('menu').relatedTo(entry.id).one() %}
+                <ul class="breadcrumbs">
+                    {% if menuItem.parent() ?? false %}
+                        {% if menuItem.parent().customLink|length or menuItem.linkToAnEntry.one() ?? false %}
+                            <li><a href="{% if menuItem.parent().customLink|length %}{{ menuItem.parent().customLink }}{% else %}{{ menuItem.parent().linkToAnEntry.one().url }}{% endif %}">{{ menuItem.parent().title }}<span aria-hidden="true">&nbsp;>&nbsp;</span></a></li>
+                        {% endif %}
+                    {% endif %}
+                    <li><a href="{{ menuItem.linkToAnEntry.one().url }}">{{ menuItem.title }}</a></li>
+                </ul>
+            {% endif %}
+        </div>
+    </div>
+
+    <div class="content inner_wrapper">
+        <article class="body">
+            {% if entry.locationContent ?? false %}
+                <div>
+                    {{ entry.locationContent }}
+                </div>
+            {% endif %}
+
+            {% set infoContentAddress = false %}
+            {% set infoContentButton = false %}
+            <div class="location_information">
+                <div class="location_information__address">
+                    {% set fullAddress = '' %}
+                    {% if entry.address is not empty %}
+                    {% for block in entry.address.all() %}
+                        {% if block.type == 'addressLine' %}
+                            {% if block.addressLine ?? false %}
+                                <p>{{ block.addressLine }}</p>
+                            {% endif %}
+                            {% set infoContentAddress = infoContentAddress ~ '<p>' ~ block.addressLine ~ '</p>' %}
+                            {% set fullAddress = fullAddress ~ '+' ~ block.addressLine %}
+                        {% endif %}
+                    {% endfor %}
+                    {% endif %}
+
+                    {% import 'macros/component.twig' as component %}
+                </div>
+                <div class="location_information__contact">
+                    {% if entry.locationEmail %}<p><a href="mailto:{{ entry.locationEmail }}">{{ entry.locationEmail }}</a></p>{% endif %}
+                    {% if entry.locationPhoneNumber %}<p><a href="tel:{{ entry.locationPhoneNumber|replace('-','')|replace('.','') }}">{{ entry.locationPhoneNumber }}</a></p>{% endif %}
+                    {% if entry.tty %}<p>{{ entry.tty }}</p>{% endif %}
+                </div>
+            </div>
+            {% set options = {
+                label: 'Get Directions',
+                target: '_blank',
+                url: 'https://www.google.com/maps?saddr=My+Location&daddr=' ~ fullAddress|replace(' ', '+'),
+            } %}
+            {{ component.c('button', options) }}
+
+            {% set infoContentButton = component.c('button', options) %}
+
+            {% if entry.latitude ?? false and entry.longitude ?? false %}
+                <location-map class="location__map" location-lat="{{ entry.latitude }}" location-lng="{{ entry.longitude }}" title="{{ entry.title }}" address="{{ infoContentAddress }}" button="{{ infoContentButton|escape }}">
+
+                </location-map>
+            {% endif %}
+        </article>
+        {% include "partials/sidebar_menu" with {entry: entry} %}
+    </div>
+    {% endcache %}
+{% endblock %}
+
+{% block footer %}
+    {% cache %}
+        {% if entry.footerCallOut|length %}
+            {% include 'partials/footer_call_out' with {ctaEntry: entry.footerCallOut.one()} %}
+        {% endif %}
+        {{ parent() }}
+    {% endcache %}
+{% endblock %}

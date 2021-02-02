@@ -1,0 +1,27 @@
+<section class="footer_call_out">
+    <div class="inner_wrapper">
+        <h4 class="c_section_header">{{ ctaEntry.title|upper }}</h4>
+        {% if ctaEntry.ctaContent ?? false %}
+        <div class="c_text">
+            {{ ctaEntry.ctaContent }}
+        </div>
+        {% endif %}
+        {% if ctaEntry.ctaButtonLabel|length and (ctaEntry.ctaButtonLinkToAnEntry|length or ctaEntry.ctaButtonCustomLink|length) %}
+            {% import 'macros/component.twig' as component %}
+            {% set options = {
+                label: ctaEntry.ctaButtonLabel|length ? ctaEntry.ctaButtonLabel : 'Learn More'|t,
+                target: entry.featuredButtonCustomLink|length ? '_blank' : false,
+                classes: 'c_button--white',
+                url: ctaEntry.ctaButtonCustomLink|length ? ctaEntry.ctaButtonCustomLink : ctaEntry.ctaButtonLinkToAnEntry.one()|length ? ctaEntry.ctaButtonLinkToAnEntry.one().url : false,
+            } %}
+            {{ component.c('button', options) }}
+        {% endif %}
+        <div class="footer_call_out__icon {% if ctaEntry.ctaIcon.value != 'membersIcon' %}footer_call_out__icon--prime_care{% endif %}">
+            {% if ctaEntry.ctaIcon.value == 'membersIcon' %}
+                {{ svg('@basePath/icon/member_icon.svg') }}
+            {% else %}
+                {{ svg('@basePath/icon/prime_care_logo_icon.svg') }}
+            {% endif %}
+        </div>
+    </div>
+</section>

@@ -1,0 +1,363 @@
+{
+  "name": "icir-prime-care",
+  "version": "1.0.375",
+  "source_path": "_source/",
+  "build_path": "_build/",
+  "theme_path": "web/",
+  "html_path": "templates/",
+  "site_root": "/",
+  "style_template_url_prefix": "dev/inv/",
+  "style_template_url_suffix": "",
+  "browserslist": [
+    "last 2 versions",
+    "> 1%",
+    "IE 11"
+  ],
+  "enable_ssi": false,
+  "minify_html": false,
+  "template_is_set_up": true,
+  "template_directory": "_craft3_1",
+  "browserSync": {
+    "browser": "google chrome",
+    "url": "http://icir-prime-care.test/"
+  },
+  "critcss": [
+    {
+      "src": "http://icir-prime-care.test/",
+      "cssFilename": "app",
+      "critCssFilename": "home",
+      "width": "1500",
+      "include": [
+        ".js .visually-hidden",
+        ".content.content--full",
+        ".c_text p",
+        ".c_button",
+        ".c_button__content",
+        ".c_video",
+        ".c_video iframe",
+        "#google_translate_element img",
+        ".prime_care_colored_icon"
+      ]
+    },
+    {
+      "src": "http://icir-prime-care.test/enroll",
+      "cssFilename": "app",
+      "critCssFilename": "inside",
+      "width": "1500",
+      "height": "1200",
+      "include": [
+        ".js .visually-hidden",
+        ".content.content--full",
+        ".c_text p",
+        ".c_button",
+        ".c_button__content",
+        ".c_video",
+        ".c_video iframe",
+        "#google_translate_element img",
+        ".content .sidebar__event__title a",
+        ".content .sidebar__event__date_location a",
+        ".body__accordion__tab__title button",
+        ".body__accordion__tab .c_button",
+        ".body__accordion--individuals .body__accordion__tab__title figure",
+        ".body__accordion--individuals .body__accordion__tab__title button"
+      ]
+    },
+    {
+      "src": "http://icir-prime-care.test/news",
+      "cssFilename": "app",
+      "critCssFilename": "news",
+      "width": "1500",
+      "include": [
+        ".js .visually-hidden",
+        ".content.content--full",
+        ".c_text p",
+        ".c_button",
+        ".c_button__content",
+        ".c_video",
+        ".c_video iframe",
+        "#google_translate_element img"
+      ]
+    },
+    {
+      "src": "http://icir-prime-care.test/partner-organizations",
+      "cssFilename": "app",
+      "critCssFilename": "providers",
+      "width": "1500",
+      "include": [
+        ".js .visually-hidden",
+        ".content.content--full",
+        ".c_text p",
+        ".c_button",
+        ".c_button__content",
+        ".c_video",
+        ".c_video iframe",
+        "#google_translate_element img",
+        ".c_table",
+        ".c_table thead tr",
+        ".p-providers .c_table th",
+        ".p-providers .c_table td",
+        ".c_table tbody tr:nth-child(odd)",
+        ".c_table tbody tr:nth-child(even)"
+      ]
+    }
+  ],
+  "ejsVars": {
+    "loadcss": "./../../../node_modules/fg-loadcss/src/loadCSS.js",
+    "loadjs": "./../../../node_modules/fg-loadjs/loadJS.js"
+  },
+  "fonts": [
+    {
+      "name": "apple",
+      "source": "system",
+      "fontFamily": "-apple-system",
+      "fallbackStack": "BlinkMacSystemFont, 'Avinir Next', 'Avinir', Helvetica, Arial, sans-serif",
+      "fontStyle": "normal",
+      "fontWeight": "normal",
+      "files": {}
+    },
+    {
+      "name": "apple_bold",
+      "source": "system",
+      "fontFamily": "-apple-system",
+      "fallbackStack": "BlinkMacSystemFont, 'Avinir Next', 'Avinir', Helvetica, Arial, sans-serif",
+      "fontStyle": "normal",
+      "fontWeight": "700",
+      "files": {}
+    },
+    {
+      "name": "apple_italic",
+      "source": "system",
+      "fontFamily": "-apple-system",
+      "fallbackStack": "BlinkMacSystemFont, 'Avinir Next', 'Avinir', Helvetica, Arial, sans-serif",
+      "fontStyle": "italic",
+      "fontWeight": "normal",
+      "files": {}
+    },
+    {
+      "name": "apple_bold_italic",
+      "source": "system",
+      "fontFamily": "-apple-system",
+      "fallbackStack": "BlinkMacSystemFont, 'Avinir Next', 'Avinir', Helvetica, Arial, sans-serif",
+      "fontStyle": "italic",
+      "fontWeight": "700",
+      "files": {}
+    },
+    {
+      "name": "proxima_nova",
+      "source": "fontface",
+      "fontFamily": "'ProximaNova-Regular'",
+      "fallbackStack": "Helvetica, Arial, sans-serif",
+      "fontStyle": "normal",
+      "fontWeight": "normal",
+      "files": {
+        "eot": "/fonts/368105_11_0.eot",
+        "woff": "/fonts/368105_11_0.woff",
+        "woff2": "/fonts/368105_11_0.woff2"
+      }
+    },
+    {
+      "name": "proxima_nova__light",
+      "source": "fontface",
+      "fontFamily": "'ProximaNova-Light'",
+      "fallbackStack": "Helvetica, Arial, sans-serif",
+      "fontStyle": "normal",
+      "fontWeight": "normal",
+      "files": {
+        "eot": "/fonts/368105_F_0.eot",
+        "woff": "/fonts/368105_F_0.woff",
+        "woff2": "/fonts/368105_F_0.woff2"
+      }
+    },
+    {
+      "name": "proxima_nova__medium",
+      "source": "fontface",
+      "fontFamily": "'ProximaNova-Medium'",
+      "fallbackStack": "Helvetica, Arial, sans-serif",
+      "fontStyle": "normal",
+      "fontWeight": "normal",
+      "files": {
+        "eot": "/fonts/368105_E_0.eot",
+        "woff": "/fonts/368105_E_0.woff",
+        "woff2": "/fonts/368105_E_0.woff2"
+      }
+    },
+    {
+      "name": "proxima_nova__semi_bold",
+      "source": "fontface",
+      "fontFamily": "'ProximaNova-Semibold'",
+      "fallbackStack": "Helvetica, Arial, sans-serif",
+      "fontStyle": "normal",
+      "fontWeight": "normal",
+      "files": {
+        "eot": "/fonts/368105_15_0.eot",
+        "woff": "/fonts/368105_15_0.woff",
+        "woff2": "/fonts/368105_15_0.woff2"
+      }
+    },
+    {
+      "name": "proxima_nova__bold",
+      "source": "fontface",
+      "fontFamily": "'ProximaNova-Bold'",
+      "fallbackStack": "Helvetica, Arial, sans-serif",
+      "fontStyle": "normal",
+      "fontWeight": "normal",
+      "files": {
+        "eot": "/fonts/368105_6_0.eot",
+        "woff": "/fonts/368105_6_0.woff",
+        "woff2": "/fonts/368105_6_0.woff2"
+      }
+    },
+    {
+      "name": "proxima_nova__extra_bold",
+      "source": "fontface",
+      "fontFamily": "'ProximaNova-Extrabld'",
+      "fallbackStack": "Helvetica, Arial, sans-serif",
+      "fontStyle": "normal",
+      "fontWeight": "normal",
+      "files": {
+        "eot": "/fonts/368105_8_0.eot",
+        "woff": "/fonts/368105_8_0.woff",
+        "woff2": "/fonts/368105_8_0.woff2"
+      }
+    },
+    {
+      "name": "proxima_nova__black",
+      "source": "fontface",
+      "fontFamily": "'ProximaNova-Black'",
+      "fallbackStack": "Helvetica, Arial, sans-serif",
+      "fontStyle": "normal",
+      "fontWeight": "normal",
+      "files": {
+        "eot": "/fonts/368105_2_0.eot",
+        "woff": "/fonts/368105_2_0.woff",
+        "woff2": "/fonts/368105_2_0.woff2"
+      }
+    }
+  ],
+  "styleTemplateSections": [
+    {
+      "label": "Style Inventory",
+      "name": "index"
+    },
+    {
+      "label": "Globals",
+      "name": "globals"
+    },
+    {
+      "label": "Animations",
+      "name": "animations"
+    },
+    {
+      "label": "Buttons",
+      "name": "buttons"
+    },
+    {
+      "label": "Forms",
+      "name": "forms"
+    },
+    {
+      "label": "Grids",
+      "name": "grid"
+    },
+    {
+      "label": "Icons",
+      "name": "icons"
+    },
+    {
+      "label": "Media",
+      "name": "media"
+    },
+    {
+      "label": "Messages",
+      "name": "messages"
+    },
+    {
+      "label": "Navigation",
+      "name": "nav"
+    },
+    {
+      "label": "Overlays",
+      "name": "overlays"
+    },
+    {
+      "label": "Sliders",
+      "name": "sliders"
+    }
+  ],
+  "dependencies": {
+    "@babel/polyfill": "^7.8.7",
+    "axios": "^0.18.1",
+    "cleave.js": "^1.5.3",
+    "es6-promise": "^4.2.8",
+    "fg-loadcss": "^2.1.0",
+    "fg-loadjs": "^1.1.0",
+    "gsap": "^1.20.6",
+    "hammerjs": "^2.0.8",
+    "js-cookie": "^2.2.1",
+    "postcss-critical-css": "^3.0.6",
+    "scrollmonitor": "^1.2.4",
+    "swiper": "^5.3.6",
+    "vue": "^2.6.10",
+    "vue2-google-maps": "^0.9.8"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.1.0",
+    "@babel/plugin-proposal-object-rest-spread": "^7.9.0",
+    "@babel/preset-env": "^7.8.4",
+    "babel-loader": "^8.0.0",
+    "browser-sync": "^2.26.12",
+    "critical": "^1.3.6",
+    "css-loader": "^0.28.11",
+    "glob": "^7.1.4",
+    "gulp": "^3.9.1",
+    "gulp-autoprefixer": "^5.0.0",
+    "gulp-bump": "^3.1.3",
+    "gulp-changed": "^3.2.0",
+    "gulp-clean": "^0.4.0",
+    "gulp-concat": "^2.6.1",
+    "gulp-ejs": "^3.3.0",
+    "gulp-favicons": "^2.3.1",
+    "gulp-htmlmin": "^4.0.0",
+    "gulp-imagemin": "^4.1.0",
+    "gulp-json-modify": "^1.0.2",
+    "gulp-load-plugins": "^1.6.0",
+    "gulp-rename": "^1.4.0",
+    "gulp-replace": "^0.6.1",
+    "gulp-responsive": "^3.0.0",
+    "gulp-sass": "^4.0.2",
+    "gulp-sass-glob": "^1.1.0",
+    "gulp-sass-variables": "^1.2.0",
+    "gulp-svg-inline-css": "^1.3.3",
+    "gulp-util": "^3.0.8",
+    "imagemin-gifsicle": "^5.2.0",
+    "imagemin-jpegtran": "^5.0.2",
+    "imagemin-optipng": "^5.2.1",
+    "imagemin-pngquant": "^5.0.1",
+    "imagemin-svgo": "^6.0.0",
+    "inquirer": "^5.2.0",
+    "node-notifier": "^5.4.3",
+    "node-sass": "^4.14.1",
+    "postcss-cli": "^7.1.1",
+    "prettier": "^1.18.2",
+    "sass-loader": "^6.0.7",
+    "styleselect": "^1.0.3",
+    "uglifyjs-webpack-plugin": "^1.3.0",
+    "vue-loader": "^14.2.4",
+    "vue-style-loader": "^4.1.2",
+    "vue-template-compiler": "^2.6.10",
+    "webpack": "^4.41.2"
+  },
+  "scripts": {
+    "postcss:critical": "postcss web/css/app.css -d 'templates/_critcss'",
+    "ci:build": "NODE_ENV=production gulp release && npm run postcss:critical",
+    "cs:backup": "./vendor/nystudio107/craft-scripts/scripts/backup_assets.sh && ./vendor/nystudio107/craft-scripts/scripts/backup_db.sh",
+    "cssd": "npm run cs:backup && npm run cs:pull && ./vendor/nystudio107/craft-scripts/scripts/clear_caches.sh",
+    "cssdb": "./vendor/nystudio107/craft-scripts/scripts/backup_db.sh && ./vendor/nystudio107/craft-scripts/scripts/pull_db.sh && ./vendor/nystudio107/craft-scripts/scripts/clear_caches.sh",
+    "cs:pull": "./vendor/nystudio107/craft-scripts/scripts/pull_assets.sh && ./vendor/nystudio107/craft-scripts/scripts/pull_db.sh",
+    "deploy": "npm run prettier && NODE_ENV=production gulp deploy --bump",
+    "dev": "npm run prettier && gulp run && gulp ejs:quick:full",
+    "prettier": "prettier --config ./.prettierrc --write '_source/{_scss,_js}/**/*.{js,json,scss,vue}'",
+    "prod": "npm run prettier && NODE_ENV=production gulp release && npm run postcss:critical",
+    "watch": "npm run prettier && gulp run && gulp ejs:quick:full && gulp watch"
+  }
+}

@@ -1,0 +1,36 @@
+<div class="body__accordion body__accordion--individuals">
+    <accordion id="{{ block.id }}">
+        {% for person in block.individuals.all() %}
+            <accordion-tab {% if loop.first %}:selected="true"{% endif %} title="{{ person.title }}" id="{{ block.id }}" class="body__accordion__tab">
+                <div class="body__accordion__tab__title {% if person.individualImage.one() ?? false %}body__accordion__tab__title--image{% endif %}" slot="tab_title">
+                    {% if person.individualImage.one() ?? false %}
+                        {% import 'macros/component.twig' as component %}
+                        {% set options = {
+                            image: person.individualImage.one(),
+                            alt: person.individualImage.one().altText ?? '',
+                            lazyLoad: false,
+                            imager: {
+                                transforms: [
+                                    { width: 1200, height:800, jpegQuality: 80, position: person.individualImage.one().getFocalPoint() },
+                                    { width: 600, height:400, jpegQuality: 80, position: person.individualImage.one().getFocalPoint() },
+                                ]
+
+                            }
+                        } %}
+                        {{ component.c('image', options) }}
+                    {% endif %}
+                    <button aria-expanded="{% if loop.first %}true{% else %}false{% endif %}">
+                        <span class="c_section_header">{{ person.title }}</span>
+                        {% if person.position ?? false %}<span class="c_section_subheader">{{ person.position }}</span>{% endif %}
+                        <span class="c_button c_button--outline {% if currentSite.language == 'es' %}c_button--hide_translate{% endif %}"><span class="c_button__label">{% if block.dropDownButtonLabel %}{{ block.dropDownButtonLabel }}{% else %}{{ "Read More"|t }}{% endif %}</span> <span class="c_button__icon" aria-hidden="true">{{ svg('@basePath/icon/arrow_go.svg') }}</span></span>
+                    </button>
+                </div>
+                <div class="body__accordion__tab__content" hidden>
+                    <div class="body__accordion__tab__content__inner">
+                        {{ person.aboutIndividual }}
+                    </div>
+                </div>
+            </accordion-tab>
+        {% endfor %}
+    </accordion>
+</div>

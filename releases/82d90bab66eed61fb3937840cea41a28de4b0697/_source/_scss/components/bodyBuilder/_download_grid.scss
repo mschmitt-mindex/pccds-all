@@ -1,0 +1,46 @@
+.c_download_grid {
+  @include margin(large, bottom);
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: center;
+  align-items: flex-start;
+
+  &_column {
+    width: 50%;
+    text-align: center;
+    margin: 0 auto calculateRem(30);
+    text-decoration: none;
+    @include mq(950px) {
+      width: 25%;
+      margin: 0 auto calculateRem(27);
+
+      &:nth-child(-n + 3) {
+        margin: 0 calculateRem(50) calculateRem(27);
+      }
+    }
+  }
+
+  &_svg {
+    margin-bottom: calculateRem(11);
+    @include mq(950px) {
+      margin-bottom: calculateRem(17);
+    }
+  }
+
+  &_title {
+    @include font('proxima_nova__semi_bold');
+    @include font-size(12, 15, 11, 27, 1.2, 2.25);
+    text-transform: uppercase;
+    color: $color_blue;
+    margin-bottom: calculateRem(8);
+    @include mq(950px) {
+      margin-bottom: calculateRem(16);
+    }
+  }
+
+  &_asset_name {
+    @include font('proxima_nova');
+    @include font-size(12, 17, 23, 26, 0.3, 0.42);
+    color: $color_greyish_brown;
+  }
+}

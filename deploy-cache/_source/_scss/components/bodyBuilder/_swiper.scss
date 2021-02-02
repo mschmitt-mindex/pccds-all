@@ -1,0 +1,7 @@
+@include critical-split('swiper.css') {
+  .c_swiper {
+    $self: &;
+
+    width: 100%;
+  }
+}

@@ -1,0 +1,361 @@
+// GLOBAL
+
+::selection {
+  background-color: transparentize($color_black_default, 0.5);
+  color: $color_white_default;
+}
+
+@include critical-split('global.css') {
+  html {
+    @include font('proxima_nova');
+    line-height: 1.4;
+    color: $color_black_default;
+    font-size: $base_font_size;
+    //-webkit-font-smoothing: antialiased;
+  }
+}
+
+body {
+  overflow-x: hidden;
+}
+
+*:focus {
+  outline: currentColor dashed calculateRem(2);
+  outline-offset: pxConversion(5, rem);
+  z-index: 2;
+}
+
+a,
+button,
+input,
+[tabindex='0'],
+[role='button'] {
+  &:focus,
+  &:active {
+    outline: currentColor dashed calculateRem(2);
+    outline-offset: pxConversion(5, rem);
+    z-index: 2;
+  }
+}
+
+// GLOBAL ELEMENTS
+button {
+  //@include buttons_default;
+  border: 0;
+  appearance: none;
+}
+figure {
+  line-height: 0;
+}
+@include critical-split('global.css') {
+  img {
+    height: auto;
+    max-width: 100%;
+    width: 100%;
+  }
+}
+video {
+  width: 100%;
+}
+
+.garamond {
+  font-family: Garamond, Baskerville, 'Baskerville Old Face', 'Hoefler Text', 'Times New Roman', serif;
+}
+
+#page {
+  display: flex;
+  flex-flow: column nowrap;
+  min-height: 100vh;
+  #quick_links,
+  #header,
+  #footer {
+    flex: 0 1 auto;
+  }
+  #main {
+    flex: 1 1 auto;
+  }
+}
+
+#page--before {
+  text-align: center;
+  height: 0;
+}
+
+@include critical-split('global.css') {
+  // hide items with v-cloak attribute until vue is loaded and ready to go
+  [v-cloak] {
+    display: none;
+  }
+
+  [hidden] {
+    display: none;
+  }
+
+  [hidden='false'] {
+    display: inherit;
+  }
+
+  .js .visually-hidden {
+    clip-path: inset(100%);
+    clip: rect(1px 1px 1px 1px); /* IE 6/7 */
+    clip: rect(1px, 1px, 1px, 1px);
+    height: 1px;
+    overflow: hidden;
+    position: absolute;
+    white-space: nowrap; /* added line */
+    width: 1px;
+    &:focus {
+      clip-path: none;
+      clip: initial;
+      height: auto;
+      overflow: visible;
+      position: relative;
+      white-space: initial;
+      width: auto;
+    }
+  }
+}
+
+@include critical-split('global.css') {
+  // GLOBAL COMPONENTS
+  .c_section {
+    width: 100%;
+    max-width: calculateRem(1280);
+    padding: 0 calculateRem($mobileSmallSpacing);
+    margin: 0 auto calculateRem($mobileLargeSpacing);
+    @include mq(950px) {
+      margin: 0 auto calculateRem($desktopLargeSpacing);
+    }
+
+    &--full-bleed {
+      max-width: none;
+    }
+
+    &--spacing-none {
+      margin: 0 auto;
+    }
+
+    &--spacing-small {
+      margin: 0 auto calculateRem($mobileSmallSpacing);
+      @include mq(950px) {
+        margin: 0 auto calculateRem($desktopSmallSpacing);
+      }
+    }
+
+    &:not(.c_section--spacing-small):last-of-type {
+      margin: 0 auto calculateRem($mobileSmallSpacing);
+      @include mq(950px) {
+        margin: 0 auto calculateRem($desktopSmallSpacing);
+      }
+    }
+  }
+  .c_header {
+    $self: &;
+
+    @include font('proxima_nova__semi_bold');
+    @include fz(8, 4rem, '900px');
+    @include text_modifiers($self);
+  }
+  .c_section_header {
+    $self: &;
+
+    // color: $color_primary;
+
+    @include font('proxima_nova__semi_bold');
+    @include font-size(18, 25, 22, 36, 5.22, 6.75);
+    @include margin(small, bottom);
+    @include text_modifiers($self);
+    text-transform: uppercase;
+
+    &.c_section_header--providers {
+      margin-bottom: pxConversion(10, rem);
+    }
+    a {
+      color: $color_primary;
+      text-decoration: none;
+    }
+  }
+  .c_section_subheader {
+    $self: &;
+
+    color: $color_primary;
+
+    @include font('proxima_nova__semi_bold');
+    font-size: pxConversion(28, rem);
+    margin-bottom: pxConversion(30, rem);
+
+    @include text_modifiers($self);
+
+    &.c_section_subheader--white {
+      color: $color_white_default;
+      a {
+        color: $color_white_default;
+      }
+    }
+    &.c_section_subheader--providers {
+      margin-bottom: pxConversion(10, rem);
+    }
+    a {
+      color: $color_primary;
+      text-decoration: none;
+    }
+  }
+  .c_text {
+    $self: &;
+    line-height: 135%;
+
+    @include text_modifiers($self);
+    & > * {
+      margin-bottom: pxConversion(30, rem);
+    }
+    & > *:first-child {
+      margin-bottom: pxConversion(30, rem);
+    }
+    & > *:last-child {
+      margin-bottom: 0;
+    }
+
+    p {
+      b,
+      strong {
+        @include font('proxima_nova__semi_bold');
+      }
+      i,
+      em {
+        @include font('apple_italic');
+      }
+      b i,
+      i b,
+      strong em,
+      em strong {
+        @include font('apple_bold_italic');
+      }
+    }
+    a {
+      &:not(.c_button) {
+        color: $color_maroon;
+        text-decoration: underline;
+        &:hover,
+        &:focus {
+          color: $color_red;
+        }
+      }
+    }
+    ol,
+    ul {
+      li {
+        margin-bottom: pxConversion(15, rem);
+        &:last-of-type {
+          margin-bottom: 0;
+        }
+      }
+    }
+
+    table {
+      width: 100%;
+
+      td {
+        padding: 7px 0;
+      }
+
+      thead {
+        td {
+          padding-right: 10px;
+
+          &:first-child {
+            padding-left: 0;
+          }
+        }
+      }
+    }
+  }
+  .c_image {
+    @include margin(small, bottom);
+  }
+
+  .outer_wrapper {
+    max-width: 92%;
+    margin: 0 auto;
+  }
+
+  .inner_wrapper {
+    width: 92%;
+    margin: 0 auto;
+    max-width: pxConversion(1200, rem);
+
+    @include mq(500px) {
+      width: 80%;
+    }
+
+    &.slider {
+      width: 100%;
+    }
+
+    @include mq(500px) {
+      width: 80%;
+    }
+  }
+}
+
+.bg--light_gray {
+  background: $color_light_blue_gray;
+}
+
+.w-three-quarters {
+  width: 60%;
+}
+
+.text-center {
+  text-align: center;
+}
+
+// Define the various text and background color utility classes we'll need
+.text {
+  @include color-modifiers(color);
+}
+
+.background {
+  @include color-modifiers(background-color);
+}
+
+.border {
+  @include color-modifiers(border-color);
+}
+
+.hide--mobile {
+  display: none;
+  @include mq(950px) {
+    display: block;
+  }
+}
+
+.hide--desktop {
+  display: block;
+  @include mq(950px) {
+    display: none;
+  }
+}
+
+.clearfix {
+  clear: both;
+}
+
+.c_flower_spacer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  &--large {
+    height: 130px;
+    @include mq(950px) {
+      height: 200px;
+    }
+  }
+
+  &--small {
+    height: 65px;
+    @include mq(950px) {
+      height: 100px;
+    }
+  }
+}

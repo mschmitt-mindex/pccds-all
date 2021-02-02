@@ -1,0 +1,29 @@
+@include critical-split('global.css') {
+  .c_image_bg {
+    $self: &;
+
+    display: block;
+    position: relative;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    overflow: hidden;
+
+    @at-root #{$self}__image,
+      #{$self} img {
+      object-fit: cover;
+      width: 100%;
+      height: 100%;
+
+      .ie-11 & {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        height: auto;
+        transform: translateX(-50%) translateY(-50%);
+      }
+    }
+  }
+}

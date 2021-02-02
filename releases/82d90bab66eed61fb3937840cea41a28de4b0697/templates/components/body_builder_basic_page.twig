@@ -1,0 +1,82 @@
+{% if entry.basicPageBodyBuilder is not empty %}
+    {%- for block in entry.basicPageBodyBuilder.all() -%}
+        {%- switch block.type -%}
+
+            {%- case 'accordion' -%}
+                {%- include 'components/bodyBuilder/accordion' ignore missing with {
+                    content: block,
+                } -%}
+
+            {%- case 'accordionOfIndividuals' -%}
+                {%- include 'components/bodyBuilder/accordion_of_individuals' ignore missing with {
+                    content: block,
+                } -%}
+
+            {%- case 'alternator' -%}
+                {%- include 'components/bodyBuilder/alternator' ignore missing with {
+                    content: block,
+                } -%}
+
+            {%- case 'bodyCopy' -%}
+                {%- include 'components/bodyBuilder/body_copy' ignore missing with {
+                    content: block,
+                } -%}
+
+            {%- case 'careers' -%}
+                {%- include 'components/bodyBuilder/careers' ignore missing with {
+                    content: block,
+                } -%}
+
+            {%- case 'downloadGrid' -%}
+                {%- include 'components/bodyBuilder/download_grid' ignore missing with {
+                    content: block,
+                } -%}
+
+            {%- case 'faqs' -%}
+                {%- include 'components/bodyBuilder/faqs' ignore missing with {
+                    content: block,
+                } -%}
+
+            {%- case 'headingText' -%}
+                {%- include 'components/bodyBuilder/heading_text' ignore missing with {
+                    content: block,
+                } -%}
+
+            {%- case 'historyAndMission' -%}
+                {%- include 'components/bodyBuilder/history_and_mission' ignore missing with {
+                    content: block,
+                } -%}
+
+            {%- case 'imageWithBackground' -%}
+                {%- include 'components/bodyBuilder/image_with_background' ignore missing with {
+                    content: block,
+                } -%}
+
+            {%- case 'providerLogos' -%}
+                {%- include 'components/bodyBuilder/provider_logos' ignore missing with {
+                    content: block,
+                } -%}
+
+            {%- case 'regionalContactsWidget' -%}
+                {%- include 'components/bodyBuilder/regional_contacts_widget' ignore missing with {
+                    content: block,
+                } -%}
+
+            {%- case 'statistics' -%}
+                {%- include 'components/bodyBuilder/statistics' ignore missing with {
+                    content: block,
+                } -%}
+
+            {%- case 'table' -%}
+                {%- include 'components/bodyBuilder/table' ignore missing with {
+                    content: block,
+                } -%}
+
+            {%- case 'mediaAndText' -%}
+                {%- include 'components/bodyBuilder/media_and_text' ignore missing with {
+                    content: block,
+                } -%}
+
+        {%- endswitch -%}
+    {%- endfor -%}
+{% endif %}

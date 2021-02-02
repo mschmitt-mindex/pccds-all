@@ -1,0 +1,161 @@
+{# @var craft \craft\web\twig\variables\CraftVariable #}
+
+
+
+
+
+
+
+
+
+
+<div class="styles">
+    <div class="styles__menu">
+    
+        <a href="/dev/inv/index">Style Inventory</a>
+    
+        <a href="/dev/inv/globals">Globals</a>
+    
+        <a href="/dev/inv/animations">Animations</a>
+    
+        <a href="/dev/inv/buttons">Buttons</a>
+    
+        <a href="/dev/inv/forms">Forms</a>
+    
+        <a href="/dev/inv/grid">Grids</a>
+    
+        <a class="active" href="/dev/inv/icons"><span class="styles__menu__active_spacer"></span>Icons<span class="styles__menu__active_indicator"></span></a>
+    
+        <a href="/dev/inv/media">Media</a>
+    
+        <a href="/dev/inv/messages">Messages</a>
+    
+        <a href="/dev/inv/nav">Navigation</a>
+    
+        <a href="/dev/inv/overlays">Overlays</a>
+    
+        <a href="/dev/inv/sliders">Sliders</a>
+    
+</div>
+    <div>
+        
+
+        
+            <div class="styles__example">
+                <div class="styles__example__title"><h2>Social Media Icons</h2></div>
+                <div class="styles__example__description"><p>Links to social media proporties</p></div>
+                <div class="styles__example__display" style="background-color: #2B303B;">
+                  {% import 'macros/component.twig' as component %}
+{% set options = {
+    links: {
+        'facebook': 'https://www.facebook.com/username',
+        'twitter': 'https://twitter.com/username',
+        'linkedin': 'https://www.linkedin.com/company/username',
+        'youtube': 'https://www.youtube.com/user/username',
+        'pinterest': 'https://www.pinterest.com/username',
+        'instagram': 'https://www.instagram.com/username',
+        'snapchat': 'https://www.snapchat.com/add/username',
+        'email': 'hello@example.com',
+    }
+} %}
+{{ component.c('social_nav', options) }}
+                </div>
+                <div class="styles__example__code styles__example__code--twig">
+                    {% verbatim %}<pre><code>{% import &#39;macros/component.twig&#39; as component %}
+{% set options = {
+    links: {
+        &#39;facebook&#39;: &#39;https://www.facebook.com/username&#39;,
+        &#39;twitter&#39;: &#39;https://twitter.com/username&#39;,
+        &#39;linkedin&#39;: &#39;https://www.linkedin.com/company/username&#39;,
+        &#39;youtube&#39;: &#39;https://www.youtube.com/user/username&#39;,
+        &#39;pinterest&#39;: &#39;https://www.pinterest.com/username&#39;,
+        &#39;instagram&#39;: &#39;https://www.instagram.com/username&#39;,
+        &#39;snapchat&#39;: &#39;https://www.snapchat.com/add/username&#39;,
+        &#39;email&#39;: &#39;hello@example.com&#39;,
+    }
+} %}
+{{ component.c(&#39;social_nav&#39;, options) }}</code></pre>{% endverbatim %}
+                </div>
+                <table class="styles__example__table">
+                    <thead>
+                        <td><b>Name</b></td>
+                        <td><b>Type</b></td>
+                        <td><b>Default</b></td>
+                        <td><b>Description</b></td>
+                    </thead>
+                    <tbody>
+                        
+                            <tr>
+                                <td><b>links</b> (required)</td>
+                                <td>object</td>
+                                <td><i>{}</i></td>
+                                <td>List of URLs to social media properties. For example: &lt;b&gt;links: { facebook: &#39;https://facebook.com/example&#39; }&lt;/b&gt;</td>
+                            </tr>
+                        
+                    </tbody>
+                </table>
+                
+            </div>
+        
+            <div class="styles__example">
+                <div class="styles__example__title"><h2>Social Media Sharing</h2></div>
+                <div class="styles__example__description"><p>Share a URL on a default set of social media platforms. Add an image to allow for sharing on more networks.</p></div>
+                <div class="styles__example__display" style="background-color: #2B303B;">
+                  {% import 'macros/component.twig' as component %}
+{% set options = {
+    title: 'Title of Article',
+    url: url(craft.app.request.pathInfo),
+} %}
+{{ component.c('social_share', options) }}
+                </div>
+                <div class="styles__example__code styles__example__code--twig">
+                    {% verbatim %}<pre><code>{% import &#39;macros/component.twig&#39; as component %}
+{% set options = {
+    title: &#39;Title of Article&#39;,
+    url: url(craft.app.request.pathInfo),
+} %}
+{{ component.c(&#39;social_share&#39;, options) }}</code></pre>{% endverbatim %}
+                </div>
+                <table class="styles__example__table">
+                    <thead>
+                        <td><b>Name</b></td>
+                        <td><b>Type</b></td>
+                        <td><b>Default</b></td>
+                        <td><b>Description</b></td>
+                    </thead>
+                    <tbody>
+                        
+                            <tr>
+                                <td><b>image</b></td>
+                                <td>AssetFileModel</td>
+                                <td><i>null</i></td>
+                                <td>An image that can be passed into social sharing tools that allow for images. For example, Twitter Cards will show an image if passed in. &lt;i&gt;NOTE: While image is not required for this component, it is required for the Pinterest sharing icon to appear.&lt;/i&gt;</td>
+                            </tr>
+                        
+                            <tr>
+                                <td><b>title</b> (required)</td>
+                                <td>string</td>
+                                <td><i>&#39;&#39;</i></td>
+                                <td>The title of the post as shown on Twitter Cards, LinkedIn posts, etc...</td>
+                            </tr>
+                        
+                            <tr>
+                                <td><b>url</b> (required)</td>
+                                <td>string</td>
+                                <td><i>&#39;#&#39;</i></td>
+                                <td>The URL of the page being shared.</td>
+                            </tr>
+                        
+                    </tbody>
+                </table>
+                
+            </div>
+        
+    </div>
+</div>
+
+
+    {% set devStyleJs -%}
+        loadCSS("/css/dev-styles.css?v=1.0.375");
+    {%- endset %}
+    {% js devStyleJs %}

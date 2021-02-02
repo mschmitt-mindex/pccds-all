@@ -1,0 +1,17 @@
+{% set assets = block.asset.all() ?? null %}
+
+<div class="c_section c_section--spacing-small c_download_grid">
+    {% for asset in assets %}
+        <a href="{{ asset.url }}" download class="c_download_grid_column">
+            <div class="c_download_grid_svg">
+                {{ svg('@basePath/icon/resource-download.svg') }}
+            </div>
+            <h4 class="c_download_grid_title">
+                {{ 'Download'|t }}
+            </h4>
+            <h5 class="c_download_grid_asset_name">
+                {{ asset.title }}
+            </h5>
+        </a>
+    {% endfor %}
+</div>

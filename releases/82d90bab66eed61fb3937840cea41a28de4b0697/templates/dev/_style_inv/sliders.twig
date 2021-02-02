@@ -1,0 +1,317 @@
+{# @var craft \craft\web\twig\variables\CraftVariable #}
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="styles">
+    <div class="styles__menu">
+    
+        <a href="/dev/inv/index">Style Inventory</a>
+    
+        <a href="/dev/inv/globals">Globals</a>
+    
+        <a href="/dev/inv/animations">Animations</a>
+    
+        <a href="/dev/inv/buttons">Buttons</a>
+    
+        <a href="/dev/inv/forms">Forms</a>
+    
+        <a href="/dev/inv/grid">Grids</a>
+    
+        <a href="/dev/inv/icons">Icons</a>
+    
+        <a href="/dev/inv/media">Media</a>
+    
+        <a href="/dev/inv/messages">Messages</a>
+    
+        <a href="/dev/inv/nav">Navigation</a>
+    
+        <a href="/dev/inv/overlays">Overlays</a>
+    
+        <a class="active" href="/dev/inv/sliders"><span class="styles__menu__active_spacer"></span>Sliders<span class="styles__menu__active_indicator"></span></a>
+    
+</div>
+    <div>
+        
+
+        
+            <div class="styles__example">
+                <div class="styles__example__title"><h2>Image Slider</h2></div>
+                <div class="styles__example__description"><p>A slider that displays images, videos, and custom HTML.</p></div>
+                <div class="styles__example__display" style="background-color: #FFFFFF;">
+                  {% import 'macros/component.twig' as component %}
+
+{% set slides = [] %}
+
+{# image slide #}
+{% set image = craft.assets.title('fpo').one() %}
+{% set options = {
+    image: image,
+    title: image.title ?? '',
+    transforms: [
+        { width: 500, height: 500 },
+        { width: 800, quality: 75 },
+    ]
+} %}
+
+{% set slides = slides|merge([{
+    image: options
+}]) %}
+
+{# video slide #}
+{% set slides = slides|merge([{
+    video: { url: 'https://starter.wbrowar.com/video/clip.mp4' }
+}]) %}
+
+{# image slide with text in front of it #}
+{% set image = craft.assets.title('fpo').one() %}
+{% set options = {
+    image: image,
+    title: image.title ?? '',
+    transforms: [
+        { width: 500, height: 500 },
+        { width: 800, quality: 75 },
+    ]
+} %}
+
+{% set foreground -%}
+    <h2 class="c_subheader">Title of this element</h2>
+{%- endset %}
+
+{% set slides = slides|merge([{
+    foreground: foreground,
+    image: options,
+    url: 'http://google.com',
+}]) %}
+
+{{ component.c('image_slider', { slides: slides }) }}
+                </div>
+                <div class="styles__example__code styles__example__code--twig">
+                    {% verbatim %}<pre><code>{% import &#39;macros/component.twig&#39; as component %}
+
+{% set slides = [] %}
+
+{# image slide #}
+{% set image = craft.assets.title(&#39;fpo&#39;).one() %}
+{% set options = {
+    image: image,
+    title: image.title ?? &#39;&#39;,
+    transforms: [
+        { width: 500, height: 500 },
+        { width: 800, quality: 75 },
+    ]
+} %}
+
+{% set slides = slides|merge([{
+    image: options
+}]) %}
+
+{# video slide #}
+{% set slides = slides|merge([{
+    video: { url: &#39;https://starter.wbrowar.com/video/clip.mp4&#39; }
+}]) %}
+
+{# image slide with text in front of it #}
+{% set image = craft.assets.title(&#39;fpo&#39;).one() %}
+{% set options = {
+    image: image,
+    title: image.title ?? &#39;&#39;,
+    transforms: [
+        { width: 500, height: 500 },
+        { width: 800, quality: 75 },
+    ]
+} %}
+
+{% set foreground -%}
+    &lt;h2 class=&#34;c_subheader&#34;&gt;Title of this element&lt;/h2&gt;
+{%- endset %}
+
+{% set slides = slides|merge([{
+    foreground: foreground,
+    image: options,
+    url: &#39;http://google.com&#39;,
+}]) %}
+
+{{ component.c(&#39;image_slider&#39;, { slides: slides }) }}</code></pre>{% endverbatim %}
+                </div>
+                <table class="styles__example__table">
+                    <thead>
+                        <td><b>Name</b></td>
+                        <td><b>Type</b></td>
+                        <td><b>Default</b></td>
+                        <td><b>Description</b></td>
+                    </thead>
+                    <tbody>
+                        
+                            <tr>
+                                <td><b>controllerAttributes</b></td>
+                                <td>string</td>
+                                <td><i>&#39;:show-back=&#34;false&#34; :show-next=&#34;false&#34;&#39;</i></td>
+                                <td>Attributes added to the controller Vue component. This allows you to change the appearance of the default controller. Multiple controllers can be added as long as they use the same ID as the sliderId.</td>
+                            </tr>
+                        
+                            <tr>
+                                <td><b>sliderAttributes</b></td>
+                                <td>string</td>
+                                <td><i>null</i></td>
+                                <td>Attributes added to the slider Vue component. This allows you to modify the slider settings.</td>
+                            </tr>
+                        
+                            <tr>
+                                <td><b>sliderClasses</b></td>
+                                <td>string</td>
+                                <td><i>null</i></td>
+                                <td>Classes added to the slider Vue component.</td>
+                            </tr>
+                        
+                            <tr>
+                                <td><b>sliderId</b></td>
+                                <td>string</td>
+                                <td><i>image_slider</i></td>
+                                <td>The ID that connects the Vue slider with controllers and other slider elements.</td>
+                            </tr>
+                        
+                            <tr>
+                                <td><b>sliderInterval</b></td>
+                                <td>integer</td>
+                                <td><i>5000</i></td>
+                                <td>Speed—in milliseconds—between each slide transition.</td>
+                            </tr>
+                        
+                            <tr>
+                                <td><b>slides</b> (required)</td>
+                                <td>array</td>
+                                <td><i>null</i></td>
+                                <td>Objects that make up the slides within the slider. Use the attributes below to add features to the slides.</td>
+                            </tr>
+                        
+                            <tr>
+                                <td><b>slides &gt; image</b> (required)</td>
+                                <td>object</td>
+                                <td><i>null</i></td>
+                                <td>A background image that takes up the full size of the slide. Pass in the options you would use for an &#39;image&#39; component.</td>
+                            </tr>
+                        
+                            <tr>
+                                <td><b>slides &gt; video</b> (required)</td>
+                                <td>object</td>
+                                <td><i>null</i></td>
+                                <td>Use a video as the slide background instead of an image. Pass in the options you would use for a &#39;video&#39; component.</td>
+                            </tr>
+                        
+                            <tr>
+                                <td><b>slides &gt; middle</b> (required)</td>
+                                <td>string</td>
+                                <td><i>null</i></td>
+                                <td>HTML content that sits in front of the background image or video layers.</td>
+                            </tr>
+                        
+                            <tr>
+                                <td><b>slides &gt; foreground</b> (required)</td>
+                                <td>string</td>
+                                <td><i>null</i></td>
+                                <td>HTML that is centered and appears in front of the &#39;middle&#39; layer.</td>
+                            </tr>
+                        
+                            <tr>
+                                <td><b>slides &gt; url</b> (required)</td>
+                                <td>string</td>
+                                <td><i>null</i></td>
+                                <td>A click-through URL that is activated by clicking on any area of the slider.</td>
+                            </tr>
+                        
+                    </tbody>
+                </table>
+                
+            </div>
+        
+            <div class="styles__example">
+                <div class="styles__example__title"><h2>Vue Slider</h2></div>
+                <div class="styles__example__description"><p>A slider that can be used for images, video, or html content. Requires `slider-slide` components as children.</p></div>
+                <div class="styles__example__display" style="background-color: #FFFFFF;">
+                  {% set slideContent = [
+    '<div>1</div>',
+    '<div>2</div>',
+    '<div>3</div>',
+    '<div>4</div>',
+    '<div>5</div>',
+    '<div>6</div>',
+    '<div>7</div>',
+    '<div>8</div>',
+    '<div>9</div>',
+    '<div>10</div>',
+    '<div>11</div>',
+] %}
+
+<slider slider-id="slider_1"
+        :auto-height="true"
+        interval="5000"
+        slides-content="{{ slideContent|json_encode }}"
+        slides-layout='[{ "count": 1 },{ "count": 3, "width": 800 },{ "count": 6, "width": 1100 }]'>
+</slider>
+<slider-control slider-id="slider_1" :show-back="false" :show-next="false"></slider-control>
+                </div>
+                <div class="styles__example__code styles__example__code--twig">
+                    {% verbatim %}<pre><code>{% set slideContent = [
+    &#39;&lt;div&gt;1&lt;/div&gt;&#39;,
+    &#39;&lt;div&gt;2&lt;/div&gt;&#39;,
+    &#39;&lt;div&gt;3&lt;/div&gt;&#39;,
+    &#39;&lt;div&gt;4&lt;/div&gt;&#39;,
+    &#39;&lt;div&gt;5&lt;/div&gt;&#39;,
+    &#39;&lt;div&gt;6&lt;/div&gt;&#39;,
+    &#39;&lt;div&gt;7&lt;/div&gt;&#39;,
+    &#39;&lt;div&gt;8&lt;/div&gt;&#39;,
+    &#39;&lt;div&gt;9&lt;/div&gt;&#39;,
+    &#39;&lt;div&gt;10&lt;/div&gt;&#39;,
+    &#39;&lt;div&gt;11&lt;/div&gt;&#39;,
+] %}
+
+&lt;slider slider-id=&#34;slider_1&#34;
+        :auto-height=&#34;true&#34;
+        interval=&#34;5000&#34;
+        slides-content=&#34;{{ slideContent|json_encode }}&#34;
+        slides-layout=&#39;[{ &#34;count&#34;: 1 },{ &#34;count&#34;: 3, &#34;width&#34;: 800 },{ &#34;count&#34;: 6, &#34;width&#34;: 1100 }]&#39;&gt;
+&lt;/slider&gt;
+&lt;slider-control slider-id=&#34;slider_1&#34; :show-back=&#34;false&#34; :show-next=&#34;false&#34;&gt;&lt;/slider-control&gt;</code></pre>{% endverbatim %}
+                </div>
+            </div>
+        
+            <div class="styles__example">
+                <div class="styles__example__title"><h2>Slider Controls</h2></div>
+                <div class="styles__example__description"><p>Controls for `slider` componenets. Require `slider-id` attribute that matches the id of the `slider` component.</p></div>
+                <div class="styles__example__display" style="background-color: #FFFFFF;">
+                  <slider-control slider-id="slider_1"></slider-control>
+
+<slider-control slider-id="slider_1" indicator-type="numbers"></slider-control>
+
+<slider-control slider-id="slider_1" label-back="Go Back" :show-indicators="false" :show-next="false"></slider-control>
+
+<slider-control slider-id="slider_1" label-next="Go Forward" :show-back="false" :show-indicators="false"></slider-control>
+                </div>
+                <div class="styles__example__code">
+                    <pre><code v-pre>&lt;slider-control slider-id=&#34;slider_1&#34;&gt;&lt;/slider-control&gt;
+
+&lt;slider-control slider-id=&#34;slider_1&#34; indicator-type=&#34;numbers&#34;&gt;&lt;/slider-control&gt;
+
+&lt;slider-control slider-id=&#34;slider_1&#34; label-back=&#34;Go Back&#34; :show-indicators=&#34;false&#34; :show-next=&#34;false&#34;&gt;&lt;/slider-control&gt;
+
+&lt;slider-control slider-id=&#34;slider_1&#34; label-next=&#34;Go Forward&#34; :show-back=&#34;false&#34; :show-indicators=&#34;false&#34;&gt;&lt;/slider-control&gt;</code></pre>
+                </div>
+            </div>
+        
+    </div>
+</div>
+
+
+    {% set devStyleJs -%}
+        loadCSS("/css/dev-styles.css?v=1.0.371");
+    {%- endset %}
+    {% js devStyleJs %}

@@ -1,0 +1,77 @@
+.c_statistics {
+  position: relative;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  align-items: center;
+  align-content: center;
+  overflow: hidden;
+  margin-bottom: 0;
+
+  &:after {
+    @include mq(950px) {
+      content: '';
+      background-color: $color_light_blue_alt;
+      position: absolute;
+      top: 40px;
+      left: 152px;
+      z-index: -1;
+      width: 130%;
+      height: 110px;
+    }
+  }
+
+  &_column {
+    position: relative;
+    width: 50%;
+    text-align: right;
+    padding: calculateRem(25) calculateRem(30) 0 0;
+    @include mq(950px) {
+      padding: 0;
+    }
+
+    &:after {
+      content: '';
+      background-color: $color_light_blue_alt;
+      position: absolute;
+      top: 0;
+      right: 0;
+      z-index: -1;
+      width: 68px;
+      height: 100%;
+      @include mq(950px) {
+        content: none;
+      }
+    }
+
+    @include mq(950px) {
+      width: auto;
+      text-align: center;
+    }
+  }
+
+  &_number {
+    @include font-size(26, 60, 20, 60, 3.9, 9);
+    @include font('proxima_nova__extra_bold');
+    color: $color_greyish_brown;
+    @include margin(small, bottom, true);
+  }
+
+  &_label {
+    @include font-size(15, 25, 20, 30, 0.38, 0.62);
+    @include font('proxima_nova');
+    color: $color_blue;
+    margin-bottom: calculateRem(25);
+    @include mq(950px) {
+      margin-bottom: calculateRem(40);
+    }
+  }
+
+  &_svg {
+    flex-basis: 100%;
+
+    svg {
+      margin: 0 auto;
+    }
+  }
+}

@@ -1,0 +1,28 @@
+{# @var craft \craft\web\twig\variables\CraftVariable #}
+
+<h1>Forms</h1>
+
+{% if plugin('freeform') %}
+    <p>The {{ craft.guide.var("clientName") }} website has been set up to keep track of form submissions and allow you to create new forms.</p>
+
+    <grid grid-type="2-column">
+        <div>
+            <h2 data-guide-section>Viewing Form Submissions</h2>
+            <p>A list of all the aggregated form submission can be found under the <a href="freeform/submissions">"Submissions"</a> tab.</p>
+        </div>
+        {{ craft.guide.component('image', { asset: craft.assets.filename('guide-forms-submissions.png').one() }) }}
+    </grid>
+
+    <grid grid-type="2-column">
+        <div>
+            <h2 data-guide-section>Creating and Editing Forms</h2>
+            <p>Add, remove and edit fields on exisiting or new forms.</p>
+            <p>In the top right hand corner of the page you'll see a gear icon. This will allow you to tweak the global settings of the form.</p>
+            <p>Next to the gear icon is an envelope icon that will allow you to select the email notification template and list the recipients of that template.</p>
+        </div>
+        {{ craft.guide.component('image', { asset: craft.assets.filename('guide-forms-creation.png').one() }) }}
+    </grid>
+    <hr>
+    <p>More advanced options within the form plugin give you the ability to create your own fields and your own email notification templates.</p>
+
+{% endif %}

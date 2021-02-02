@@ -1,0 +1,93 @@
+{% set style = {
+    boxColor: block.style.one().boxColor.value ?? 'center',
+    imagePosition: block.style.one().imagePosition.value ?? 'dark-red',
+    spacing: block.style.one().spacing.value ?? 'large',
+    buttonColor: block.style.one().buttonColor.value ?? 'blue',
+} %}
+
+{% set image = block.image.one() ?? null %}
+{% set heading = block.heading ?? null %}
+{% set text = block.text ?? null %}
+{% set button = block.button.one() ?? null %}
+
+{% set imageWithOverlay %}
+    {% import 'macros/component.twig' as component %}
+
+        {% set position = '50% 50%' %}
+        {% if image.hasFocalPoint %}
+            {% set focalPoint = image.getFocalPoint() %}
+            {% set position = focalPoint.x * 100 ~ '% ' ~ focalPoint.y * 100 ~ '%' %}
+        {% endif %}
+
+        {# imager > media queries > transforms  #}
+        {# figure out proper way to use picture and multiple sources #}
+        {% set options = {
+            image: image,
+            alt: image.altText ?? '',
+            lazyLoad: false,
+            imager: {
+                transforms: [
+                    { width: 540, height: 367, jpegQuality: 80, position: position },
+                    { width: 216, height: 147, jpegQuality: 65, position: position },
+                ]
+            }
+        } %}
+    <div class="c_alternator_column c_alternator_image c_alternator_image--{{ style.imagePosition }}">
+        {% if image|length and style.imagePosition == 'right' %}
+            <div class="c_alternator_svg hide--desktop">
+                {{ svg('@basePath/icon/small-grey-flower-mobile.svg') }}
+            </div>
+        {% endif %}
+        <div class="c_alternator_image_wrapper">
+            <div class="c_alternator_image_overlay c_alternator_image_overlay--{{ style.boxColor }}">
+                {% if style.boxColor == 'blue' %}
+                    {{ svg('@basePath/icon/image-overlay-blue.svg') }}
+                {% else %}
+                    {{ svg('@basePath/icon/image-overlay-pink.svg') }}
+                {% endif %}
+            </div>
+            {{ component.c('image_bg', { image: options }) }}
+        </div>
+        {% if image|length and style.imagePosition == 'left' %}
+            <div class="c_alternator_svg hide--desktop">
+                {{ svg('@basePath/icon/small-grey-flower-mobile.svg') }}
+            </div>
+        {% endif %}
+        
+    </div>
+{% endset %}
+
+<div class="c_section c_alternator {% if style.spacing == 'small' %}c_section--spacing-small{% endif %}">
+    {% if heading|length %}
+        <h2 class="c_section_header text--greyish-brown">
+            {{ heading }}
+        </h2>
+    {% endif %}
+    {% if image|length and style.imagePosition == 'left' %}
+        {{ imageWithOverlay }}
+    {% endif %}
+    {% if text|length %}
+        <div class="c_alternator_column c_alternator_content c_text">
+            {{ text|raw }}
+            {% if button.buttonUrl.one().url is defined %}
+            {% set options = {
+                label: button.buttonText ?? 'Learn More',
+                ariaLabel: button.buttonText ?? '',
+                url: button.buttonUrl.one().url,
+                classes: 'c_button--outline--' ~ style.buttonColor,
+            } %}
+            {{ component.c('button', options) }}
+        {% endif %}
+        </div>
+    {% endif %}
+    {% if image|length and style.imagePosition == 'right' %}
+        {{ imageWithOverlay }}
+    {% endif %}
+</div>
+<div class="c_section c_alternator">
+{% if style.spacing == 'smallFlower' %}
+            <div class="c_alternator_smallFlower">
+                {{ svg('@basePath/icon/small-blue-flower.svg') }}
+            </div>
+    {% endif %}
+</div>    

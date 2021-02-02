@@ -1,0 +1,126 @@
+{# @var craft \craft\web\twig\variables\CraftVariable #}
+{# @var entry \craft\elements\Entry #}
+
+{#
+ # The default page layout used for From Confirmations entries.
+ # To use this layout on other channels, extend this template instead of "_layout".
+ #}
+
+{% extends "_layout.twig" %}
+
+{% import 'macros/component.twig' as component %}
+
+{% set pageSection = pageSection ?? 'form_confirmation' %}
+
+{% block critcss %}
+    <style>{{ source('_critcss/inside.css') }}</style>
+    <style>{{ source('_critcss/hero.css', ignore_missing = true) }}</style>
+{% endblock %}
+
+{% block content %}
+    <div class="title_and_breadcrumbs">
+        <div class="inner_wrapper">
+            <h1 class="c_section_subheader">{{ entry.title }}</h1>
+        </div>
+    </div>
+    <div class="content inner_wrapper">
+        <article class="body">
+            {% if entry.richText ?? false %}
+                <div>
+                    {{ entry.richText }}
+                </div>
+            {% endif %}
+
+            {% if craft.app.request.getBodyParam('formId') ?? false %}
+                {#{{ craft.freeform.form(craft.request.getPost('formId')).render }}#}
+                {% import 'macros/component.twig' as component %}
+                {% set form = craft.freeform.form(craft.app.request.getBodyParam('formId')) %}
+                {% set formReturnUrl = '/thank-you/' ~ form.handle|camelToKebab ~ '/' ~ craft.app.request.getBodyParam('originPage') %}
+                {% if currentSite.language == 'es' %}
+                    {% set formReturnUrl = '/gracias/' ~ form.handle|camelToKebab ~ '/' ~ craft.app.request.getBodyParam('originPage') %}
+                {% endif %}
+
+                {{ form.renderTag({rowClass: form.customAttributes.rowClass ~ ' c_form', returnUrl: formReturnUrl}) }}
+
+                {% if form.hasErrors %}
+                    <div class="freeform-form-has-errors">
+                        {{ "There was an error submitting this form"|t }}
+                    </div>
+                {% endif %}
+
+                {% for row in form %}
+                    <div class="{{ form.customAttributes.rowClass }}">
+                        {% set dynamic_selected = 0 %}
+                        {% for field in row %}
+
+                            {% set columnClass = "sample-column " ~ form.customAttributes.columnClass %}
+                            {% if field.type == "submit" %}
+                                {% set columnClass = columnClass ~ " submit-column" %}
+                            {% endif %}
+
+                            {% set validateField = false %}
+                            {% if field.type == 'email' or  field.type ==  'text' or field.type ==  'phone' or field.type ==  'tel' or field.type ==  'zip' %}
+                                {% set validateField = 'phone' in field.handle ? 'tel' : field.type %}
+                            {% endif %}
+
+                            {% set newOptions = field.options ?? false %}
+                            {% if craft.app.request.getBodyParam(field.handle) ?? false and craft.app.request.getBodyParam(field.handle) is iterable and 'multi' in field.type or 'select' in field.type or 'dynamic' in field.type or 'checkbox' in field.type or 'radio' in field.type %}
+
+                                {% set newOptions = [] %}
+                                    {% for option in field.options %}
+                                        {% set optionValue = option.value %}
+                                        {% if 'dynamic' in field.type %}
+                                            {% set optionValue = loop.index0 %}
+                                        {% endif %}
+                                        {% if optionValue in craft.app.request.getBodyParam(field.handle)  %}
+                                            {% set dynamic_selected = optionValue %}
+                                            {% set newOptions = newOptions|merge([{label: option.label, value: optionValue, checked: true}]) %}
+                                        {% else %}
+                                            {% set newOptions = newOptions|merge([{label: option.label, value: optionValue, checked: false}]) %}
+                                        {% endif %}
+                                    {% endfor %}
+                            {% endif %}
+
+                            {% set fieldValue = false %}
+                            {% if 'dynamic' in field.type %}
+                                {% set fieldValue = dynamic_selected %}
+                            {% elseif craft.app.request.getBodyParam(field.handle ?? '')|length %}
+                                {% set fieldValue = craft.app.request.getBodyParam(field.handle) %}
+                            {% else %}
+                                {% set fieldValue = field.value %}
+                            {% endif %}
+
+                            {% set field = {
+                                type: field.type,
+                                label: field.type == 'submit' ? null : field.label,
+                                value: fieldValue,
+                                name: field.handle,
+                                required: field.required,
+                                placeholder: field.placeholder ?? false,
+                                checked: field.checkbox ?? false,
+                                options: newOptions ?? false,
+                                validate: validateField,
+                                isFreeForm: true,
+                                formId: craft.app.request.getBodyParam('formId')
+                            } %}
+                            {% if field.type == 'submit' %}
+                                {% set confirmField = {
+                                    type: 'checkbox',
+                                    label: 'Form Confirmation',
+                                    required: true,
+                                    options: [{value:'confirmed', label:'I confirm the fields for this form are correct.'|t }],
+                                    formId: craft.app.request.getBodyParam('formId')
+                                } %}
+                                {{ component.c('form_input', confirmField) }}
+                            {% endif %}
+
+                            {{ component.c('form_input', field) }}
+                        {% endfor %}
+                    </div>
+                {% endfor %}
+
+                {{ form.renderClosingTag }}
+            {% endif %}
+        </article>
+    </div>
+{% endblock %}

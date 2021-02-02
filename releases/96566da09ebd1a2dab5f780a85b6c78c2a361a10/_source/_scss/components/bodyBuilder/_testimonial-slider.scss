@@ -1,0 +1,228 @@
+@include critical-split('swiper.css') {
+  .c_testimonial {
+    &_slider {
+      position: relative;
+      @include margin(large, top-bottom);
+      overflow: hidden;
+      padding-bottom: calculateRem(18);
+
+      .swiper-slide-prev {
+        .c_testimonial_slide_image {
+          margin-left: calculateRem(-30);
+
+          @include mq(950px) {
+            margin-left: 0;
+          }
+        }
+      }
+
+      .swiper-slide-next {
+        .c_testimonial_slide_content {
+          margin-left: calculateRem(30);
+
+          @include mq(950px) {
+            margin-left: 0;
+          }
+        }
+      }
+    }
+
+    &_slide {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      width: 100vw;
+
+      @include mq(950px) {
+        flex-direction: row;
+        align-items: center;
+        flex-wrap: nowrap;
+        width: 100%;
+      }
+
+      &_image {
+        width: 100vw;
+        margin-left: calculateRem(30);
+
+        @include mq(950px) {
+          width: 60%;
+          margin-left: 0;
+        }
+      }
+
+      &_content {
+        box-sizing: border-box;
+        position: relative;
+        width: 100vw;
+        background-color: $color_offwhite;
+        z-index: 1;
+        padding: calculateRem(32) calculateRem(30) calculateRem(48) calculateRem(60);
+        margin-right: calculateRem(30);
+        margin-left: calculateRem(-30);
+        opacity: 0.85;
+
+        @include mq(950px) {
+          width: 50%;
+          margin-left: -10%;
+          margin-right: 0;
+          padding: calculateRem(40) calculateRem(54);
+        }
+
+        .c_body_copy {
+          padding: 0;
+
+          @include mq(950px) {
+            max-width: 100%;
+          }
+        }
+
+        .c_section_header {
+          margin-bottom: calculateRem(20);
+
+          &.text--blue {
+            color: $color_blue;
+          }
+          &.text--red {
+            color: $color_dark_red;
+          }
+        }
+      }
+    }
+
+    &_navigation {
+      display: inline-flex;
+      z-index: 10;
+      margin-top: calculateRem(30);
+      margin-left: calculateRem(-30);
+      width: 100%;
+
+      @include mq(950px) {
+        position: absolute;
+        margin-top: 0;
+        margin-left: 0;
+        left: auto;
+        bottom: calculateRem(40);
+        right: 0;
+        width: auto;
+      }
+    }
+
+    &_nav {
+      appearance: none;
+      background: none;
+      width: 100%;
+      height: 100%;
+      outline: 0;
+
+      &:hover {
+        cursor: pointer;
+      }
+
+      &:focus {
+        border: currentColor dashed calculateRem(2);
+        outline: none;
+      }
+
+      &:first-child {
+        margin-left: auto;
+        margin-right: calculateRem(50);
+
+        @include mq(950px) {
+          margin-left: 0;
+        }
+      }
+
+      & > svg {
+        width: calculateRem(11);
+        height: calculateRem(12);
+      }
+    }
+
+    &_pagination {
+      position: relative;
+      bottom: calculateRem(90);
+      z-index: 10;
+      margin-left: calculateRem(30);
+
+      @include mq(950px) {
+        margin-left: 30%;
+        margin-top: calculateRem(30);
+        bottom: 0;
+      }
+
+      .swiper-pagination-bullet {
+        width: 6px;
+        height: 6px;
+        border-color: $color_dark_gray;
+        border-width: 1px;
+        border-style: solid;
+        background-color: transparent;
+        opacity: 1;
+
+        @include mq(950px) {
+          width: 10px;
+          height: 10px;
+        }
+
+        &:hover {
+          cursor: pointer;
+        }
+
+        &:not(:last-child) {
+          margin-right: calculateRem(5);
+        }
+
+        &-active {
+          background-color: $color_dark_gray;
+        }
+      }
+    }
+
+    &_flower {
+      position: absolute;
+      bottom: 0;
+      left: calculateRem(-36);
+      width: 134px;
+      height: 134px;
+      opacity: 0.5;
+      z-index: -1;
+
+      @include mq(950px) {
+        right: 35%;
+        left: auto;
+        width: 40px;
+        height: 40px;
+      }
+
+      & > svg {
+        width: 100%;
+        height: 100%;
+      }
+    }
+  }
+
+  .img {
+    display: block;
+    position: relative;
+
+    img {
+      display: block;
+      height: auto;
+      width: 100%;
+    }
+
+    &.is31by21 {
+      overflow: hidden;
+      padding-top: 67.74193548387098%;
+
+      img {
+        position: absolute;
+        height: 100%;
+        width: 100%;
+        top: 0;
+        left: 0;
+        object-fit: cover;
+      }
+    }
+  }
+}

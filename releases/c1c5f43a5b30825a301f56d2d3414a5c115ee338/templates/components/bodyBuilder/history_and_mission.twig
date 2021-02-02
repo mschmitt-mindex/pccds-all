@@ -1,0 +1,52 @@
+{% import 'macros/component.twig' as component %}
+
+{% set style = {
+    headingColor: block.outlineBox.one().style.value ?? 'dark-red',
+    displayFlower: block.displayFlower ?? null,
+} %}
+
+{% set solidBoxHeading = block.solidBox.heading ?? null %}
+{% set solidBoxText = block.solidBox.text ?? null %}
+
+{% set outlineBoxHeading = block.outlineBox.heading ?? null %}
+{% set outlineBoxText = block.outlineBox.text ?? null %}
+
+<div class="c_section--full-bleed c_history">
+    <div class="c_history_svg c_history_svg--gray-small hide--desktop">
+        {{ svg('@basePath/icon/small-grey-flower-mobile.svg') }}
+    </div>
+    <div class="c_history_svg c_history_svg--gray-medium hide--mobile">
+        {{ svg('@basePath/icon/medium-grey-flower.svg') }}
+    </div>
+    <div class="c_history_outline">
+        <div class="c_history_outline_inner_wrapper">
+            {% if outlineBoxHeading|length %}
+                <h2 class="c_section_header text--{{ style.headingColor }}">
+                    {{ outlineBoxHeading }}
+                </h2>
+            {% endif %}
+            {% if outlineBoxText|length %}
+                <div class="c_history_text">
+                    {{ outlineBoxText|raw }}
+                </div>
+            {% endif %}
+        </div>
+        {% if style.displayFlower|length %}
+            <div class="c_history_svg c_history_svg--blue-small hide--mobile">
+                {{ svg('@basePath/icon/small-blue-flower.svg') }}
+            </div>
+        {% endif %}
+    </div>
+    <div class="c_history_solid">
+        {% if solidBoxHeading|length %}
+            <h2 class="c_section_header text--dark-grey">
+                {{ solidBoxHeading }}
+            </h2>
+        {% endif %}
+        {% if solidBoxText|length %}
+            <div class="c_history_text">
+                {{ solidBoxText|raw }}
+            </div>
+        {% endif %}
+    </div>
+</div>

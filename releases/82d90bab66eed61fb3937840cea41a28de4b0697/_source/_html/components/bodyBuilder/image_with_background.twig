@@ -1,0 +1,85 @@
+{% set image = block.image.one() ?? null %}
+{% set heading = block.heading ?? null %}
+{% set text = block.text ?? null %}
+{% set displayFlower = block.displayFlower ?? 'true' %}
+{% set bottomText = block.bottomText ?? null %}
+
+{% if displayFlower %}
+    {% set cssModifier = 'c_image_with_background--has-flower' %}
+{% else %}
+    {% set cssModifier = 'c_image_with_background--no-flower' %}
+{% endif %}
+
+{% set imageMarkup %}
+    {% import 'macros/component.twig' as component %}
+
+    {% set position = '50% 50%' %}
+    {% if image.hasFocalPoint %}
+        {% set focalPoint = image.getFocalPoint() %}
+        {% set position = focalPoint.x * 100 ~ '% ' ~ focalPoint.y * 100 ~ '%' %}
+    {% endif %}
+
+    {# imager > media queries > transforms  #}
+    {# figure out proper way to use picture and multiple sources #}
+    {% set options = {
+        image: image,
+        alt: image.altText ?? '',
+        lazyLoad: false,
+        imager: {
+            transforms: [
+                { width: 460, height: 320, jpegQuality: 80, position: position },
+                { width: 313, height: 218, jpegQuality: 65, position: position },
+            ]
+        }
+    } %}
+<div class="c_image_with_background_image">
+    {{ component.c('image_bg', { image: options }) }}
+</div>
+{% endset %}
+
+<div class="c_section c_section--spacing-small c_image_with_background {{ cssModifier }}">
+    {% if heading|length %}
+        <h2 class="c_section_header text--greyish-brown hide--desktop">
+            {{ heading }}
+        </h2>
+    {% endif %}
+    <div class="c_image_with_background_wrapper">
+        {% if image|length %}
+            <div class="hide--desktop">
+                {{ imageMarkup }}
+            </div>
+        {% endif %}
+        <div class="c_image_with_background_content background--greyish-brown">
+            <div class="hide--mobile">
+                {{ imageMarkup }}
+            </div>
+            <div class="c_image_with_background_content_wrapper">
+                {% if heading|length %}
+                    <h2 class="c_section_header text--white hide--mobile">
+                        {{ heading }}
+                    </h2>
+                {% endif %}
+                {% if text|length %}
+                    <div class="c_text">
+                        {{ text|raw }}
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+    {% if displayFlower|length %}
+    <div class="c_image_with_background_svg hide--mobile">
+        {{ svg('@basePath/icon/medium-grey-flower.svg') }}
+    </div>
+    {% endif %}
+    {% if bottomText|length %}
+        <div class="c_image_with_background_bottom_wrapper">
+            <div class="c_image_with_background_bottom_text c_text">
+                {{ bottomText|raw }}
+            </div>
+            <div class="c_image_with_background_bottom_svg hide--mobile">
+                {{ svg('@basePath/icon/small-aqua-flower.svg') }}
+            </div>
+        </div>
+    {% endif %}
+</div>

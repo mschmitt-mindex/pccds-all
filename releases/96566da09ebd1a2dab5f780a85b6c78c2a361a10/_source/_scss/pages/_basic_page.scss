@@ -1,0 +1,272 @@
+@include critical-split('inside.css') {
+  .title_and_breadcrumbs {
+    background: $color_maroon;
+    color: $color_white_default;
+    .inner_wrapper {
+      padding-top: pxConversion(20, rem);
+      padding-bottom: pxConversion(20, rem);
+      display: flex;
+      flex-flow: column nowrap;
+      @include mq(800px) {
+        flex-flow: row nowrap;
+        justify-content: space-between;
+        align-items: center;
+      }
+    }
+
+    .c_section_subheader {
+      color: $color_white_default;
+      margin-bottom: 0;
+      letter-spacing: 0.025em;
+    }
+
+    .breadcrumbs {
+      padding-left: 0;
+      li {
+        display: inline-block;
+        list-style-type: none;
+        a {
+          color: $color_white_default;
+          text-decoration: none;
+          text-transform: uppercase;
+          font-size: pxConversion(14, rem);
+          @include mq(600px) {
+            font-size: $base_font_size;
+          }
+          .breadcrumbs_arrow {
+            padding: 0 pxConversion(5, rem);
+          }
+          &:hover {
+            color: $color_light_teal;
+            .breadcrumbs_arrow {
+              color: $color_white_default;
+            }
+          }
+        }
+      }
+      &__separator {
+        padding: 0 pxConversion(8, rem);
+      }
+    }
+  }
+
+  .content {
+    display: flex;
+    flex-flow: column nowrap;
+    padding-top: pxConversion(75, rem);
+    padding-bottom: pxConversion(75, rem);
+    @include mq(800px) {
+      flex-flow: row nowrap;
+    }
+    &.content--full {
+      display: block;
+    }
+    article {
+      flex: 0 1 auto;
+      width: 100%;
+      margin-bottom: pxConversion(100, rem);
+      @include mq(800px) {
+        flex: 0 1 65%;
+        max-width: 65%;
+        margin-bottom: 0;
+        margin-right: 5%;
+      }
+    }
+    .sidebar {
+      flex: 0 1 auto;
+      width: 100%;
+      display: flex;
+      flex-flow: column nowrap;
+      @include mq(800px) {
+        flex: 0 1 30%;
+        min-width: 250px;
+      }
+      .related_links {
+        padding: pxConversion(34, rem);
+        background: $color_light_blue_gray;
+        margin-bottom: pxConversion(65, rem);
+        order: 50;
+        @include mq(800px) {
+          order: 0;
+        }
+        li {
+          list-style-type: none;
+          padding-bottom: pxConversion(20, rem);
+          @include font('proxima_nova__semi_bold');
+          &:first-of-type {
+            font-size: pxConversion(28, rem);
+            padding-bottom: pxConversion(30, rem);
+            a {
+              color: $color_maroon;
+            }
+          }
+          a {
+            text-decoration: none;
+            color: $color_black_default;
+            &:hover {
+              color: $color_maroon;
+            }
+            &.active {
+              color: $color_red;
+              &:hover {
+                color: $color_maroon;
+              }
+            }
+          }
+        }
+      }
+      .sidebar__events {
+        .c_section_subheader {
+          margin-bottom: pxConversion(10, rem);
+          color: $color_maroon;
+        }
+      }
+      @at-root #{&}__event {
+        padding: pxConversion(20, rem) 0;
+        border-bottom: 1px solid $color_black_default;
+        &:last-of-type {
+          border-bottom: 0;
+          padding-bottom: pxConversion(35, rem);
+        }
+        @at-root #{&}__title {
+          a {
+            display: block;
+            color: $color_black_default;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: pxConversion(18, rem);
+          }
+        }
+        @at-root #{&}__date_location {
+          a {
+            display: block;
+            padding-top: pxConversion(10, rem);
+            color: $color_primary;
+            @include font('proxima_nova__bold');
+            text-decoration: none;
+          }
+        }
+      }
+    }
+  }
+
+  .p-form_confirmation {
+    .content {
+      display: block;
+    }
+  }
+
+  .body {
+    & > div {
+      padding-bottom: pxConversion(30, rem);
+      &.body__header {
+        padding-bottom: 0;
+      }
+      &:last-child {
+        padding-bottom: 0;
+      }
+    }
+
+    &__button {
+      text-align: left;
+      &--right {
+        text-align: right;
+      }
+      &--center {
+        text-align: center;
+      }
+    }
+    &__media_and_text {
+      display: flex;
+      flex-flow: column nowrap;
+      @include mq(500px) {
+        flex-flow: row nowrap;
+        justify-content: space-between;
+      }
+      @include mq(800px) {
+        flex-flow: column nowrap;
+        justify-content: initial;
+      }
+      @include mq(950px) {
+        flex-flow: row nowrap;
+        justify-content: space-between;
+      }
+      &__media {
+        width: 100%;
+        flex: 0 1 auto;
+        padding-bottom: 2.5%;
+        @include mq(500px) {
+          flex: 0 1 50%;
+          padding-right: 2.5%;
+          padding-bottom: 0;
+        }
+        @include mq(800px) {
+          flex: 0 1 auto;
+          padding-bottom: 2.5%;
+          padding-right: 0;
+        }
+        @include mq(950px) {
+          flex: 0 1 50%;
+          padding-right: 2.5%;
+          padding-bottom: 0;
+        }
+        &--right {
+          padding-right: 0;
+          order: 2;
+          @include mq(500px) {
+            padding-left: 2.5%;
+          }
+          @include mq(800px) {
+            padding-left: 0;
+          }
+          @include mq(950px) {
+            padding-left: 2.5%;
+          }
+        }
+        &--full {
+          flex: 0 1 auto;
+          width: 100%;
+        }
+      }
+      &__text {
+        width: 100%;
+        flex: 0 1 auto;
+        padding-bottom: 2.5%;
+        @include mq(500px) {
+          flex: 0 1 50%;
+          padding-left: 2.5%;
+          padding-bottom: 0;
+        }
+        @include mq(800px) {
+          flex: 0 1 auto;
+          padding-bottom: 2.5%;
+          padding-left: 0;
+        }
+        @include mq(950px) {
+          flex: 0 1 50%;
+          padding-left: 2.5%;
+          padding-bottom: 0;
+        }
+        &--left {
+          padding-left: 0;
+          @include mq(500px) {
+            padding-right: 2.5%;
+          }
+          @include mq(800px) {
+            padding-right: 0;
+          }
+          @include mq(950px) {
+            padding-right: 2.5%;
+          }
+        }
+        &--full {
+          flex: 0 1 auto;
+          width: 100%;
+          padding-right: 0;
+          padding-left: 0;
+          padding-bottom: 0;
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,150 @@
+{% import 'macros/component.twig' as component %}
+
+{% set style = {
+    textAlign: block.style.one().textAlign.value ?? 'center',
+    width: block.style.one().width.value ?? 'threeQuarters',
+    headingColor: block.style.one().headingColor.value ?? 'blue',
+    displayFlower: block.style.one().displayFlower ?? null,
+    flowerPosition: block.style.one().flowerPosition.value ?? 'right',
+    flowerColor: block.style.one().flowerColor.value ?? 'dark-gray',
+    buttonColor: block.style.one().buttonColor.value ?? 'blue',
+    spacing: block.style.one().spacing.value ?? 'large'
+} %}
+
+{% switch style.spacing %}
+
+    {% case "large" %}
+        {% set sectionClass = null %}
+        {% set flowerSpacer = null %}
+    {% case "small" %}
+        {% set sectionClass = 'c_section--spacing-small' %}
+        {% set flowerSpacer = null %}
+    {% case "largeWithFlower" %}
+        {% set sectionClass = 'c_section--spacing-none' %}
+        {% set flowerSpacer %}
+            <div class="c_flower_spacer c_flower_spacer--large">
+                {{ svg('@basePath/icon/spacer-flower.svg') }}
+            </div>
+        {% endset %}
+    {% case "smallWithFlower" %}
+        {% set sectionClass = 'c_section--spacing-none' %}
+        {% set flowerSpacer %}
+            <div class="c_flower_spacer c_flower_spacer--small">
+                {{ svg('@basePath/icon/spacer-flower.svg') }}
+            </div>
+        {% endset %}
+    {% default %}
+        {% set sectionClass = null %}
+        {% set flowerSpacer = null %}
+{% endswitch %}
+
+{% set heading = block.heading ?? null %}
+{% set text = block.text ?? null %}
+{% set button = block.button.one() ?? null %}
+{% set formSelect = block.formSelect ?? null %}
+
+{% set flowerType %}
+    <div class="c_body_copy_svg">
+        {% if style.flowerColor == 'pink' %}
+            {{ svg('@basePath/icon/large-pink-flower.svg') }}
+        {% else %}
+            {{ svg('@basePath/icon/large-grey-flower.svg') }}
+        {% endif %}
+    </div>
+{% endset %}
+
+<div class="c_section c_body_copy {% if style.textAlign == 'center' %}text-center{% endif %} {{ sectionClass }}">
+    {% if style.displayFlower|length and style.flowerPosition == 'left' and style.width != 'full' %}
+        <div class="flower-spacing-right">
+            {{ flowerType }}
+        </div>
+    {% endif %}
+    <div class="c_body_copy_inner_wrapper">
+        {% if heading|length %}
+            <h2 class="c_section_header text--{{ style.headingColor }}">
+                {{ heading }}
+            </h2>
+        {% endif %}
+        {% if text|length %}
+            <div class="c_body_copy_text c_text">
+                {{ text|raw }}
+            </div>
+        {% endif %}
+
+        {% if button.buttonUrl.one().url is defined %}
+            {% set options = {
+                label: button.buttonText ?? 'Learn More',
+                ariaLabel: button.buttonText ?? '',
+                url: button.buttonUrl.one().url,
+                classes: 'c_button--outline--' ~ style.buttonColor,
+            } %}
+            {{ component.c('button', options) }}
+        {% endif %}
+        
+        {% if formSelect %}
+            {% set formHandle = entry.selectAForm.handle %}
+
+            <div class="body__form">
+                {% import 'macros/component.twig' as component %}
+                {% set formFields = [] %}
+                {% set hiddenField_formId = {
+                    type: 'hidden',
+                    name: 'formId',
+                    value: craft.freeform.form(formHandle).id
+                } %}
+                {% set hiddenField_originPage = {
+                    type: 'hidden',
+                    name: 'originPage',
+                    value: entry.slug
+                } %}
+                {% set hiddenField_csrf = {
+                    type: 'hidden',
+                    name: craft.app.config.general.csrfTokenName,
+                    value: craft.app.request.csrfToken
+                } %}
+                {% set formFields = formFields|merge([hiddenField_formId]) %}
+                {% set formFields = formFields|merge([hiddenField_originPage]) %}
+                {% set formFields = formFields|merge([hiddenField_csrf]) %}
+
+                {% for row in craft.freeform.form(formHandle) %}
+                    {% for field in row %}
+                        {% set validateField = false %}
+                        {% if field.type == 'email' or  field.type ==  'text' or field.type ==  'phone' or field.type ==  'tel' or field.type ==  'zip' %}
+                            {% set validateField = 'phone' in field.handle ? 'tel' : field.type %}
+                        {% endif %}
+
+                        {% set field = {
+                            type: field.type,
+                            label: field.type == 'submit' ? null : field.label,
+                            value: field.value,
+                            name: field.handle,
+                            required: field.required,
+                            placeholder: field.placeholder ?? false,
+                            options: field.options ?? false,
+                            validate: validateField,
+                            formId: craft.freeform.form(formHandle).id
+                        } %}
+                        {% set formFields = formFields|merge([field]) %}
+                    {% endfor %}
+                {% endfor %}
+                {% set formActionUrl = 'form/confirmation' %}
+                {% if currentSite.language == 'es' %}
+                    {% set formActionUrl = 'es/formulario/confirmación' %}
+                {% endif %}
+                {% set options = {
+                    actionUrl: formActionUrl,
+                    validate: true,
+                    formId: craft.freeform.form(formHandle).id,
+                    fields: formFields
+                } %}
+                {{ component.c('form', options) }}
+            </div>
+        {% endif %}
+    </div>
+    {% if style.displayFlower|length and style.flowerPosition == 'right' and style.width != 'full' %}
+        <div class="flower-spacing-left">
+            {{ flowerType }}
+        </div>
+    {% endif %}
+</div>
+{{ flowerSpacer }}

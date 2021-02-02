@@ -1,0 +1,105 @@
+{% if entry ?? false %}
+    {%- set sidebarMenuBlock -%}
+        {% if entry ?? false %}
+            {% if craft.entries.section('menu').relatedTo(entry.id).one() ?? false  %}
+                {% set menuItem = craft.entries.section('menu').relatedTo(entry.id).one() %}
+                {% set parentItem = null %}
+                {% set headquartersId = globals.headquarters.one().id %}
+
+                {% if menuItem.parent() ?? false %}
+                    {% set parentItem = menuItem.parent() %}
+                {% elseif menuItem.hasDescendants() %}
+                    {% set parentItem = menuItem %}
+                {% endif %}
+                {% if parentItem ?? false %}
+                    <ul class="related_links">
+                        {% if parentItem.customLink|length or parentItem.linkToAnEntry.one() ?? false %}
+                            <li><a href="{% if parentItem.customLink|length %}{{ parentItem.customLink }}{% else %}{{ parentItem.linkToAnEntry.one().url }}{% endif %}">{% if not parentItem.customLink|length and parentItem.linkToAnEntry.one().id == headquartersId %}{{ "Headquarters"|t }}{% else %}{{ parentItem.title }}{% endif %}</a></li>
+                        {% endif %}
+                        {% if parentItem.hasDescendants() %}
+                            {% for childItem in parentItem.children().all() %}
+                                {% if childItem.customLink|length or childItem.linkToAnEntry.one() ?? false %}
+                                    <li><a class="{% if childItem.linkToAnEntry.one() ?? false and childItem.linkToAnEntry.one().id == entry.id %}active{% endif %}" href="{% if childItem.customLink|length %}{{ childItem.customLink }}{% else %}{{ childItem.linkToAnEntry.one().url }}{% endif %}">{% if not childItem.customLink|length and childItem.linkToAnEntry.one().id == headquartersId %}{{ "Headquarters"|translate }}{% else %}{{ childItem.title }}{% endif %}</a></li>
+                                {% endif %}
+                            {% endfor %}
+                        {% endif %}
+                    </ul>
+                {% endif %}
+            {% endif %}
+        {% endif %}
+    {%- endset -%}
+
+    {%- set newsArchiveBlock -%}
+        {% if (entry ?? false) and (entry.section == 'News') %}
+            <div class="archive">
+                <h5 class="c_section_subheader c_section_subheader--color--maroon">{{ 'Archive'|t|upper }}</h5>
+                {% for year, entriesInYear in newsPosts__sidebar.all() | group("postDate|date('Y')") %}
+                    <ul class="archive__years">
+                        <li class="archive__year"><a class="c_section_subheader" href="{% if currentSite.language == 'es' %}/es{% endif %}{% if query ?? false %}/{{ 'news'|t }}/{{ 'search'|t }}/{% else %}/{{ 'news'|t }}/{{ 'archive'|t }}/{% endif %}{{ year }}{% if query ?? false %}?q={{ query }}{% endif %}">{{ year }}</a>
+                            <ul>
+                                {% for month, entries in entriesInYear | group("postDate|date('F')" ) %}
+                                    <li class="archive__month"><a href="{% if currentSite.language == 'es' %}/es{% endif %}{% if query ?? false %}/{{ 'news'|t }}/{{ 'search'|t }}/{% else %}/{{ 'news'|t }}/{{ 'archive'|t }}/{% endif %}{{ year }}/{{ month|lower|t(language='en-US')|date('m') }}{% if query ?? false %}?q={{ query }}{% endif %}">{{ month|t|upper }}&nbsp;({{ entries|length }})</a></li>
+                                {% endfor %}
+                            </ul>
+                        </li>
+                    </ul>
+                {% endfor %}
+            </div>
+        {% endif %}
+    {%- endset -%}
+
+    {%- set eventsBlock -%}
+        {% if (entry ?? false) and (entry.enableEvents ?? false) %} {# &start_date.range_start=2018-02-01T13:00:00 #} {# &include_unavailable_events=false #}
+            {% set params = {
+                url: 'https://www.eventbriteapi.com/v3/organizers/15883966864/events/?token=' ~ getenv('CRAFTENV_EVENT_BRITE') ~ '&order_by=start_desc&include_unavailable_events=false',
+                type: 'json',
+                element: 'events',
+                cache: 60,
+            } %}
+
+            {% set feed = craft.feedme.feed(params)|slice(0,3) %}
+
+            {% if feed|length %}
+                <div class="sidebar__events">
+                    <h5 class="c_section_subheader">{{ 'Upcoming Events'|upper }}</h5>
+                    {% for node in feed %}
+                        {# Your template code goes here #}
+                        {% set venueParams = {
+                            url: 'https://www.eventbriteapi.com/v3/venues/' ~ node.venue_id ~ '/?token=' ~ getenv('CRAFTENV_EVENT_BRITE'),
+                            type: 'json',
+                            cache: 60,
+                        } %}
+
+                        {% set venue = craft.feedme.feed(venueParams) %}
+
+                        {% if node.name.text ?? false and node.start.local ?? false %}
+                            <div class="sidebar__event">
+                                <p class="sidebar__event__title garamond"><a href="{{ node.url }}" target="_blank">{{ node.name.text }}</a></p>
+                                <p class="sidebar__event__date_location"><a href="{{ node.url }}" target="_blank">{{ node.start.local|date('M j, Y')|upper }}, {{ venue.address.localized_area_display }}</a></p>
+                            </div>
+                        {% endif %}
+                    {% endfor %}
+
+
+                    {# WHAT IS THE RIGHT URL FOR THE SEE ALL EVENTS BUTTON TO GO TO? #}
+
+                    {% import 'macros/component.twig' as component %}
+                    {% set options = {
+                        label: 'See More Events',
+                        target: '_blank',
+                        url: craft.entries.section('events').one().url,
+                    } %}
+                    {{ component.c('button', options) }}
+                </div>
+            {% endif %}
+        {% endif %}
+    {%- endset -%}
+
+    {% if (sidebarMenuBlock is not empty) or (newsArchiveBlock is not empty) or (eventsBlock is not empty) %}
+        <div class="sidebar" id="sidebar">
+            {{ sidebarMenuBlock }}
+            {{ newsArchiveBlock }}
+            {{ eventsBlock }}
+        </div>
+    {% endif %}
+{% endif %}

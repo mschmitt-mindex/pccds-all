@@ -1,0 +1,45 @@
+{% set locations = craft.entries({
+    section: 'location',
+    type: 'regionalContacts',
+    with: ['contacts'],
+}).all() %}
+
+{% set data = [] %}
+
+{% for location in locations %}
+    {% set contactsInfo = [] %}
+
+    {% for contact in location.contacts %}
+        {% set contactsInfo = contactsInfo | merge ({
+            (contact.title): {
+                'name': contact.contactName ?? contact.title,
+                'regions': contact.contactRegions,
+                'phone': contact.contactTelephoneNumber
+            }
+        }) %}
+    {% endfor %}
+
+    {% set data = data | merge({
+        (location.title) : {
+            'name': location.locationTitle ?? location.title,
+            'regions': location.locationRegions,
+            'contacts': contactsInfo,
+            'afterHoursTelephoneNumber': location.afterHoursTelephoneNumber,
+            'referralTelephoneNumber': location.referralTelephoneNumber
+        }
+    }) %}
+{% endfor %}
+
+<div id="regional-contacts-content" class="c_section">
+    <regional-contacts :locations="{{- data | json_encode -}}">
+        <template #arrow>
+            {{- svg('@basePath/icon/arrow_down_dark_red.svg') -}}
+        </template>
+        <template #legend>
+            Click the numbers on the map to see the Regional Contacts for that area
+        </template>
+        <template #footer>
+            {{ block.text ?? null }}
+        </template>
+    </regional-contacts>
+</div>

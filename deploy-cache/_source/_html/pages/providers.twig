@@ -1,0 +1,28 @@
+{% extends "_layout.twig" %}
+
+{% import 'macros/component.twig' as component %}
+
+{% set pageSection = pageSection ?? 'providers' %}
+
+{% block critcss %}
+    <style>{{ source('_critcss/inside.css', ignore_missing = true) }}</style>
+    <style>{{ source('_critcss/hero.css', ignore_missing = true) }}</style>
+{% endblock %}
+
+{% if currentSite.language == 'es' %}
+    {% set providersPage = '/es/organizaciones-asociadas' %}
+{% else %}
+    {% set providersPage = '/partner-organizations' %}
+{% endif %}
+
+
+{% block content %}
+    {% include 'partials/title_and_breadcrumbs' with { entry_title: entry.title, entry_id: entry.id } %}
+
+    <div class="content inner_wrapper">
+        <article class="body">
+            {% include "components/body_builder_basic_page.twig" with {entry: entry} %}
+        </article>
+        {% include "partials/sidebar_menu" with {entry: entry} %}
+    </div>
+{% endblock %}

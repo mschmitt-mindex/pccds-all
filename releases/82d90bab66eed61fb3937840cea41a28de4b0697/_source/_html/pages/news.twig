@@ -1,0 +1,126 @@
+{# @var craft \craft\web\twig\variables\CraftVariable #}
+{# @var entry \craft\elements\Entry #}
+
+{% extends "_layout.twig" %}
+
+{% import 'macros/component.twig' as component %}
+
+{% set pageSection = pageSection ?? 'inside' %}
+
+{% block critcss %}
+    <style>{{ source('_critcss/news.css', ignore_missing = true) }}</style>
+    <style>{{ source('_critcss/inside.css', ignore_missing = true) }}</style>
+{% endblock %}
+
+{% if not entry ?? false %}
+    {% set entry = craft.entries.section('news').one() %}
+{% endif %}
+
+{% set query = craft.app.request.getParam('q') %}
+
+{% set newsPosts = craft.entries.section('newsPost').limit(10) %}
+{% set newsPosts__sidebar = craft.entries.section('newsPost') %}
+
+{% if year is defined %}
+    {% set dateRestrictionAfter = year %}
+    {% set dateRestrictionBefore = year + 1 %}
+
+    {% if month is defined %}
+        {% set dateRestrictionAfter = year ~ '-' ~ month %}
+        {% if month == 12 %}
+            {% set dateRestrictionBefore = year ~ '-' ~ '01' %}
+        {% else %}
+            {% set dateRestrictionBefore = year ~ '-' ~ (month + 1) %}
+        {% endif %}
+    {% endif %}
+
+    {% set newsPosts = craft.entries.section('newsPost').limit(10).after(dateRestrictionAfter).before(dateRestrictionBefore) %}
+    {% set newsPosts__sidebar = craft.entries.section('newsPost').after(dateRestrictionAfter).before(dateRestrictionBefore) %}
+{% endif %}
+
+{% if query|length %}
+    {% set newsPosts = newsPosts.search(query).orderBy('postDate desc') %}
+    {% set newsPosts__sidebar = newsPosts__sidebar.search(query).orderBy('postDate desc') %}
+{% endif %}
+
+
+{% block content %}
+
+    {% include 'partials/title_and_breadcrumbs' with {entry_title: entry.title, entry_id: entry.id} %}
+
+    <div class="content inner_wrapper">
+        <article class="body">
+            <div class="news_search">
+                <form action="{{ url('news/search'|t) }}" class="c_form search_form">
+                    <label class="c_section_subheader" for="c_form_input--search">{{ 'Search News'|t }}</label>
+                    <div class="search_form__inputs">
+                        <div class="c_form_input c_form_input--text">
+                            <input id="c_form_input--search" type="search" name="q">
+                        </div>
+                        <div class="c_form_input news_search__submit">
+                            <input class="c_button" type="submit" value="{{ 'Search'|t }}">
+                            <span aria-hidden="true" class="news_search__submit__search_icon">{{ svg('@basePath/icon/search_icon.svg') }}</span>
+                        </div>
+                    </div>
+                </form>
+
+                {% if query ?? false %}
+                    <p>Your search of "{{ query }}" {% if month ?? false %} during {{ month|date('F')|t }}, {{ year }}{% endif %}{% if year ?? false and not month ?? false %} during {{ year }}{% endif %} returned {{ newsPosts|length }} result{% if newsPosts|length > 1 %}s{% endif %}.</p>
+                {% endif %}
+            </div>
+
+            {% import 'macros/component.twig' as component %}
+
+            {% paginate newsPosts as pageInfo, pageEntries %}
+            {% if not pageEntries|length %}
+                <p>We could not find any results for your query.</p>
+            {% endif %}
+            {% for item in pageEntries %}
+                <div class="news_post {% if loop.first %}news_post--first{% endif %} {% if loop.last %}news_post--last{% endif %}">
+                    <h4 class="c_section_header"><a href="{{ item.linkToExternalNewsArticle ?? false ? item.linkToExternalNewsArticle : item.url }}" {% if item.linkToExternalNewsArticle ?? false %}target="_blank"{% endif %}>{{ item.title }}</a></h4>
+                    <p class="news_post__date">{{ item.postDate|date('F j, Y')|ucfirst }}</p>
+                    {% if item.newsFeaturedImage.one() ?? false %}
+                        {% import 'macros/component.twig' as component %}
+                        {% set options = {
+                            image: item.newsFeaturedImage.one(),
+                            alt: item.newsFeaturedImage.one().altText ?? '',
+                            lazyLoad: false,
+                            classes: 'news_post__image',
+                            imager: {
+                                transforms: [
+                                    { width: 1200, jpegQuality: 80 },
+                                    { width: 600, jpegQuality: 80 },
+                                ]
+                            }
+                        } %}
+                        {{ component.c('image', options) }}
+                    {% endif %}
+                    <div class="c_text news_post__summary">
+                        {{ item.newsPostSummary }}
+                    </div>
+                    {% import 'macros/component.twig' as component %}
+                    {% set options = {
+                        svgIdPrefix: 'news_article' ~ loop.index ~ '_',
+                        ariaLabel: 'Read more about ' ~ item.title,
+                        label: 'Read More',
+                        url: item.linkToExternalNewsArticle ?? false ? item.linkToExternalNewsArticle : item.url,
+                        target: item.linkToExternalNewsArticle ?? false ? '_blank'
+                    } %}
+                    {{ component.c('button', options) }}
+                </div>
+            {% endfor %}
+
+            {{ component.c('pager', { pageInfo: pageInfo, maxLinks: 5 }) }}
+        </article>
+        {% include "partials/sidebar_menu" with {entry: entry} %}
+    </div>
+{% endblock %}
+
+{% block footer %}
+    {% cache %}
+        {% if entry.footerCallOut|length %}
+            {% include 'partials/footer_call_out' with {ctaEntry: entry.footerCallOut.one()} %}
+        {% endif %}
+        {{ parent() }}
+    {% endcache %}
+{% endblock %}

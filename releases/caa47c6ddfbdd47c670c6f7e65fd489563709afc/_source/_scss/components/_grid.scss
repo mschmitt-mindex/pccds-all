@@ -1,0 +1,83 @@
+@include critical-split('global.css') {
+  .c_grid {
+    $self: &;
+
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: auto;
+    grid-gap: $grid_gap_default;
+
+    @include mq($mq_grid_start) {
+      @at-root #{$self}--2_column {
+        grid-template-columns: repeat(2, 1fr);
+      }
+      @at-root #{$self}--3_column {
+        grid-template-columns: repeat(3, 1fr);
+      }
+      @at-root #{$self}--4_column {
+        grid-template-columns: repeat(4, 1fr);
+      }
+      @at-root #{$self}--5_column {
+        grid-template-columns: repeat(5, 1fr);
+      }
+      @at-root #{$self}--6_column {
+        grid-template-columns: repeat(6, 1fr);
+      }
+      @at-root #{$self}--2_row {
+        grid-template-rows: repeat(2, auto);
+      }
+    }
+
+    @at-root #{$self}__providers {
+      display: flex;
+      flex-flow: row wrap;
+      .c_grid_item {
+        @include mq(1000px) {
+          flex: 0 1 23%;
+          box-sizing: border-box;
+          padding: 0 1.5rem 3rem;
+          &:nth-of-type(5n-4) {
+            padding-left: 0;
+          }
+          &:nth-of-type(4n) {
+            padding-right: 0;
+          }
+        }
+      }
+
+      @supports (display: grid) and (not (display: -ms-grid)) {
+        grid-gap: 3rem;
+        display: grid;
+        align-items: center;
+        grid-template-columns: repeat(1, 1fr);
+        @include mq(350px) {
+          grid-template-columns: repeat(2, 1fr);
+        }
+        @include mq(500px) {
+          grid-template-columns: repeat(3, 1fr);
+        }
+        @include mq(700px) {
+          grid-template-columns: repeat(4, 1fr);
+        }
+        @include mq(800px) {
+          grid-template-columns: repeat(3, 1fr);
+        }
+        @include mq(1000px) {
+          grid-template-columns: repeat(4, 1fr);
+        }
+      }
+    }
+
+    @at-root #{$self}__item {
+      @at-root #{&}--span_2_column {
+        grid-column-end: span 2;
+      }
+      @at-root #{&}--span_3_column {
+        grid-column-end: span 3;
+      }
+      @at-root #{&}--span_4_column {
+        grid-column-end: span 4;
+      }
+    }
+  }
+}

@@ -1,0 +1,20 @@
+{# @var craft \craft\web\twig\variables\CraftVariable #}
+
+{% extends 'components/_component.twig' %}
+
+{# Component element overrides #}
+{% set element = 'nav' %}
+{% set idPrefix = idPrefix ?? null %}
+
+{% block content -%}
+    <ul>
+        {% if links.facebook ?? false %}<li><a class="c_{{ class }}__link c_{{ class }}__link--facebook" href="{{ url(links.facebook) }}" target="_blank" aria-label="facebook">{{ svg('@basePath/icon/social_facebook.svg')|replace('id="Layer_1', 'id="' ~ (idPrefix ? idPrefix ~ '_facebook' : 'facebook'))|raw|replace('</title>',  (idPrefix ? ' - ' ~ idPrefix ~ '</title>' : '</title>'))|raw }}</a></li>{% endif %}
+        {% if links.twitter ?? false %}<li><a class="c_{{ class }}__link c_{{ class }}__link--twitter" href="{{ url(links.twitter) }}" target="_blank" aria-label="twitter">{{ svg('@basePath/icon/social_twitter.svg')|replace('id="Layer_1', 'id="' ~ (idPrefix ? idPrefix ~ '_twitter' : 'twitter'))|raw|replace('</title>',  (idPrefix ? ' - ' ~ idPrefix ~ '</title>' : '</title>'))|raw }}</a></li>{% endif %}
+        {% if links.linkedin ?? false %}<li><a class="c_{{ class }}__link c_{{ class }}__link--linkedin" href="{{ url(links.linkedin) }}" target="_blank" aria-label="linkedin">{{ svg('@basePath/icon/social_linkedin.svg')|replace('id="Layer_1', 'id="' ~ (idPrefix ? idPrefix ~ '_linkedin' : 'linkedin'))|raw|replace('</title>',  (idPrefix ? ' - ' ~ idPrefix ~ '</title>' : '</title>'))|raw }}</a></li>{% endif %}
+        {% if links.youtube ?? false %}<li><a class="c_{{ class }}__link c_{{ class }}__link--youtube" href="{{ url(links.youtube) }}" target="_blank" aria-label="youtube">{{ svg('@basePath/icon/social_youtube.svg')|replace('id="Layer_1', 'id="' ~ (idPrefix ? idPrefix ~ '_youtube' : 'youtube'))|raw|replace('</title>',  (idPrefix ? ' - ' ~ idPrefix ~ '</title>' : '</title>'))|raw }}</a></li>{% endif %}
+        {% if links.pinterest ?? false %}<li><a class="c_{{ class }}__link c_{{ class }}__link--pinterest" href="{{ url(links.pinterest) }}" target="_blank" aria-label="pinterest">{{ svg('@basePath/icon/social_pinterest.svg')|replace('id="Layer_1', 'id="' ~ (idPrefix ? idPrefix ~ '_pinterest' : 'pinterest'))|raw|replace('</title>',  (idPrefix ? ' - ' ~ idPrefix ~ '</title>' : '</title>'))|raw }}</a></li>{% endif %}
+        {% if links.instagram ?? false %}<li><a class="c_{{ class }}__link c_{{ class }}__link--instagram" href="{{ url(links.instagram) }}" target="_blank" aria-label="instagram">{{ svg('@basePath/icon/social_instagram.svg')|replace('id="Layer_1', 'id="' ~ (idPrefix ? idPrefix ~ '_instagram' : 'instagram'))|raw|replace('</title>',  (idPrefix ? ' - ' ~ idPrefix ~ '</title>' : '</title>'))|raw }}</a></li>{% endif %}
+        {% if links.snapchat ?? false %}<li><a class="c_{{ class }}__link c_{{ class }}__link--snapchat" href="{{ url(links.snapchat) }}" target="_blank" aria-label="snapchat">{{ svg('@basePath/icon/social_snapchat.svg')|replace('id="Layer_1', 'id="' ~ (idPrefix ? idPrefix ~ '_snapchat' : 'snapchat'))|raw|replace('</title>',  (idPrefix ? ' - ' ~ idPrefix ~ '</title>' : '</title>'))|raw }}</a></li>{% endif %}
+        {% if links.email ?? false %}<li><a class="c_{{ class }}__link c_{{ class }}__link--email" href="{{ 'mailto:' not in links.email ? 'mailto:' : '' }}{{ links.email }}" aria-label="email">{{ svg('@basePath/icon/social_email.svg')|replace('id="Layer_1', 'id="' ~ (idPrefix ? idPrefix ~ '_email' : 'email'))|raw|replace('</title>',  (idPrefix ? ' - ' ~ idPrefix ~ '</title>' : '</title>'))|raw }}</a></li>{% endif %}
+    </ul>
+{%- endblock %}

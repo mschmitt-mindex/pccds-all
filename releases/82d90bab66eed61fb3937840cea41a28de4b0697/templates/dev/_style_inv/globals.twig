@@ -1,0 +1,247 @@
+{# @var craft \craft\web\twig\variables\CraftVariable #}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="styles">
+    <div class="styles__menu">
+    
+        <a href="/dev/inv/index">Style Inventory</a>
+    
+        <a class="active" href="/dev/inv/globals"><span class="styles__menu__active_spacer"></span>Globals<span class="styles__menu__active_indicator"></span></a>
+    
+        <a href="/dev/inv/animations">Animations</a>
+    
+        <a href="/dev/inv/buttons">Buttons</a>
+    
+        <a href="/dev/inv/forms">Forms</a>
+    
+        <a href="/dev/inv/grid">Grids</a>
+    
+        <a href="/dev/inv/icons">Icons</a>
+    
+        <a href="/dev/inv/media">Media</a>
+    
+        <a href="/dev/inv/messages">Messages</a>
+    
+        <a href="/dev/inv/nav">Navigation</a>
+    
+        <a href="/dev/inv/overlays">Overlays</a>
+    
+        <a href="/dev/inv/sliders">Sliders</a>
+    
+</div>
+    <div>
+        <div class="styles_example">
+          <div class="styles__example__display">
+            <div class="c_text">
+    <h1 class="c_header">Globals</h1>
+    <p>Styles found throughout the website.</p>
+</div>
+          </div>
+        </div>
+
+        
+            <div class="styles__example">
+                <div class="styles__example__title"><h2>Colors</h2></div>
+                <div class="styles__example__description"><p>The colors used throughout the website.</p></div>
+                <div class="styles__example__display" style="background-color: #FFFFFF;">
+                  <div class="styles__color_swatches">
+    {% set colors = [
+        { color: 'rgb(0,103,127)', variable: '$color_primary' },
+        { color: 'rgb(138,23,57)', variable: '$color_maroon' },
+        { color: 'rgb(126,221,211)', variable: '$color_light_teal' },
+        { color: 'rgb(213,0,50)', variable: '$color_red' },
+        { color: 'rgb(233,242,241)', variable: '$color_light_gray' },
+        { color: 'rgb(255, 255, 255)', variable: '$color_white_default' },
+        { color: 'rgb(51, 51, 51)', variable: '$color_black_default' },
+        { color: 'rgb(45, 176, 51)', variable: '$color_alert_success' },
+        { color: 'rgb(176, 25, 22)', variable: '$color_alert_error' },
+        { color: 'rgb(238, 199, 0)', variable: '$color_alert_warning' },
+    ] %}
+
+    {% for item in colors %}
+        <div class="styles__color_swatch" style="--style-color-swatch-color: {{ item.color }};">
+            <div class="styles__color_swatch__color"></div>
+            <div class="styles__color_swatch__variable">{{ item.variable }}</div>
+            <div class="styles__color_swatch__value">{{ item.color }}</div>
+        </div>
+    {% endfor %}
+</div>
+                </div>
+                <div class="styles__example__code styles__example__code--twig">
+                    {% verbatim %}<pre><code>&lt;div class=&#34;styles__color_swatches&#34;&gt;
+    {% set colors = [
+        { color: &#39;rgb(0,103,127)&#39;, variable: &#39;$color_primary&#39; },
+        { color: &#39;rgb(138,23,57)&#39;, variable: &#39;$color_maroon&#39; },
+        { color: &#39;rgb(126,221,211)&#39;, variable: &#39;$color_light_teal&#39; },
+        { color: &#39;rgb(213,0,50)&#39;, variable: &#39;$color_red&#39; },
+        { color: &#39;rgb(233,242,241)&#39;, variable: &#39;$color_light_gray&#39; },
+        { color: &#39;rgb(255, 255, 255)&#39;, variable: &#39;$color_white_default&#39; },
+        { color: &#39;rgb(51, 51, 51)&#39;, variable: &#39;$color_black_default&#39; },
+        { color: &#39;rgb(45, 176, 51)&#39;, variable: &#39;$color_alert_success&#39; },
+        { color: &#39;rgb(176, 25, 22)&#39;, variable: &#39;$color_alert_error&#39; },
+        { color: &#39;rgb(238, 199, 0)&#39;, variable: &#39;$color_alert_warning&#39; },
+    ] %}
+
+    {% for item in colors %}
+        &lt;div class=&#34;styles__color_swatch&#34; style=&#34;--style-color-swatch-color: {{ item.color }};&#34;&gt;
+            &lt;div class=&#34;styles__color_swatch__color&#34;&gt;&lt;/div&gt;
+            &lt;div class=&#34;styles__color_swatch__variable&#34;&gt;{{ item.variable }}&lt;/div&gt;
+            &lt;div class=&#34;styles__color_swatch__value&#34;&gt;{{ item.color }}&lt;/div&gt;
+        &lt;/div&gt;
+    {% endfor %}
+&lt;/div&gt;</code></pre>{% endverbatim %}
+                </div>
+            </div>
+        
+            <div class="styles__example">
+                <div class="styles__example__title"><h2>Page Header</h2></div>
+                <div class="styles__example__description"><p></p></div>
+                <div class="styles__example__display" style="background-color: #FFFFFF;">
+                  <h1 class="c_header">Page<br>Header</h1>
+                </div>
+                <div class="styles__example__code">
+                    <pre><code v-pre>&lt;h1 class=&#34;c_header&#34;&gt;Page&lt;br&gt;Header&lt;/h1&gt;</code></pre>
+                </div>
+            </div>
+        
+            <div class="styles__example">
+                <div class="styles__example__title"><h2>Page Section Header</h2></div>
+                <div class="styles__example__description"><p></p></div>
+                <div class="styles__example__display" style="background-color: #FFFFFF;">
+                  <h2 class="c_section_header">Page Section Header</h2>
+                </div>
+                <div class="styles__example__code">
+                    <pre><code v-pre>&lt;h2 class=&#34;c_section_header&#34;&gt;Page Section Header&lt;/h2&gt;</code></pre>
+                </div>
+            </div>
+        
+            <div class="styles__example">
+                <div class="styles__example__title"><h2>Page Section Subheader</h2></div>
+                <div class="styles__example__description"><p></p></div>
+                <div class="styles__example__display" style="background-color: #FFFFFF;">
+                  <h2 class="c_section_subheader">Page Section Subheader</h2>
+                </div>
+                <div class="styles__example__code">
+                    <pre><code v-pre>&lt;h2 class=&#34;c_section_subheader&#34;&gt;Page Section Subheader&lt;/h2&gt;</code></pre>
+                </div>
+            </div>
+        
+            <div class="styles__example">
+                <div class="styles__example__title"><h2>General Text Styles</h2></div>
+                <div class="styles__example__description"><p></p></div>
+                <div class="styles__example__display" style="background-color: #FFFFFF;">
+                  <h1 class="c_header">Page Header</h1>
+<div class="c_text">
+    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p>
+    <p>Excepteur sint occaecat cupidatat non <b>proident</b>, sunt in culpa qui <i>officia deserunt</i> mollit <i><b>anim</b></i> id <b><i>est laborum</i></b>.</p>
+    <ul>
+        <li>List item I</li>
+        <li>List item II</li>
+        <li>List item III</li>
+    </ul>
+</div>
+<h2 class="c_section_header">Section Header</h2>
+<h3 class="c_section_subheader">Section Subheader</h3>
+<div class="c_text">
+    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p>
+    <ol>
+        <li>List item I</li>
+        <li>List item II</li>
+        <li>List item III</li>
+    </ol>
+    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p>
+    <table>
+        <thead>
+        <tr>
+            <th scope="col">Ingredients</th>
+            <th scope="col">Serves 12</th>
+            <th scope="col">Serves 24</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td>Milk</td>
+            <td>1 quart</td>
+            <td>2 quart</td>
+        </tr>
+        <tr>
+            <td>Cinnamon Sticks</td>
+            <td>2</td>
+            <td>1</td>
+        </tr>
+        <!-- ... -->
+        </tbody>
+    </table>
+    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p>
+</div>
+                </div>
+                <div class="styles__example__code">
+                    <pre><code v-pre>&lt;h1 class=&#34;c_header&#34;&gt;Page Header&lt;/h1&gt;
+&lt;div class=&#34;c_text&#34;&gt;
+    &lt;p&gt;Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.&lt;/p&gt;
+    &lt;p&gt;Excepteur sint occaecat cupidatat non &lt;b&gt;proident&lt;/b&gt;, sunt in culpa qui &lt;i&gt;officia deserunt&lt;/i&gt; mollit &lt;i&gt;&lt;b&gt;anim&lt;/b&gt;&lt;/i&gt; id &lt;b&gt;&lt;i&gt;est laborum&lt;/i&gt;&lt;/b&gt;.&lt;/p&gt;
+    &lt;ul&gt;
+        &lt;li&gt;List item I&lt;/li&gt;
+        &lt;li&gt;List item II&lt;/li&gt;
+        &lt;li&gt;List item III&lt;/li&gt;
+    &lt;/ul&gt;
+&lt;/div&gt;
+&lt;h2 class=&#34;c_section_header&#34;&gt;Section Header&lt;/h2&gt;
+&lt;h3 class=&#34;c_section_subheader&#34;&gt;Section Subheader&lt;/h3&gt;
+&lt;div class=&#34;c_text&#34;&gt;
+    &lt;p&gt;Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.&lt;/p&gt;
+    &lt;ol&gt;
+        &lt;li&gt;List item I&lt;/li&gt;
+        &lt;li&gt;List item II&lt;/li&gt;
+        &lt;li&gt;List item III&lt;/li&gt;
+    &lt;/ol&gt;
+    &lt;p&gt;Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.&lt;/p&gt;
+    &lt;table&gt;
+        &lt;thead&gt;
+        &lt;tr&gt;
+            &lt;th scope=&#34;col&#34;&gt;Ingredients&lt;/th&gt;
+            &lt;th scope=&#34;col&#34;&gt;Serves 12&lt;/th&gt;
+            &lt;th scope=&#34;col&#34;&gt;Serves 24&lt;/th&gt;
+        &lt;/tr&gt;
+        &lt;/thead&gt;
+        &lt;tbody&gt;
+        &lt;tr&gt;
+            &lt;td&gt;Milk&lt;/td&gt;
+            &lt;td&gt;1 quart&lt;/td&gt;
+            &lt;td&gt;2 quart&lt;/td&gt;
+        &lt;/tr&gt;
+        &lt;tr&gt;
+            &lt;td&gt;Cinnamon Sticks&lt;/td&gt;
+            &lt;td&gt;2&lt;/td&gt;
+            &lt;td&gt;1&lt;/td&gt;
+        &lt;/tr&gt;
+        &lt;!-- ... --&gt;
+        &lt;/tbody&gt;
+    &lt;/table&gt;
+    &lt;p&gt;Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.&lt;/p&gt;
+&lt;/div&gt;</code></pre>
+                </div>
+            </div>
+        
+    </div>
+</div>
+
+
+    {% set devStyleJs -%}
+        loadCSS("/css/dev-styles.css?v=1.0.371");
+    {%- endset %}
+    {% js devStyleJs %}

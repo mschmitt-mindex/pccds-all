@@ -1,0 +1,112 @@
+{# @var craft \craft\web\twig\variables\CraftVariable #}
+
+{% extends 'components/_component.twig' %}
+
+{% set inputBody = null %}
+
+{# Variables #}
+{% set format = format ?? false %}
+{% set inputAttributes = inputAttributes ?? null %}
+{% set inputClasses = inputClasses ?? null %}
+{% set label = label ?? null %}
+{% set name = name ?? '' %}
+{% set options = options ?? null %}
+{% set placeholder = placeholder ?? null %}
+{% set required = required ?? false %}
+{% set legend = legend ?? false %}
+{% set type = type %}
+{% set validate = validate ?? false %}
+{% set value = value ?? null %}
+{% set vue = vue ?? false %}
+{% set isFreeForm = isFreeForm ?? false %}
+
+{% set requiredHTML = "<span class='c_form_input__required_indicator'><span aria-hidden='true'>•</span> <span class='visually-hidden'>Required field</span></span></span>" %}
+
+{% set classes = (classes ?? false) ? classes ~ ' ' ~ rootClass ~ '--' ~ type : rootClass ~ '--' ~ type %}
+
+{% if type == 'submit' %}
+    {% set inputClasses = (inputClasses ~ ' c_button')|trim %}
+    {% set name = 'submit' %}
+    {% set value = 'Submit'|t %}
+{% endif %}
+
+{% if type == 'text' %}
+    {% if label ?? false and 'phone' in label|lower %}
+        {% set type = 'tel' %}
+    {% endif %}
+{% endif %}
+
+{% if vue or format or validate %}
+    {% set vue = true %}
+    {% set element = 'validated-form-input' %}
+    {% set attributes = attributes ?? '' %}
+
+    {% set attributes -%}
+        input-classes="{{ inputClasses }}"
+        input-id="{{ rootClass }}--{{ name }}"
+        input-name="{{ name }}"
+        input-type="{{ type }}"
+        input-placeholder="{{ placeholder }}"
+        {% if value ?? false %}input-value="{{ value }}"{% endif %}
+        label="{{ label|t }} {% if required ?? false %}{{ requiredHTML|escape }}{% endif %}"
+        {% if format ?? false %}
+            format="{{ format }}"
+        {% endif %}
+        {% if required ?? false %}
+            :required="true"
+        {% endif %}
+        {% if validate ?? false %}
+            validate="{{ validate }}"
+        {% endif %}
+        {{ attributes|raw }}
+    {%- endset %}
+{% else %}
+
+    {% set inputBody -%}
+        {% if type in ['email', 'number', 'tel', 'text', 'search', 'submit', 'url', 'hidden'] %}
+            <input{% if inputClasses ?? false %} class="{{ inputClasses }}"{% endif %} id="{% if isFreeForm %}form-input{% else %}{{ rootClass }}{% endif %}-{{ name }}" name="{{ name }}" type="{{ type }}" {% if placeholder ?? false %} placeholder="{{ placeholder }}"{% endif %}{% if value ?? false %} value="{{ value }}"{% endif %}{% if inputAttributes ?? false %} {{ inputAttributes|raw }}{% endif %}{% if required %} required{% endif %}>
+        {% elseif 'radio' in type or 'checkbox' in type and options ?? false %}
+            {% if 'radio' in type %}
+                {% set type = 'radio' %}
+            {% elseif 'checkbox' in type %}
+                {% set type = 'checkbox' %}
+            {% endif %}
+            <fieldset>
+                {% if legend %}<legend>{{ legend }}</legend>{% endif %}
+                {% for option in options %}
+                    {% if option.label ?? false and option.value ?? false %}
+                        <div>
+                            <input{% if inputClasses ?? false %} class="{{ inputClasses }}"{% endif %} id="{% if isFreeForm %}form-input{% else %}{{ rootClass }}{% endif %}-{{ name }}-{{ option.label|kebab }}"  name="{{ name }}{% if type == 'checkbox' %}[]{% endif %}" type="{{ type }}" {% if option.value ?? false %} value="{{ option.value }}"{% endif %}{% if inputAttributes ?? false %} {{ inputAttributes|raw }}{% endif %}{% if required %} required{% endif %} {% if option.checked ?? false %} checked{% endif %}>
+                            <label{% if name ?? false %} for="{% if isFreeForm %}form-input{% else %}{{ rootClass }}{% endif %}-{{ name }}-{{ option.label|kebab }}"{% endif %}>{{ option.label|t }}</label>
+                        </div>
+                    {% endif %}
+                {% endfor %}
+            </fieldset>
+        {% elseif type == 'textarea' %}
+            <textarea id="{% if isFreeForm %}form-input{% else %}{{ rootClass }}{% endif %}-{{ name }}" {% if inputClasses ?? false %} class="{{ inputClasses }}"{% endif %}{% if name ?? false %} name="{{ name }}"{% endif %} {% if placeholder ?? false %} placeholder="{{ placeholder }}"{% endif %}{% if inputAttributes ?? false %} {{ inputAttributes|raw }}{% endif %}{% if required %} required{% endif %}>{% if value ?? false %}{{ value }}{% endif %}</textarea>
+        {% elseif ('dynamic' in type or 'select' in type) and options ?? false %}
+            {% set multi = false %}
+            {% set dynamic = false %}
+            {% if 'multi' in type %}
+                {% set multi = true %}
+            {% endif %}
+            {% if 'dynamic' in type %}
+                {% set dynamic = true %}
+            {% endif %}
+            <div>
+                <select{% if inputClasses ?? false %} class="{{ inputClasses }}"{% endif %} id="{% if isFreeForm %}form-input{% else %}{{ rootClass }}{% endif %}-{{ name }}" name="{{ name }}{% if multi ?? false %}[]{% endif %}" type="{{ type }}" {% if placeholder ?? false %} placeholder="{{ placeholder }}"{% endif %}{% if inputAttributes ?? false %} {{ inputAttributes|raw }}{% endif %}{% if required %} required{% endif %} {% if multi ?? false %}multiple{% endif %}>
+                    {% for option in options %}
+                        {% if option.label ?? false and option.value|length %}
+                            <option value="{% if dynamic ?? false %}{{ loop.index0 }}{% else %}{{ option.value|t }}{% endif %}" {% if option.checked ?? false %}selected{% endif %}>{{ option.label }}</option>
+                        {% endif %}
+                    {% endfor %}
+                </select>
+            </div>
+        {% endif %}
+    {%- endset %}
+{% endif %}
+
+{% block content -%}
+    {% if label ?? false %}<label{% if name ?? false %} for="{% if isFreeForm %}form-input{% else %}{{ rootClass }}{% endif %}-{{ name }}"{% endif %}>{{ label|t }}{% if required ?? false %}{{ requiredHTML|raw }}{% endif %}</label>{% endif %}
+    {{ inputBody ?? null }}
+{%- endblock %}

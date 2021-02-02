@@ -1,0 +1,132 @@
+.c_table {
+  display: block;
+  width: 100%;
+  margin-bottom: pxConversion(48, rem);
+  @include mq(600px) {
+    display: table;
+  }
+  thead {
+    display: none;
+    @include mq(600px) {
+      display: table-header-group;
+    }
+    tr {
+      background: $color_primary;
+      color: $color_white_default;
+    }
+  }
+  tbody {
+    display: block;
+    @include mq(600px) {
+      display: table-row-group;
+    }
+    tr {
+      &:nth-child(even) {
+        td {
+          border-bottom: 1px solid $color_light_blue_gray;
+          @include mq(600px) {
+            border: 0;
+          }
+          &:last-of-type {
+            border: 0;
+          }
+        }
+      }
+      &:nth-child(odd) {
+        background: $color_light_blue_gray;
+        td {
+          border-bottom: 1px solid $color_white_default;
+          @include mq(600px) {
+            border: 0;
+          }
+          &:last-of-type {
+            border: 0;
+          }
+        }
+      }
+    }
+  }
+  tr {
+    display: block;
+    margin-bottom: 2rem;
+    @include mq(600px) {
+      margin-bottom: 0;
+      display: table-row;
+    }
+  }
+  & th,
+  & td {
+    width: 100%;
+    display: flex;
+    flex-flow: row nowrap;
+    align-items: center;
+    text-align: left;
+    vertical-align: top;
+    padding: 0;
+    padding-right: pxConversion(20, rem);
+    @include mq(600px) {
+      width: 33.33%;
+      display: table-cell;
+      padding: pxConversion(5, rem) pxConversion(10, rem);
+    }
+    div {
+      flex: 0 1 70%;
+      @include mq-max(600px) {
+        text-align: center;
+      }
+    }
+    &:first-of-type {
+      padding-left: 0;
+      padding: 0;
+      padding-right: pxConversion(20, rem);
+      @include mq(600px) {
+        padding: pxConversion(5, rem) pxConversion(10, rem);
+        padding-left: pxConversion(30, rem);
+      }
+    }
+    &:last-of-type {
+      padding: 0;
+      padding-right: pxConversion(20, rem);
+      @include mq(600px) {
+        padding: pxConversion(5, rem) pxConversion(10, rem);
+        padding-right: pxConversion(30, rem);
+      }
+    }
+    &:before {
+      content: attr(data-header);
+      display: inline-block;
+      font-weight: bold;
+      color: $color_primary;
+      text-align: left;
+      width: 160px;
+      padding: pxConversion(10, rem) pxConversion(20, rem) pxConversion(10, rem) pxConversion(20, rem);
+      margin-right: pxConversion(10, rem);
+      background: $color_primary;
+      color: $color_white_default;
+      @include mq(600px) {
+        display: none;
+        content: '';
+      }
+    }
+  }
+  & td[align='center'] {
+    text-align: center;
+    vertical-align: middle;
+    div {
+      text-align: center;
+      vertical-align: middle;
+    }
+  }
+}
+
+.check {
+  color: $color_primary;
+  font-size: pxConversion(30, rem);
+  font-weight: bold;
+}
+
+.x {
+  color: $color_red;
+  font-size: pxConversion(30, rem);
+  font-weight: bold;
+}

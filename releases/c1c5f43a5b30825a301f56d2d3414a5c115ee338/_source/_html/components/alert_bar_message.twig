@@ -1,0 +1,26 @@
+{# @var craft \craft\web\twig\variables\CraftVariable #}
+
+{% extends 'components/_component.twig' %}
+
+{% set body = body ?? null %}
+{% set summary = summary ?? null %}
+{% set link = link ?? [] %}
+
+{% if body ?? false %}
+    {% set id = 'alert-' ~ summary|kebab %}
+    {% set contentId = id ~ '-content' %}
+    {% set attrs = attrs|merge({ id: id ?? null} ) %}
+{% endif %}
+
+{% block content -%}
+    {% if body ?? false %}
+        <alert-bar
+            v-cloak
+            selector-id="{{- id -}}"
+            content-id="#{{- contentId -}}"
+            summary="{{- summary -}}"
+        >
+            <slot>{{ body }}</slot>
+        </alert-bar>
+    {% endif %}
+{%- endblock %}

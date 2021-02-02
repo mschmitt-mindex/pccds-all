@@ -1,0 +1,17 @@
+<div id="title_and_breadcrumbs" class="title_and_breadcrumbs">
+    <div class="inner_wrapper">
+        <h1 class="c_section_subheader">{{ entry_title }}</h1>
+        {% if entry_id ?? false %}
+            {% if craft.entries.section('menu').relatedTo(entry_id).one() ?? false  %}
+                {% set menuItem = craft.entries.section('menu').relatedTo(entry_id).one() %}
+                <ul class="breadcrumbs">
+                    {% if menuItem.parent() ?? false %}
+                        {% if menuItem.parent().customLink|length or menuItem.linkToAnEntry.one() ?? false %}
+                            <li><a href="{% if menuItem.parent().customLink|length %}{{ menuItem.parent().customLink }}{% else %}{{ menuItem.parent().linkToAnEntry.one().url }}{% endif %}">{{ menuItem.parent().title }}<span class="breadcrumbs_arrow" aria-hidden="true">&nbsp;>&nbsp;</span></a></li>
+                        {% endif %}
+                    {% endif %}
+                </ul>
+            {% endif %}
+        {% endif %}
+    </div>
+</div>

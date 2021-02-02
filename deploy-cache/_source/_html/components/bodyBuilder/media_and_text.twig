@@ -1,0 +1,35 @@
+{% if block.youtubeId ?? false or block.image.one() ?? false or block.text ?? false %}
+    <div class="body__media_and_text">
+        {% if block.youtubeId ?? false or block.image.one() ?? false %}
+            <div class="body__media_and_text__media {% if block.mediaPosition.value == 'right' %}body__media_and_text__media--right{% endif %}">
+                {% if block.youtubeId ?? false %}
+                    {% import 'macros/component.twig' as component %}
+                    {% set options = {
+                        source: 'youtube',
+                        videoId: block.youtubeId,
+                    } %}
+                    {{ component.c('video', options) }}
+                {% elseif block.image.one() ?? false %}
+                    {% import 'macros/component.twig' as component %}
+                    {% set options = {
+                        image: block.image.one(),
+                        alt: block.image.one().altText ?? '',
+                        lazyLoad: false,
+                        imager: {
+                            transforms: [
+                                { width: 1200, jpegQuality: 80 },
+                                { width: 600, jpegQuality: 80 },
+                            ]
+                        }
+                    } %}
+                    {{ component.c('image', options) }}
+                {% endif %}
+            </div>
+        {% endif %}
+        {% if block.text ?? false %}
+            <div class="body__media_and_text__text {% if block.mediaPosition.value == 'right' %}body__media_and_text__text--left{% endif %} {% if not block.youtubeId|length and not block.image.one()|length %}body__media_and_text__text--full{% endif %}">
+                {{ block.text }}
+            </div>
+        {% endif %}
+    </div>
+{% endif %}

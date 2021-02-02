@@ -1,0 +1,147 @@
+{# @var craft \craft\web\twig\variables\CraftVariable #}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="styles">
+    <div class="styles__menu">
+    
+        <a href="/dev/inv/index">Style Inventory</a>
+    
+        <a href="/dev/inv/globals">Globals</a>
+    
+        <a class="active" href="/dev/inv/animations"><span class="styles__menu__active_spacer"></span>Animations<span class="styles__menu__active_indicator"></span></a>
+    
+        <a href="/dev/inv/buttons">Buttons</a>
+    
+        <a href="/dev/inv/forms">Forms</a>
+    
+        <a href="/dev/inv/grid">Grids</a>
+    
+        <a href="/dev/inv/icons">Icons</a>
+    
+        <a href="/dev/inv/media">Media</a>
+    
+        <a href="/dev/inv/messages">Messages</a>
+    
+        <a href="/dev/inv/nav">Navigation</a>
+    
+        <a href="/dev/inv/overlays">Overlays</a>
+    
+        <a href="/dev/inv/sliders">Sliders</a>
+    
+</div>
+    <div>
+        
+
+        
+            <div class="styles__example">
+                <div class="styles__example__title"><h2>Rollover Pop Up</h2></div>
+                <div class="styles__example__description"><p>Simple roll-over animations.</p></div>
+                <div class="styles__example__display" style="background-color: #FFFFFF;">
+                  <div class="styles__box_wrapper">
+  <div class="styles__box styles__box--flex c_animate c_animate--rollover--pop--up">Roll over me.</div>
+  <div class="styles__box styles__box--flex c_animate c_animate--rollover--pop--down">Roll over me.</div>
+  <div class="styles__box styles__box--flex c_animate c_animate--rollover--pop--forward">Roll over me.</div>
+</div>
+                </div>
+                <div class="styles__example__code">
+                    <pre><code v-pre>&lt;div class=&#34;c_animate c_animate--rollover--pop--up&#34;&gt;Roll over me.&lt;/div&gt;
+&lt;div class=&#34;c_animate c_animate--rollover--pop--down&#34;&gt;Roll over me.&lt;/div&gt;
+&lt;div class=&#34;c_animate c_animate--rollover--pop--forward&#34;&gt;Roll over me.&lt;/div&gt;</code></pre>
+                </div>
+            </div>
+        
+            <div class="styles__example">
+                <div class="styles__example__title"><h2>Rollover Scale</h2></div>
+                <div class="styles__example__description"><p>Roll over to zoom in on an image. Content placed in the `foreground` will remain static, where content in the background will scale with the background image.</p></div>
+                <div class="styles__example__display" style="background-color: #FFFFFF;">
+                  <div class="styles__box_wrapper">
+  <div class="styles__box c_animate c_animate--rollover--scale">
+    <div class="c_animate c_animate--rollover--scale__background styles__box--flex" style="background-size: cover;" data-lazy-load data-bg-array='{ "class": "image_1", "css": [{ "url": "/img/FPO.jpg" },{ "retina": true, "url": "/img/FPO@2x.jpg" }] }'>Roll over me.</div>
+  </div>
+  <div class="styles__box c_animate c_animate--rollover--scale">
+    <div class="c_animate c_animate--rollover--scale__background" style="background-size: cover;" data-lazy-load data-bg-array='{ "class": "image_1", "css": [{ "url": "/img/FPO.jpg" },{ "retina": true, "url": "/img/FPO@2x.jpg" }] }'></div>
+    <div class="c_animate c_animate--rollover--scale__foreground styles__box--flex">Roll over me.</div>
+  </div>
+</div>
+                </div>
+                <div class="styles__example__code">
+                    <pre><code v-pre>&lt;div class=&#34;c_animate c_animate--rollover--scale&#34;&gt;
+  &lt;div class=&#34;c_animate c_animate--rollover--scale__background&#34; data-lazy-load data-bg-array=&#39;{ &#34;class&#34;: &#34;image_1&#34;, &#34;css&#34;: [{ &#34;url&#34;: &#34;/img/FPO.jpg&#34; },{ &#34;retina&#34;: true, &#34;url&#34;: &#34;/img/FPO@2x.jpg&#34; }] }&#39;&gt;Roll over me.&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&#34;c_animate c_animate--rollover--scale&#34;&gt;
+  &lt;div class=&#34;c_animate c_animate--rollover--scale__background&#34; data-lazy-load data-bg-array=&#39;{ &#34;class&#34;: &#34;image_1&#34;, &#34;css&#34;: [{ &#34;url&#34;: &#34;/img/FPO.jpg&#34; },{ &#34;retina&#34;: true, &#34;url&#34;: &#34;/img/FPO@2x.jpg&#34; }] }&#39;&gt;&lt;/div&gt;
+  &lt;div class=&#34;c_animate c_animate--rollover--scale__foreground&#34;&gt;Roll over me.&lt;/div&gt;
+&lt;/div&gt;</code></pre>
+                </div>
+            </div>
+        
+            <div class="styles__example">
+                <div class="styles__example__title"><h2>Push in on Click</h2></div>
+                <div class="styles__example__description"><p>Used to show the action of a button being pushed.</p></div>
+                <div class="styles__example__display" style="background-color: #FFFFFF;">
+                  <div class="styles__box_wrapper">
+  <div class="styles__box styles__box--flex animate c_animate c_animate--click--push_in">Click me.</div>
+</div>
+                </div>
+                <div class="styles__example__code">
+                    <pre><code v-pre>&lt;div class=&#34;animate c_animate c_animate--click--push_in&#34;&gt;Click me.&lt;/div&gt;</code></pre>
+                </div>
+            </div>
+        
+            <div class="styles__example">
+                <div class="styles__example__title"><h2>Fade on Scroll</h2></div>
+                <div class="styles__example__description"><p>Animated page elements in and out when the user scrolls down to them. Note the optional `data-lazy-animate-offset` attribute is used here, but it's not required.</p></div>
+                <div class="styles__example__display" style="background-color: #FFFFFF;">
+                  <div class="styles__box_wrapper">
+  <div class="styles__box styles__box--flex" data-lazy-animate="introduceElement" data-lazy-animate-args='{ "effect": "fade-in", "delay": [0.1, 0.9] }' :style="{ opacity: 0 }" data-lazy-animate-offset="-300" v-cloak>Content</div>
+  <div class="styles__box styles__box--flex" data-lazy-animate="introduceElement" data-lazy-animate-args='{ "effect": "fade-out", "delay": [0.1, 0.9] }' data-lazy-animate-offset="-500" v-cloak>Content</div>
+</div>
+                </div>
+                <div class="styles__example__code">
+                    <pre><code v-pre>&lt;div data-lazy-animate=&#34;introduceElement&#34; data-lazy-animate-args=&#39;{ &#34;effect&#34;: &#34;fade-in&#34; }&#39; :style=&#34;{ opacity: 0 }&#34; data-lazy-animate-offset=&#34;-300&#34; v-cloak&gt;Content&lt;/div&gt;
+&lt;div data-lazy-animate=&#34;introduceElement&#34; data-lazy-animate-args=&#39;{ &#34;effect&#34;: &#34;fade-out&#34; }&#39; data-lazy-animate-offset=&#34;-500&#34;&gt;Content&lt;/div&gt;</code></pre>
+                </div>
+            </div>
+        
+            <div class="styles__example">
+                <div class="styles__example__title"><h2>Slide in on Scroll</h2></div>
+                <div class="styles__example__description"><p>Animated in page elements when the user scrolls down to them.</p></div>
+                <div class="styles__example__display" style="background-color: #FFFFFF;">
+                  <div class="styles__box_wrapper">
+  <div class="styles__box styles__box--flex" data-lazy-animate="introduceElement" data-lazy-animate-args='{ "effect": "slide-in", "delay": [0.1, 0.9], "x": -100 }' :style="{ opacity: 0 }" v-cloak>Content</div>
+  <div class="styles__box styles__box--flex" data-lazy-animate="introduceElement" data-lazy-animate-args='{ "effect": "slide-in", "delay": [0.1, 0.9], "y": 100 }' :style="{ opacity: 0 }" v-cloak>Content</div>
+  <div class="styles__box styles__box--flex" data-lazy-animate="introduceElement" data-lazy-animate-args='{ "effect": "slide-in", "delay": [0.1, 0.9], "x": 100 }' :style="{ opacity: 0 }" v-cloak>Content</div>
+  <div class="styles__box styles__box--flex" data-lazy-animate="introduceElement" data-lazy-animate-args='{ "effect": "slide-in", "delay": [0.1, 0.9], "y": -100 }' :style="{ opacity: 0 }" v-cloak>Content</div>
+</div>
+                </div>
+                <div class="styles__example__code">
+                    <pre><code v-pre>
+&lt;div data-lazy-animate=&#34;introduceElement&#34; data-lazy-animate-args=&#39;{ &#34;effect&#34;: &#34;slide-in&#34;, &#34;delay&#34;: [0.1, 0.9], &#34;x&#34;: -100 }&#39; :style=&#34;{ opacity: 0 }&#34; v-cloak&gt;Content&lt;/div&gt;
+&lt;div data-lazy-animate=&#34;introduceElement&#34; data-lazy-animate-args=&#39;{ &#34;effect&#34;: &#34;slide-in&#34;, &#34;delay&#34;: [0.1, 0.9], &#34;y&#34;: 100 }&#39; :style=&#34;{ opacity: 0 }&#34; v-cloak&gt;Content&lt;/div&gt;
+&lt;div data-lazy-animate=&#34;introduceElement&#34; data-lazy-animate-args=&#39;{ &#34;effect&#34;: &#34;slide-in&#34;, &#34;delay&#34;: [0.1, 0.9], &#34;x&#34;: 100 }&#39; :style=&#34;{ opacity: 0 }&#34; v-cloak&gt;Content&lt;/div&gt;
+&lt;div data-lazy-animate=&#34;introduceElement&#34; data-lazy-animate-args=&#39;{ &#34;effect&#34;: &#34;slide-in&#34;, &#34;delay&#34;: [0.1, 0.9], &#34;y&#34;: -100 }&#39; :style=&#34;{ opacity: 0 }&#34; v-cloak&gt;Content&lt;/div&gt;</code></pre>
+                </div>
+            </div>
+        
+    </div>
+</div>
+
+
+    {% set devStyleJs -%}
+        loadCSS("/css/dev-styles.css?v=1.0.375");
+    {%- endset %}
+    {% js devStyleJs %}

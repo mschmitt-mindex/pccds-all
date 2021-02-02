@@ -1,0 +1,171 @@
+{# @var craft \craft\web\twig\variables\CraftVariable #}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="styles">
+    <div class="styles__menu">
+    
+        <a href="/dev/inv/index">Style Inventory</a>
+    
+        <a href="/dev/inv/globals">Globals</a>
+    
+        <a href="/dev/inv/animations">Animations</a>
+    
+        <a href="/dev/inv/buttons">Buttons</a>
+    
+        <a href="/dev/inv/forms">Forms</a>
+    
+        <a href="/dev/inv/grid">Grids</a>
+    
+        <a href="/dev/inv/icons">Icons</a>
+    
+        <a href="/dev/inv/media">Media</a>
+    
+        <a class="active" href="/dev/inv/messages"><span class="styles__menu__active_spacer"></span>Messages<span class="styles__menu__active_indicator"></span></a>
+    
+        <a href="/dev/inv/nav">Navigation</a>
+    
+        <a href="/dev/inv/overlays">Overlays</a>
+    
+        <a href="/dev/inv/sliders">Sliders</a>
+    
+</div>
+    <div>
+        
+
+        
+            <div class="styles__example">
+                <div class="styles__example__title"><h2>Alert Bar</h2></div>
+                <div class="styles__example__description"><p>Used to display a timely message to users.</p></div>
+                <div class="styles__example__display" style="background-color: #FFFFFF;">
+                  {% import 'macros/component.twig' as component %}
+{% set body %}
+    <div class="c_text">
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+        <p>Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+    </div>
+{% endset %}
+{{ component.c('alert_bar', { body: body, summary: 'There is an outage in our production.' }) }}
+                </div>
+                <div class="styles__example__code styles__example__code--twig">
+                    {% verbatim %}<pre><code>{% import &#39;macros/component.twig&#39; as component %}
+{% set body %}
+    &lt;div class=&#34;c_text&#34;&gt;
+        &lt;p&gt;Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.&lt;/p&gt;
+        &lt;p&gt;Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.&lt;/p&gt;
+    &lt;/div&gt;
+{% endset %}
+{{ component.c(&#39;alert_bar&#39;, { body: body, summary: &#39;There is an outage in our production.&#39; }) }}</code></pre>{% endverbatim %}
+                </div>
+                <table class="styles__example__table">
+                    <thead>
+                        <td><b>Name</b></td>
+                        <td><b>Type</b></td>
+                        <td><b>Default</b></td>
+                        <td><b>Description</b></td>
+                    </thead>
+                    <tbody>
+                        
+                            <tr>
+                                <td><b>body</b></td>
+                                <td>string</td>
+                                <td><i>&#39;&#39;</i></td>
+                                <td>URL of audio file.</td>
+                            </tr>
+                        
+                            <tr>
+                                <td><b>summary</b> (required)</td>
+                                <td>string</td>
+                                <td><i>&#39;&#39;</i></td>
+                                <td>URL of audio file.</td>
+                            </tr>
+                        
+                    </tbody>
+                </table>
+                
+            </div>
+        
+            <div class="styles__example">
+                <div class="styles__example__title"><h2>Success Alert Message</h2></div>
+                <div class="styles__example__description"><p>Default style for a success message—letting the user know the intended action occurred.</p></div>
+                <div class="styles__example__display" style="background-color: #FFFFFF;">
+                  {% import 'macros/component.twig' as component %}
+{{ component.c('message', { message: 'Congrats! This was successful!' }) }}
+                </div>
+                <div class="styles__example__code styles__example__code--twig">
+                    {% verbatim %}<pre><code>{% import &#39;macros/component.twig&#39; as component %}
+{{ component.c(&#39;message&#39;, { message: &#39;Congrats! This was successful!&#39; }) }}</code></pre>{% endverbatim %}
+                </div>
+                <table class="styles__example__table">
+                    <thead>
+                        <td><b>Name</b></td>
+                        <td><b>Type</b></td>
+                        <td><b>Default</b></td>
+                        <td><b>Description</b></td>
+                    </thead>
+                    <tbody>
+                        
+                            <tr>
+                                <td><b>level</b></td>
+                                <td>string</td>
+                                <td><i>&#39;success&#39;</i></td>
+                                <td>Indicates style of message by adding modifiers. Accepts: success, warning, and error.</td>
+                            </tr>
+                        
+                            <tr>
+                                <td><b>message</b> (required)</td>
+                                <td>string</td>
+                                <td><i>null</i></td>
+                                <td>Content of the message.</td>
+                            </tr>
+                        
+                    </tbody>
+                </table>
+                
+            </div>
+        
+            <div class="styles__example">
+                <div class="styles__example__title"><h2>Error Alert Message</h2></div>
+                <div class="styles__example__description"><p>Default style for an error message—letting the user know the intended action failed, providing them with instructions on how to proceed.</p></div>
+                <div class="styles__example__display" style="background-color: #FFFFFF;">
+                  {% import 'macros/component.twig' as component %}
+{{ component.c('message', { level: 'error', message: 'I&rsquo;m sorry, Dave. I&rsquo;m afraid I can&rsquo;t do that.' }) }}
+                </div>
+                <div class="styles__example__code styles__example__code--twig">
+                    {% verbatim %}<pre><code>{% import &#39;macros/component.twig&#39; as component %}
+{{ component.c(&#39;message&#39;, { level: &#39;error&#39;, message: &#39;I&amp;rsquo;m sorry, Dave. I&amp;rsquo;m afraid I can&amp;rsquo;t do that.&#39; }) }}</code></pre>{% endverbatim %}
+                </div>
+            </div>
+        
+            <div class="styles__example">
+                <div class="styles__example__title"><h2>Warning Alert Message</h2></div>
+                <div class="styles__example__description"><p>Default style for an warning message—should be used when an intended action can succeed, but it is not optimized.</p></div>
+                <div class="styles__example__display" style="background-color: #FFFFFF;">
+                  {% import 'macros/component.twig' as component %}
+{{ component.c('message', { level: 'warning', message: 'Houston we have a problem ...' }) }}
+                </div>
+                <div class="styles__example__code styles__example__code--twig">
+                    {% verbatim %}<pre><code>{% import &#39;macros/component.twig&#39; as component %}
+{{ component.c(&#39;message&#39;, { level: &#39;warning&#39;, message: &#39;Houston we have a problem ...&#39; }) }}</code></pre>{% endverbatim %}
+                </div>
+            </div>
+        
+    </div>
+</div>
+
+
+    {% set devStyleJs -%}
+        loadCSS("/css/dev-styles.css?v=1.0.379");
+    {%- endset %}
+    {% js devStyleJs %}

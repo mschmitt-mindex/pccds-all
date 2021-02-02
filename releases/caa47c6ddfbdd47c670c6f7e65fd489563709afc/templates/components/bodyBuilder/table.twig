@@ -1,0 +1,20 @@
+{% if block.table.columns|length or block.table.rows|length %}
+    <table class="c_table">
+        <thead>
+            <tr>
+                {% for col in block.table.columns %}
+                    <th {% if col.align ?? false %}style="text-align:{{ col.align }};"{% endif %} {% if col.width ?? false %}width="{{ col.width }}"{% endif %} scope="col">{{ col.heading }}</th>
+                {% endfor %}
+            </tr>
+        </thead>
+        <tbody>
+            {% for row in block.table.rows %}
+                <tr scope="row">
+                    {% for cell in row %}
+                        <td {% if block.table.columns[loop.index0].align ?? false %}style="text-align:{{ block.table.columns[loop.index0].align }};"{% endif %} data-header="{{ block.table.columns[loop.index0].heading }}"><div><span class="visually-hidden">{{ block.table.columns[loop.index0].heading }}</span>{{ cell|replace(':check:','<span class="check">&#x2713;</span>')|replace(':x:','<span class="x">&#10005;</span>')|raw }}</div></td>
+                    {% endfor %}
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endif %}

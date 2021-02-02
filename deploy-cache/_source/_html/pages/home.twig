@@ -1,0 +1,250 @@
+{# @var craft \craft\web\twig\variables\CraftVariable #}
+{# @var entry \craft\elements\Entry #}
+
+{% extends "_layout.twig" %}
+
+{% import 'macros/component.twig' as component %}
+
+{% set pageSection = 'home' %}
+{% set hideTitle = entry.hideTitle %}
+
+{% block critcss %}
+    <style>{{ source('_critcss/home.css', ignore_missing = true) }}</style>
+    <style>{{ source('_critcss/hero.css', ignore_missing = true) }}</style>
+    <style>{{ source('_critcss/swiper.css', ignore_missing = true) }}</style>
+    <style>{{ source('_critcss/service-cards.css', ignore_missing = true) }}</style>
+{% endblock %}
+
+
+{% block content %}
+
+    <div class="{% if entry.featuredContent ?? false and entry.showFeaturedContent ?? false %}bg--light_gray{% endif %}">
+
+    {% set hero_vars = {
+        image: entry.heroImage.all() ?? false,
+        imagePadding: entry.heroMobileImageSize ?? false,
+        curvedDesign: entry.curvedDesign ?? false,
+        legacyFullWidth: entry.legacyFullWidth ?? false,
+        style: entry.heroStyleOptions ?? false,
+        smallHeader: entry.heroSmallHeader ?? false,
+        header: entry.heroHeader ?? false,
+        text: entry.heroText ?? false,
+        ctaLink: entry.heroCallToActionLink.one().url ?? false,
+        ctaText: entry.heroCallToActionText ?? false,
+        ctaAriaLabel: entry.heroCallToActionAriaLabel ?? false
+    } %}
+
+    {% include 'partials/hero' with hero_vars %}
+
+{% if hideLegacyComponents is same as(false) %}
+    {% cache %}
+    {% if entry.featuredContent ?? false and entry.showFeaturedContent ?? false %}
+        <div class="featured">
+            {% if entry.featuredTitle ?? false %}<h3 class="featured__h3">{{ entry.featuredTitle }}</h3>{% endif %}
+            <div class="featured__content {% if not entry.featuredImage.one() ?? false and not entry.featuredYoutubeId ?? false %}featured__content--no_image{% endif %}">
+                {% if entry.featuredYoutubeId ?? false %}
+                    <div class="featured__content__media">
+                        {% import 'macros/component.twig' as component %}
+                        {% set options = {
+                            source: 'youtube',
+                            videoId: entry.featuredYoutubeId,
+                        } %}
+                        {{ component.c('video', options) }}
+                    </div>
+                {% elseif entry.featuredImage.one() ?? false %}
+                    {% import 'macros/component.twig' as component %}
+                    {% set options = {
+                        image: entry.featuredImage.one(),
+                        alt: entry.featuredImage.one().altText ?? '',
+                        lazyLoad: false,
+                        classes: 'featured__content__media',
+                        imager: {
+                            transforms: [
+                                { width: 600, jpegQuality: 80 },
+                                { width: 350, jpegQuality: 80 },
+                            ]
+                        }
+                    } %}
+                    {{ component.c('image', options) }}
+                {% endif %}
+                <div class="featured__content__content c_text">
+                    {{ entry.featuredContent }}
+                    {% if entry.featuredButtonLinkToAnEntry.one() ?? false or entry.featuredButtonCustomLink ?? false %}
+                        {% import 'macros/component.twig' as component %}
+                        {% set options = {
+                            svgIdPrefix: 'featured_content',
+                            label: entry.featuredButtonLabel|length ? entry.featuredButtonLabel : 'Learn More',
+                            target: entry.featuredButtonCustomLink|length ? '_blank' : false,
+                            url: entry.featuredButtonCustomLink|length ? entry.featuredButtonCustomLink : entry.featuredButtonLinkToAnEntry.one()|length ? entry.featuredButtonLinkToAnEntry.one().url : false,
+                        } %}
+                        {{ component.c('button', options) }}
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    {% endif %}
+    </div>
+
+    {# If People First Care Management #}
+{% if hideTitle is same as(false) %}
+    {% if (entry.introTitle ?? false and entry.introContent ?? false) or (entry.servicesTitle ?? false and entry.servicesContent ?? false) %}
+{% endif %}
+    <div class="inner_wrapper">
+        <div aria-hidden="true" class="prime_care_colored_icon">{{ svg('@basePath/icon/prime_care_logo_icon_color.svg') }}</div>
+        {% if entry.introTitle ?? false and entry.introContent ?? false %}
+        <div class="intro">
+            <h1 class="c_section_header c_section_header--center">{{ entry.introTitle }}</h1>
+            <div class="c_text">
+                {{ entry.introContent }}
+            </div>
+            {% if entry.servicesTitle ?? false and entry.servicesContent ?? false %}
+            <hr class="intro__divider"/>
+            {% endif %}
+        </div>
+        {% endif %}
+        {% if entry.servicesTitle ?? false and entry.servicesContent ?? false %}
+            <div class="services">
+                <h2 class="c_section_header c_section_header--center">{{ entry.servicesTitle }}</h2>
+                <div class="c_text">
+                    {{ entry.servicesContent }}
+                </div>
+                {% if entry.featuredServices|length %}
+                    <div class="services__list">
+                    {% for row in entry.featuredServices %}
+                        <div class="services__list__item">
+                            <div>
+                                <p>{{ row.service }}</p>
+                            </div>
+                        </div>
+                    {% endfor %}
+                    </div>
+                {% endif %}
+                {% if entry.linkToServicePage.one()|length %}
+                    {% import 'macros/component.twig' as component %}
+                    {% set options = {
+                        svgIdPrefix: 'services',
+                        label: entry.servicesButtonLabel|length ? entry.servicesButtonLabel : 'Learn More About Our Services'|upper,
+                        url: entry.linkToServicePage.one().url,
+                    } %}
+                    {{ component.c('button', options) }}
+                {% endif %}
+            </div>
+        {% endif %}
+    </div>
+    {% endif %}
+    {% if entry.serviceAreaTitle ?? false and entry.serviceAreaContent ?? false %}
+        <div class="service_area">
+            <div class="inner_wrapper">
+                <div class="service_area__content_contain {% if not entry.serviceAreaMap|length %}service_area__content_contain--full{% endif %}">
+                    <h3 class="c_section_subheader c_section_subheader--white">{{ entry.serviceAreaTitle }}</h3>
+                    <div class="c_text">
+                        {{ entry.serviceAreaContent }}
+                    </div>
+                    {% if entry.linkToOfficePage.one()|length %}
+                        {% import 'macros/component.twig' as component %}
+                        {% set options = {
+                            svgIdPrefix: 'office',
+                            label: entry.serviceAreaButtonLabel|length ? entry.serviceAreaButtonLabel : 'Find a Regional Office'|upper,
+                            classes: 'c_button--white',
+                            url: entry.linkToOfficePage.one().url,
+                        } %}
+                        {{ component.c('button', options) }}
+                    {% endif %}
+                </div>
+                {% if entry.serviceAreaMap.one()|length %}
+                <div class="service_area__image">
+                    {% import 'macros/component.twig' as component %}
+                    {% set options = {
+                        image: entry.serviceAreaMap.one(),
+                        alt: entry.serviceAreaMap.one().altText ?? '',
+                        lazyLoad: false,
+                        imager: {
+                            transforms: [
+                                { width: 1000, jpegQuality: 80 },
+                                { width: 500, jpegQuality: 80 },
+                            ]
+                        }
+                    } %}
+                    {{ component.c('image', options) }}
+                </div>
+            </div>
+            {% endif %}
+        </div>
+    {% endif %}
+    {% endcache %}
+    {% if entry.enableEvents ?? false %} {# &start_date.range_start=2018-02-01T13:00:00 #} {# &include_unavailable_events=false #}
+        {% set params = {
+            url: 'https://www.eventbriteapi.com/v3/organizers/15883966864/events/?token=' ~ getenv('CRAFTENV_EVENT_BRITE') ~ '&order_by=start_desc&include_unavailable_events=false',
+            type: 'json',
+            element: 'events',
+            cache: 60,
+        } %}
+
+        {% set feed = craft.feedme.feed(params)|slice(0,5) %}
+
+        {% if feed|length %}
+        <div class="events inner_wrapper">
+            <h4 class="c_section_subheader c_section_subheader--color--maroon">{{ 'Upcoming Events'|t|upper }}</h4>
+            <div {% if feed|length >= 5 %}class="events_no_button"{% endif %}>
+                {% for node in feed %}
+                    {# Your template code goes here #}
+                    {% set venueParams = {
+                        url: 'https://www.eventbriteapi.com/v3/venues/' ~ node.venue_id ~ '/?token=' ~ getenv('CRAFTENV_EVENT_BRITE'),
+                        type: 'json',
+                        cache: 60,
+                    } %}
+
+                    {% set venue = craft.feedme.feed(venueParams) %}
+
+                    {% if node.name.text ?? false and node.start.local ?? false %}
+                        <div class="events__event">
+                            <a href="{{ node.url }}" >
+                                <div>
+                                    <h5 class="garamond">{{ node.name.text }}</h5>
+                                    <p><span>{{ node.start.local|date('M j, Y') }}</span><span><span class="events__event__nbsp">&nbsp;&nbsp;|&nbsp;&nbsp;</span>{{ venue.address.localized_area_display }}</span></p>
+                                </div>
+                                    {% import 'macros/component.twig' as component %}
+                                    {% set options = {
+                                        svgIdPrefix: 'event',
+                                        label: 'View Event'|t,
+                                        target: '_blank',
+                                        classes: 'c_button--outline',
+                                        url: node.url,
+                                        elementOverride: 'span',
+                                    } %}
+                                    {{ component.c('button', options) }}
+
+                            </a>
+                        </div>
+                    {% endif %}
+                {% endfor %}
+            </div>
+            {# WHAT IS THE RIGHT URL FOR THE SEE ALL EVENTS BUTTON TO GO TO? #}
+
+            {#{% if feed|length >= 5 %}#}
+                {% import 'macros/component.twig' as component %}
+                {% set options = {
+                    svgIdPrefix: 'more_events',
+                    label: 'See More Events'|t,
+                    target: '_blank',
+                    url: craft.entries.section('events').one().url,
+                } %}
+                {{ component.c('button', options) }}
+            {#{% endif %}#}
+        </div>
+        {% endif %}
+    {% endif %}
+{% endif %}
+
+    {% include 'components/body_builder_home.twig' %}
+
+{% endblock %}
+
+{% block footer %}
+    {% cache %}
+        {% if entry.footerCallOut|length %}
+            {% include 'partials/footer_call_out' with {ctaEntry: entry.footerCallOut.one()} %}
+        {% endif %}
+        {{ parent() }}
+    {% endcache %}
+{% endblock %}

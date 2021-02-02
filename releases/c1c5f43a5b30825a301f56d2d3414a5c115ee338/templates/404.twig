@@ -1,0 +1,101 @@
+{# @var craft \craft\web\twig\variables\CraftVariable #}
+{# @var entry \craft\elements\Entry #}
+
+{#
+ # 404 template
+ # ------------
+ #
+ # This template is loaded whenever Craft cannot figure out how to
+ # respond to an incoming request. No setup is involved to get your
+ # 404 page working; you just need to call it 404.html and put it
+ # at the root of your craft/templates/ folder.
+ #
+ # You can also create 400.html, 403.html, 500.html, and 503.html
+ # templates if you’d like. If Craft can’t find an error template
+ # to match the error code, it will just use the one in
+ # craft/app/templates/ instead.
+ #
+ # See this page for more details on how Craft routes requests:
+ # http://buildwithcraft.com/docs/routing
+ #}
+
+{% set uri = craft.app.request.url|lower %}
+{% set redirectPath = null %}
+
+{% switch uri %}
+    {% case '/easy-to-enroll' %}
+        {% set redirectPath = '/enroll' %}
+    {% case '/medicaid-service-coordinators' %}
+        {% set redirectPath = '/your-care-manager' %}
+    {% case '/care-managers-faqs' %}
+        {% set redirectPath = '/faqs' %}
+    {% case '/who-we-are' %}
+        {% set redirectPath = '/our-organization' %}
+    {% case '/contact' %}
+        {% set redirectPath = '/contact-us' %}
+    {% case '/individual-and-family-engagement-coordinator' %}
+        {% set redirectPath = '/careers' %}
+    {% case '/regional-assistant-director-mohawk-valley-utica-area' %}
+        {% set redirectPath = '/jobs/regional-assistant-director-mohawk-valley-utica-area' %}
+    {% case '/care-manager-rochester' %}
+        {% set redirectPath = '/jobs/care-manager-rochester-area' %}
+    {% case '/care-manager' %}
+        {% set redirectPath = '/jobs/care-manager-finger-lakes-geneva-canandaigua-areas' %}
+    {% case '/care-manager-buffalo' %}
+        {% set redirectPath = '/jobs/care-manager-buffalo-area' %}
+    {% case '/enrollment-coordinator-binghamton' %}
+        {% set redirectPath = '/jobs/enrollment-coordinator-binghamton' %}
+    {% case '/enrollment-coordinator-buffalo' %}
+        {% set redirectPath = '/careers' %}
+    {% case '/enrollment-coordinator-finger-lakes-rochester' %}
+        {% set redirectPath = '/jobs/care-manager-finger-lakes-geneva-canandaigua-areas' %}
+    {% case '/care-manager-supervisor-binghamton' %}
+        {% set redirectPath = '/careers' %}
+    {% case '/s/primeCare-bifold.pdf' %}
+        {% set redirectPath = '/u/docs/PrimeCareBifold.pdf' %}
+    {% case '/s/spanishprimecare-bifold.pdf' %}
+        {% set redirectPath = '/u/docs/SPANISHPrimeCareBifold.pdf' %}
+    {% case '/s/opwdd_3-ind-fams-faqs.pdf' %}
+        {% set redirectPath = '/u/docs/OPWDD_3-IndFamsFAQs.pdf' %}
+    {% case '/s/opwdd_3-msc-faqs.pdf' %}
+        {% set redirectPath = '/u/docs/OPWDD_3-MSCFAQs.pdf' %}
+    {% case '/s/doh-faqs-for-hh.pdf' %}
+        {% set redirectPath = '/u/docs/DOHFAQsforHH.pdf' %}
+    {% case '/news/?author=53286f94e4b0c44d90adb88e' %}
+        {% set redirectPath = '/news' %}
+    {% case '/news/2017/8/17/test-post-title' %}
+        {% set redirectPath = '/news' %}
+    {% case '/news/?tag=Care+Coordination' %}
+        {% set redirectPath = '/news' %}
+    {% case '/news/?tag=Care+Coordination+Organization' %}
+        {% set redirectPath = '/news' %}
+    {% case '/news/?tag=Disabilities' %}
+        {% set redirectPath = '/news' %}
+    {% case '/news/?tag=Intellectual+and+Developmental+Disabilities' %}
+        {% set redirectPath = '/news' %}
+    {% case '/care-manager-supervisor-rochester' %}
+        {% set redirectPath = '/jobs/care-manager-rochester-area' %}
+{% endswitch %}
+
+{% if redirectPath ?? false %}
+    {% redirect redirectPath %}
+{% endif %}
+
+{% extends "pages/basic_page.twig" %}
+
+{% block content %}
+  {% include 'partials/title_and_breadcrumbs' with {entry_title: '404 - Page not found'} %}
+  <div class="content content--full inner_wrapper">
+    <article class="body">
+      <h2 class="c_section_header">We couldn't find the page you were looking for.</h2>
+      <div class="c_text">
+        <p> This is either because:</p>
+        <ul>
+          <li>There is an error in the URL entered into your web browser. Please check the URL and try again.</li>
+          <li>The page you are looking for has been moved or deleted.</li>
+        </ul>
+        <p>You can return to our homepage by <a href="/">clicking here</a>, or you can try searching for the content you are seeking by clicking here.</p>
+      </div>
+    </article>
+  </div>
+{% endblock %}

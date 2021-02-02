@@ -1,0 +1,62 @@
+{
+  "name": "<%- name %>",
+  "description": "Craft CMS",
+  "keywords": [
+    "craft",
+    "cms",
+    "craftcms",
+    "project"
+  ],
+  "license": "MIT",
+  "homepage": "https://craftcms.com/",
+  "type": "project",
+  "support": {
+    "email": "support@craftcms.com",
+    "issues": "https://github.com/craftcms/cms/issues",
+    "forum": "https://craftcms.stackexchange.com/",
+    "source": "https://github.com/craftcms/cms",
+    "docs": "https://craftcms.com/docs",
+    "rss": "https://craftcms.com/changelog.rss"
+  },
+  "require": {
+    "php": ">=7.0.0",
+    "craftcms/cms": "^3.0.1",
+    "vlucas/phpdotenv": "^2.4.0",
+    "nystudio107/craft-scripts": "^1.2.6",
+    "craftcms/redactor": "1.1.0",
+    "mmikkel/cp-field-inspect": "1.0.4",
+    "nystudio107/craft-fastcgicachebust": "1.0.7",
+    "nystudio107/craft-minify": "1.2.8",
+    "nystudio107/craft-typogrify": "1.1.9",
+    "nystudio107/craft-seomatic": "3.0.0-beta.21",
+    "verbb/image-resizer": "2.0.2",
+    "wbrowar/adminbar": "3.1.5",
+    "wbrowar/contentstats": "2.0.1",
+    "wbrowar/guide": "1.2.1"
+  },
+  "autoload": {
+    "psr-4": {
+      "modules\\": "modules/"
+    }
+  },
+  "config": {
+    "optimize-autoloader": true
+  },
+  "scripts": {
+    "post-root-package-install": [
+      "@php -r \"file_exists('.env') || copy('.env.example', '.env');\""
+    ],
+    "post-create-project-cmd": [
+      "@composer dump-autoload -o",
+      "@php craft setup/welcome"
+    ],
+    "post-update-cmd": [
+      "if [ -f ./scripts/.env.sh ] && [ ! -L ./vendor/nystudio107/craft-scripts/scripts/.env.sh ]; then cp -fp ./scripts/.env.sh ./vendor/nystudio107/craft-scripts/scripts/.env.sh; fi",
+      "if [ -f ./vendor/nystudio107/craft-scripts/scripts/.env.sh ]; then ./vendor/nystudio107/craft-scripts/scripts/clear_caches.sh; fi"
+    ],
+    "post-install-cmd": [
+      "if [ -f ./scripts/.env.sh ] && [ ! -L ./vendor/nystudio107/craft-scripts/scripts/.env.sh ]; then cp -fp ./scripts/.env.sh ./vendor/nystudio107/craft-scripts/scripts/.env.sh; fi",
+      "if [ -f ./vendor/nystudio107/craft-scripts/scripts/.env.sh ]; then ./vendor/nystudio107/craft-scripts/scripts/clear_caches.sh; fi"
+    ]
+  }
+}

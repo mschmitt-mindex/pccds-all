@@ -1,0 +1,70 @@
+.c_form {
+  $self: &;
+
+  @at-root #{$self}--flex {
+    display: flex;
+    flex-flow: row wrap;
+  }
+
+  input,
+  textarea,
+  select {
+    background-color: $color_offwhite;
+    border: 1px solid transparent;
+    padding: 10px;
+  }
+  textarea {
+    min-height: 96px;
+    @include mq(950px) {
+      min-height: 148px;
+    }
+  }
+  input[type='submit'] {
+    @include font('proxima_nova__medium');
+    @include buttons_default;
+    @extend .c_button.c_button--blue;
+  }
+
+  @at-root #{$self}--providers {
+    display: flex;
+    flex-flow: row wrap;
+    align-items: center;
+    padding-bottom: pxConversion(60, rem);
+
+    .c_form_input--select {
+      margin-right: pxConversion(25, rem);
+      margin-bottom: calculateRem(16);
+      @include mq(950px) {
+        margin-bottom: calculateRem(43);
+      }
+    }
+  }
+
+  @at-root #{$self}_input--radio input {
+    border: 0;
+    padding: 0;
+    border-radius: 0;
+  }
+
+  @at-root #{$self}_input label {
+    @include font-size(12, 17, 23, 26, 0.3, 0.42);
+    color: $color_greyish_brown;
+    display: inline-block;
+    margin-bottom: calculateRem(8);
+    @include mq(950px) {
+      margin-bottom: calculateRem(8);
+    }
+  }
+  @at-root #{$self}_input--radio {
+    @include radio_and_checkboxes;
+  }
+  @at-root #{$self}_input--radio_group {
+    @include radio_and_checkboxes;
+  }
+  @at-root #{$self}_input--checkbox {
+    @include radio_and_checkboxes;
+  }
+  @at-root #{$self}_input--checkbox_group {
+    @include radio_and_checkboxes;
+  }
+}

@@ -1,0 +1,31 @@
+.footer_call_out {
+  background: $color_dark_blue;
+  padding: calculateRem(75) calculateRem(25);
+  text-align: center;
+  @include mq(950px) {
+    padding: calculateRem(76) calculateRem(25) calculateRem(82);
+  }
+  .c_section_header {
+    // Mobile Font Size, Desktop Font Size, Mobile Line Height, Desktop Line Height, Mobile Letter Spacing, Desktop Letter Spacing
+    @include font-size(18, 25, 22, 16, 5.22, 6.67);
+    @include margin(small, bottom);
+    color: $color_white_default;
+  }
+  .c_text {
+    // Mobile Font Size, Desktop Font Size, Mobile Line Height, Desktop Line Height, Mobile Letter Spacing, Desktop Letter Spacing
+    @include font-size(12, 17, 23, 26, 0.3, 0.42);
+    @include margin(small, bottom);
+    color: $color_white_default;
+  }
+  .c_button {
+    @include margin(small, bottom);
+  }
+  &__icon {
+    margin: 0 auto;
+    width: calculateRem(25);
+    opacity: 0.49;
+    &--prime_care {
+      width: calculateRem(25);
+    }
+  }
+}

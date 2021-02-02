@@ -1,0 +1,110 @@
+@include critical-split('service-cards.css') {
+  .c_service_cards {
+    @include padding(small, sides, true);
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+
+    /* &.c_section {
+      margin-top: 0;
+      margin-bottom: calculateRem(-18);
+    } */
+  }
+
+  .c_service_card {
+    display: flex;
+    padding: 0 calculateRem(9);
+    margin-bottom: calculateRem(18);
+    width: 50%;
+    @include mq(950px) {
+      width: 33.33333%;
+      padding: 0 calculateRem(10);
+    }
+
+    &:hover,
+    &:focus {
+      .c_service_card_image_overlay {
+        background-color: $color_dark_red;
+      }
+      .c_service_card_arrow svg {
+        color: $color_pink;
+      }
+    }
+
+    &_link {
+      position: relative;
+      display: flex;
+      align-items: center;
+      color: $color_white;
+      width: 100%;
+      padding: calculateRem(36) calculateRem(15);
+      background: $color_blue;
+      text-decoration: none;
+      overflow: hidden;
+      z-index: 1;
+      @include mq(950px) {
+        display: block;
+        padding: calculateRem(84) calculateRem(50) calculateRem(84) calculateRem(50);
+      }
+      &:focus,
+      &:active {
+        outline: $color_black dashed calculateRem(2);
+        outline-offset: pxConversion(5, rem);
+        z-index: 2;
+        .c_service_card_image_overlay {
+          background-color: $color_dark_red;
+        }
+        .c_service_card_arrow svg {
+          color: $color_pink;
+        }
+      }
+    }
+
+    &_image {
+      position: absolute;
+      top: 0;
+      left: 0;
+      z-index: -1;
+      width: 100%;
+      height: 100%;
+
+      &_overlay {
+        background-color: $color_blue;
+        opacity: 0.92;
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: 10;
+        transition: background-color 0.2s ease-out;
+      }
+    }
+
+    &_content {
+      max-width: 275px;
+    }
+
+    &_title {
+      // Mobile Font Size, Desktop Font Size, Mobile Line Height, Desktop Line Height, Mobile Letter Spacing, Desktop Letter Spacing
+      @include font-size(12, 20, 18, 35, 0.3, 2);
+      @include font('proxima_nova__bold');
+      text-transform: uppercase;
+      @include mq(950px) {
+        @include font('proxima_nova__semi_bold');
+      }
+    }
+
+    &_arrow svg {
+      position: absolute;
+      bottom: 10px;
+      left: 15px;
+      color: $color_white;
+      transition: color 0.2s ease-out;
+      @include mq(950px) {
+        bottom: 39px;
+        left: 60px;
+      }
+    }
+  }
+}

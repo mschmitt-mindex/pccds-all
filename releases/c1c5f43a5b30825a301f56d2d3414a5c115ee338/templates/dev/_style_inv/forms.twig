@@ -1,0 +1,349 @@
+{# @var craft \craft\web\twig\variables\CraftVariable #}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="styles">
+    <div class="styles__menu">
+    
+        <a href="/dev/inv/index">Style Inventory</a>
+    
+        <a href="/dev/inv/globals">Globals</a>
+    
+        <a href="/dev/inv/animations">Animations</a>
+    
+        <a href="/dev/inv/buttons">Buttons</a>
+    
+        <a class="active" href="/dev/inv/forms"><span class="styles__menu__active_spacer"></span>Forms<span class="styles__menu__active_indicator"></span></a>
+    
+        <a href="/dev/inv/grid">Grids</a>
+    
+        <a href="/dev/inv/icons">Icons</a>
+    
+        <a href="/dev/inv/media">Media</a>
+    
+        <a href="/dev/inv/messages">Messages</a>
+    
+        <a href="/dev/inv/nav">Navigation</a>
+    
+        <a href="/dev/inv/overlays">Overlays</a>
+    
+        <a href="/dev/inv/sliders">Sliders</a>
+    
+</div>
+    <div>
+        
+
+        
+            <div class="styles__example">
+                <div class="styles__example__title"><h2>Form Field</h2></div>
+                <div class="styles__example__description"><p>Text-based input field. NOTE: all options below are applicable for all form input fields. If `format`, `validate`, or `vue` are passed in, the field will switch over to a Vue component.</p></div>
+                <div class="styles__example__display" style="background-color: #FFFFFF;">
+                  {% import 'macros/component.twig' as component %}
+<form class="c_form">
+    {{ component.c('form_input', { label: 'Text Input', name: 'text_input', type: 'text' }) }}
+</form>
+                </div>
+                <div class="styles__example__code styles__example__code--twig">
+                    {% verbatim %}<pre><code>{% import &#39;macros/component.twig&#39; as component %}
+&lt;form class=&#34;c_form&#34;&gt;
+    {{ component.c(&#39;form_input&#39;, { label: &#39;Text Input&#39;, name: &#39;text_input&#39;, type: &#39;text&#39; }) }}
+&lt;/form&gt;</code></pre>{% endverbatim %}
+                </div>
+                <table class="styles__example__table">
+                    <thead>
+                        <td><b>Name</b></td>
+                        <td><b>Type</b></td>
+                        <td><b>Default</b></td>
+                        <td><b>Description</b></td>
+                    </thead>
+                    <tbody>
+                        
+                            <tr>
+                                <td><b>format</b></td>
+                                <td>string</td>
+                                <td><i>false</i></td>
+                                <td>Formats text-like inputs in the format given. Accepts: tel, zip</td>
+                            </tr>
+                        
+                            <tr>
+                                <td><b>inputAttributes</b></td>
+                                <td>string</td>
+                                <td><i>null</i></td>
+                                <td>Attributes added to the input element withing the component.</td>
+                            </tr>
+                        
+                            <tr>
+                                <td><b>inputClasses</b></td>
+                                <td>string</td>
+                                <td><i>null</i></td>
+                                <td>Classes added to the input element withing the component.</td>
+                            </tr>
+                        
+                            <tr>
+                                <td><b>label</b></td>
+                                <td>string</td>
+                                <td><i>null</i></td>
+                                <td>Text used for the field label.</td>
+                            </tr>
+                        
+                            <tr>
+                                <td><b>name</b> (required)</td>
+                                <td>string</td>
+                                <td><i>null</i></td>
+                                <td>The name attribute of the form field.</td>
+                            </tr>
+                        
+                            <tr>
+                                <td><b>placeholder</b></td>
+                                <td>string</td>
+                                <td><i>null</i></td>
+                                <td>Text </td>
+                            </tr>
+                        
+                            <tr>
+                                <td><b>required</b></td>
+                                <td>boolean</td>
+                                <td><i>false</i></td>
+                                <td>Adds a required attribute to the input field.</td>
+                            </tr>
+                        
+                            <tr>
+                                <td><b>type</b> (required)</td>
+                                <td>string</td>
+                                <td><i>null</i></td>
+                                <td>The field type as per HTML input spec.</td>
+                            </tr>
+                        
+                            <tr>
+                                <td><b>format</b></td>
+                                <td>string</td>
+                                <td><i>false</i></td>
+                                <td>Validates field against the format given. Accepts: email, tel, text, zip</td>
+                            </tr>
+                        
+                            <tr>
+                                <td><b>value</b></td>
+                                <td>string</td>
+                                <td><i>null</i></td>
+                                <td>Default value for the field.</td>
+                            </tr>
+                        
+                    </tbody>
+                </table>
+                
+            </div>
+        
+            <div class="styles__example">
+                <div class="styles__example__title"><h2>Text Area Field</h2></div>
+                <div class="styles__example__description"><p>Input field for longer text.</p></div>
+                <div class="styles__example__display" style="background-color: #FFFFFF;">
+                  {% import 'macros/component.twig' as component %}
+<form class="c_form">
+    {{ component.c('form_input', { label: 'Text Area', name: 'textarea', type: 'textarea' }) }}
+</form>
+                </div>
+                <div class="styles__example__code styles__example__code--twig">
+                    {% verbatim %}<pre><code>{% import &#39;macros/component.twig&#39; as component %}
+&lt;form class=&#34;c_form&#34;&gt;
+    {{ component.c(&#39;form_input&#39;, { label: &#39;Text Area&#39;, name: &#39;textarea&#39;, type: &#39;textarea&#39; }) }}
+&lt;/form&gt;</code></pre>{% endverbatim %}
+                </div>
+            </div>
+        
+            <div class="styles__example">
+                <div class="styles__example__title"><h2>Formatted Form Field</h2></div>
+                <div class="styles__example__description"><p>Automatically formats a field input based on field type.</p></div>
+                <div class="styles__example__display" style="background-color: #FFFFFF;">
+                  {% import 'macros/component.twig' as component %}
+<form class="c_form">
+    {{ component.c('form_input', { label: 'Formatted Phone Input', name: 'formatted_input', type: 'tel', format: 'tel' }) }}
+</form>
+                </div>
+                <div class="styles__example__code styles__example__code--twig">
+                    {% verbatim %}<pre><code>{% import &#39;macros/component.twig&#39; as component %}
+&lt;form class=&#34;c_form&#34;&gt;
+    {{ component.c(&#39;form_input&#39;, { label: &#39;Formatted Phone Input&#39;, name: &#39;formatted_input&#39;, type: &#39;tel&#39;, format: &#39;tel&#39; }) }}
+&lt;/form&gt;</code></pre>{% endverbatim %}
+                </div>
+            </div>
+        
+            <div class="styles__example">
+                <div class="styles__example__title"><h2>Invalid Form Field</h2></div>
+                <div class="styles__example__description"><p>Style for when an input field is not correctly filled out based on HTML5 type validation.</p></div>
+                <div class="styles__example__display" style="background-color: #FFFFFF;">
+                  {% import 'macros/component.twig' as component %}
+<form class="c_form">
+    {{ component.c('form_input', { label: 'Invalid Input', name: 'invalid_input', type: 'email', validate: 'email', value: 'hello not an email' }) }}
+</form>
+                </div>
+                <div class="styles__example__code styles__example__code--twig">
+                    {% verbatim %}<pre><code>{% import &#39;macros/component.twig&#39; as component %}
+&lt;form class=&#34;c_form&#34;&gt;
+    {{ component.c(&#39;form_input&#39;, { label: &#39;Invalid Input&#39;, name: &#39;invalid_input&#39;, type: &#39;email&#39;, validate: &#39;email&#39;, value: &#39;hello not an email&#39; }) }}
+&lt;/form&gt;</code></pre>{% endverbatim %}
+                </div>
+            </div>
+        
+            <div class="styles__example">
+                <div class="styles__example__title"><h2>Submit Button</h2></div>
+                <div class="styles__example__description"><p>A single submit button with no wrapper.</p></div>
+                <div class="styles__example__display" style="background-color: #FFFFFF;">
+                  {% import 'macros/component.twig' as component %}
+<form class="c_form">
+    {{ component.c('form_input', { type: 'submit', value: 'Send' }) }}
+</form>
+                </div>
+                <div class="styles__example__code styles__example__code--twig">
+                    {% verbatim %}<pre><code>{% import &#39;macros/component.twig&#39; as component %}
+&lt;form class=&#34;c_form&#34;&gt;
+    {{ component.c(&#39;form_input&#39;, { type: &#39;submit&#39;, value: &#39;Send&#39; }) }}
+&lt;/form&gt;</code></pre>{% endverbatim %}
+                </div>
+            </div>
+        
+            <div class="styles__example">
+                <div class="styles__example__title"><h2>Example Form with Validation</h2></div>
+                <div class="styles__example__description"><p>A basic contact form example.</p></div>
+                <div class="styles__example__display" style="background-color: #FFFFFF;">
+                  {% import 'macros/component.twig' as component %}
+{{ component.c('form', {
+    fields: [
+        { label: 'Name', name: 'name', type: 'text', validate: 'text', required: true },
+        { label: 'Phone', name: 'phone', type: 'tel', format: 'tel', validate: 'tel', required: true },
+        { label: 'Email', name: 'email', type: 'email', validate: 'email', required: true },
+        { label: 'Select', name: 'optionSelect', type: 'select', options: [{label:'Option One', value: 'optionOne', default: false}, {label:'Option Two', value: 'optionTwo', default: true}], required: true },
+        { name: 'radio', type: 'radio', options: [{label:'Radio One', value: 'radioOne', checked: true}, {label:'Radio Two', value: 'radioTwo', checked: true}], required: true },
+        { name: 'myCheckboxes', type: 'checkbox', options: [{label:'Checkbox One', value: 'checkboxOne', checked: true}, {label:'Checkbox Two', value: 'checkboxTwo', checked: true}], required: true },
+        { label: 'Zip', name: 'zip', type: 'text', format: 'zip', validate: 'zip', required: true },
+        { label: 'Comments', name: 'comments', type: 'textarea', validate: 'text' },
+        { type: 'submit', value: 'Send' },
+    ],
+    formId: 'example_form',
+    validate: true,
+}) }}
+                </div>
+                <div class="styles__example__code styles__example__code--twig">
+                    {% verbatim %}<pre><code>{% import &#39;macros/component.twig&#39; as component %}
+{{ component.c(&#39;form&#39;, {
+    fields: [
+        { label: &#39;Name&#39;, name: &#39;name&#39;, type: &#39;text&#39;, validate: &#39;text&#39;, required: true },
+        { label: &#39;Phone&#39;, name: &#39;phone&#39;, type: &#39;tel&#39;, format: &#39;tel&#39;, validate: &#39;tel&#39;, required: true },
+        { label: &#39;Email&#39;, name: &#39;email&#39;, type: &#39;email&#39;, validate: &#39;email&#39;, required: true },
+        { label: &#39;Select&#39;, name: &#39;optionSelect&#39;, type: &#39;select&#39;, options: [{label:&#39;Option One&#39;, value: &#39;optionOne&#39;, default: false}, {label:&#39;Option Two&#39;, value: &#39;optionTwo&#39;, default: true}], required: true },
+        { name: &#39;radio&#39;, type: &#39;radio&#39;, options: [{label:&#39;Radio One&#39;, value: &#39;radioOne&#39;, checked: true}, {label:&#39;Radio Two&#39;, value: &#39;radioTwo&#39;, checked: true}], required: true },
+        { name: &#39;myCheckboxes&#39;, type: &#39;checkbox&#39;, options: [{label:&#39;Checkbox One&#39;, value: &#39;checkboxOne&#39;, checked: true}, {label:&#39;Checkbox Two&#39;, value: &#39;checkboxTwo&#39;, checked: true}], required: true },
+        { label: &#39;Zip&#39;, name: &#39;zip&#39;, type: &#39;text&#39;, format: &#39;zip&#39;, validate: &#39;zip&#39;, required: true },
+        { label: &#39;Comments&#39;, name: &#39;comments&#39;, type: &#39;textarea&#39;, validate: &#39;text&#39; },
+        { type: &#39;submit&#39;, value: &#39;Send&#39; },
+    ],
+    formId: &#39;example_form&#39;,
+    validate: true,
+}) }}</code></pre>{% endverbatim %}
+                </div>
+                <table class="styles__example__table">
+                    <thead>
+                        <td><b>Name</b></td>
+                        <td><b>Type</b></td>
+                        <td><b>Default</b></td>
+                        <td><b>Description</b></td>
+                    </thead>
+                    <tbody>
+                        
+                            <tr>
+                                <td><b>format</b></td>
+                                <td>string</td>
+                                <td><i>false</i></td>
+                                <td>Formats text-like inputs in the format given. Accepts: tel, zip</td>
+                            </tr>
+                        
+                            <tr>
+                                <td><b>inputAttributes</b></td>
+                                <td>string</td>
+                                <td><i>null</i></td>
+                                <td>Attributes added to the input element withing the component.</td>
+                            </tr>
+                        
+                            <tr>
+                                <td><b>inputClasses</b></td>
+                                <td>string</td>
+                                <td><i>null</i></td>
+                                <td>Classes added to the input element withing the component.</td>
+                            </tr>
+                        
+                            <tr>
+                                <td><b>label</b></td>
+                                <td>string</td>
+                                <td><i>null</i></td>
+                                <td>Text used for the field label.</td>
+                            </tr>
+                        
+                            <tr>
+                                <td><b>name</b> (required)</td>
+                                <td>string</td>
+                                <td><i>null</i></td>
+                                <td>The name attribute of the form field.</td>
+                            </tr>
+                        
+                            <tr>
+                                <td><b>placeholder</b></td>
+                                <td>string</td>
+                                <td><i>null</i></td>
+                                <td>Text </td>
+                            </tr>
+                        
+                            <tr>
+                                <td><b>required</b></td>
+                                <td>boolean</td>
+                                <td><i>false</i></td>
+                                <td>Adds a required attribute to the input field.</td>
+                            </tr>
+                        
+                            <tr>
+                                <td><b>type</b> (required)</td>
+                                <td>string</td>
+                                <td><i>null</i></td>
+                                <td>The field type as per HTML input spec.</td>
+                            </tr>
+                        
+                            <tr>
+                                <td><b>format</b></td>
+                                <td>string</td>
+                                <td><i>false</i></td>
+                                <td>Validates field against the format given. Accepts: email, tel, text, zip</td>
+                            </tr>
+                        
+                            <tr>
+                                <td><b>value</b></td>
+                                <td>string</td>
+                                <td><i>null</i></td>
+                                <td>Default value for the field.</td>
+                            </tr>
+                        
+                    </tbody>
+                </table>
+                
+            </div>
+        
+    </div>
+</div>
+
+
+    {% set devStyleJs -%}
+        loadCSS("/css/dev-styles.css?v=1.0.372");
+    {%- endset %}
+    {% js devStyleJs %}

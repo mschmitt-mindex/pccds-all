@@ -1,0 +1,27 @@
+.sitemap {
+  & > li {
+    padding-bottom: pxConversion(50, rem);
+  }
+
+  li {
+    list-style-type: none;
+    li {
+      a {
+        color: $color_black_default;
+        text-decoration: none;
+        &:hover,
+        &:focus {
+          color: $color_primary;
+        }
+      }
+    }
+  }
+  a.c_section_header {
+    text-decoration: none;
+    color: $color_black_default;
+    &:hover,
+    &:focus {
+      color: $color_primary;
+    }
+  }
+}

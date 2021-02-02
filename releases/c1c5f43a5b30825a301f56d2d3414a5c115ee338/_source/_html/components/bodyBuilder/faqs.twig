@@ -1,0 +1,36 @@
+{% set heading = block.heading ?? null %}
+{% set faqs = block.faq ?? null %}
+{% set displayFlower = block.displayFlower ?? true %}
+
+<div class="c_faqs">
+    <div class="c_faqs_header_content_wrapper">
+        <div class="c_faqs_flower--top hide--mobile">
+            {{ svg('@basePath/icon/spacer-flower.svg') }}
+        </div>
+        <div class="c_faqs_header_content">
+            {% if heading|length %}
+                <h2 class="c_section_header text--white">
+                    {{ heading }}
+                </h2>
+            {% endif %}
+            {% if displayFlower|length %}
+                <div class="c_faqs_svg">
+                    {{ svg('@basePath/icon/large-aqua-flower.svg') }}
+                </div>
+            {% endif %}
+        </div>
+    </div>
+    <div class="c_faqs_wrapper">
+        <div class="c_section c_section--full-bleed">
+            {% for faq in faqs.all() %}
+                <div class="c_faqs_item {% if loop.first %}active{% endif %}">
+                    <button class="c_faqs_question">{{ faq.question }}</button>
+                    <div class="c_faqs_answer hidden">{{ faq.answer }}</div>
+                </div>
+            {% endfor %}
+        </div>
+        <div class="c_faqs_flower--side hide--mobile">
+            {{ svg('@basePath/icon/spacer-flower.svg') }}
+        </div>
+    </div>
+</div>

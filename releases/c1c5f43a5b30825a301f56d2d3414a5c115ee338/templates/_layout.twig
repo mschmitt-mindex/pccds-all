@@ -1,0 +1,221 @@
+{# @var craft \craft\web\twig\variables\CraftVariable #}
+{# @var entry \craft\elements\Entry #}
+
+<!DOCTYPE html>
+
+{% set jsSection = jsSection ?? 'app' %}
+{% set bodyClasses = ['js-' ~ jsSection] %}
+{% set hideLegacyComponents = (entry is defined and entry.hideLegacyComponents is defined) ? entry.hideLegacyComponents : true %}
+{% set secondaryNav = (entry is defined and craft.entries.section('menu').relatedTo(entry.id).one() ?? false and hideLegacyComponents == false) ? true : false %}
+
+{% if pageSection ?? false %}
+  {% set bodyClasses = bodyClasses|merge(['p-' ~ pageSection]) %}
+{% endif %}
+
+{% minify %}
+<html {% if currentSite.language == 'es' %}lang="es"{% else %}lang="en"{% endif %} class="no-js">
+    <head>
+      <script>
+          window.Promise || document.write(
+              '<script src="/js/corePromise.js"><\/script>'
+          );
+      </script>
+          <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- meta icons -->
+   <link rel="manifest" href="/img/meta/manifest.json"><meta name="mobile-web-app-capable" content="yes"><meta name="theme-color" content="#fff"><meta name="application-name"><link rel="apple-touch-icon" sizes="57x57" href="/img/meta/apple-touch-icon-57x57.png"><link rel="apple-touch-icon" sizes="60x60" href="/img/meta/apple-touch-icon-60x60.png"><link rel="apple-touch-icon" sizes="72x72" href="/img/meta/apple-touch-icon-72x72.png"><link rel="apple-touch-icon" sizes="76x76" href="/img/meta/apple-touch-icon-76x76.png"><link rel="apple-touch-icon" sizes="114x114" href="/img/meta/apple-touch-icon-114x114.png"><link rel="apple-touch-icon" sizes="120x120" href="/img/meta/apple-touch-icon-120x120.png"><link rel="apple-touch-icon" sizes="144x144" href="/img/meta/apple-touch-icon-144x144.png"><link rel="apple-touch-icon" sizes="152x152" href="/img/meta/apple-touch-icon-152x152.png"><link rel="apple-touch-icon" sizes="180x180" href="/img/meta/apple-touch-icon-180x180.png"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"><meta name="apple-mobile-web-app-title"><link rel="icon" type="image/png" sizes="228x228" href="/img/meta/coast-228x228.png"><link rel="yandex-tableau-widget" href="/img/meta/yandex-browser-manifest.json"><meta name="msapplication-TileColor" content="#fff"><meta name="msapplication-TileImage" content="/img/meta/mstile-144x144.png"><meta name="msapplication-config" content="/img/meta/browserconfig.xml"><link rel="icon" type="image/png" sizes="32x32" href="/img/meta/favicon-32x32.png"><link rel="icon" type="image/png" sizes="16x16" href="/img/meta/favicon-16x16.png"><link rel="shortcut icon" href="/img/meta/favicon.ico"><link rel="apple-touch-startup-image" media="(device-width: 320px) and (device-height: 480px) and (-webkit-device-pixel-ratio: 1)" href="/img/meta/apple-touch-startup-image-320x460.png"><link rel="apple-touch-startup-image" media="(device-width: 320px) and (device-height: 480px) and (-webkit-device-pixel-ratio: 2)" href="/img/meta/apple-touch-startup-image-640x920.png"><link rel="apple-touch-startup-image" media="(device-width: 320px) and (device-height: 568px) and (-webkit-device-pixel-ratio: 2)" href="/img/meta/apple-touch-startup-image-640x1096.png"><link rel="apple-touch-startup-image" media="(device-width: 375px) and (device-height: 667px) and (-webkit-device-pixel-ratio: 2)" href="/img/meta/apple-touch-startup-image-750x1294.png"><link rel="apple-touch-startup-image" media="(device-width: 414px) and (device-height: 736px) and (orientation: landscape) and (-webkit-device-pixel-ratio: 3)" href="/img/meta/apple-touch-startup-image-1182x2208.png"><link rel="apple-touch-startup-image" media="(device-width: 414px) and (device-height: 736px) and (orientation: portrait) and (-webkit-device-pixel-ratio: 3)" href="/img/meta/apple-touch-startup-image-1242x2148.png"><link rel="apple-touch-startup-image" media="(device-width: 768px) and (device-height: 1024px) and (orientation: landscape) and (-webkit-device-pixel-ratio: 1)" href="/img/meta/apple-touch-startup-image-748x1024.png"><link rel="apple-touch-startup-image" media="(device-width: 768px) and (device-height: 1024px) and (orientation: portrait) and (-webkit-device-pixel-ratio: 1)" href="/img/meta/apple-touch-startup-image-768x1004.png"><link rel="apple-touch-startup-image" media="(device-width: 768px) and (device-height: 1024px) and (orientation: landscape) and (-webkit-device-pixel-ratio: 2)" href="/img/meta/apple-touch-startup-image-1496x2048.png"><link rel="apple-touch-startup-image" media="(device-width: 768px) and (device-height: 1024px) and (orientation: portrait) and (-webkit-device-pixel-ratio: 2)" href="/img/meta/apple-touch-startup-image-1536x2008.png">
+
+          <!-- scripts -->
+    <script type="text/javascript">
+        var jsSection = '{{ jsSection ?? "app" }}',
+            jsDevMode = {{ craft.app.config.general.devMode ? 'true' : 'false' }},
+            jsVersion = '1.0.372',
+            jsThemePath = '/';
+
+        // remove no-js class for when Javascript is enabled
+        document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+    </script>
+
+    
+    <script>
+      /*! loadCSS. [c]2017 Filament Group, Inc. MIT License */
+(function(w){
+	"use strict";
+	/* exported loadCSS */
+	var loadCSS = function( href, before, media, attributes ){
+		// Arguments explained:
+		// `href` [REQUIRED] is the URL for your CSS file.
+		// `before` [OPTIONAL] is the element the script should use as a reference for injecting our stylesheet <link> before
+		// By default, loadCSS attempts to inject the link after the last stylesheet or script in the DOM. However, you might desire a more specific location in your document.
+		// `media` [OPTIONAL] is the media type or query of the stylesheet. By default it will be 'all'
+		// `attributes` [OPTIONAL] is the Object of attribute name/attribute value pairs to set on the stylesheet's DOM Element.
+		var doc = w.document;
+		var ss = doc.createElement( "link" );
+		var ref;
+		if( before ){
+			ref = before;
+		}
+		else {
+			var refs = ( doc.body || doc.getElementsByTagName( "head" )[ 0 ] ).childNodes;
+			ref = refs[ refs.length - 1];
+		}
+
+		var sheets = doc.styleSheets;
+		// Set any of the provided attributes to the stylesheet DOM Element.
+		if( attributes ){
+			for( var attributeName in attributes ){
+				if( attributes.hasOwnProperty( attributeName ) ){
+					ss.setAttribute( attributeName, attributes[attributeName] );
+				}
+			}
+		}
+		ss.rel = "stylesheet";
+		ss.href = href;
+		// temporarily set media to something inapplicable to ensure it'll fetch without blocking render
+		ss.media = "only x";
+
+		// wait until body is defined before injecting link. This ensures a non-blocking load in IE11.
+		function ready( cb ){
+			if( doc.body ){
+				return cb();
+			}
+			setTimeout(function(){
+				ready( cb );
+			});
+		}
+		// Inject link
+			// Note: the ternary preserves the existing behavior of "before" argument, but we could choose to change the argument to "after" in a later release and standardize on ref.nextSibling for all refs
+			// Note: `insertBefore` is used instead of `appendChild`, for safety re: http://www.paulirish.com/2011/surefire-dom-element-insertion/
+		ready( function(){
+			ref.parentNode.insertBefore( ss, ( before ? ref : ref.nextSibling ) );
+		});
+		// A method (exposed on return object for external use) that mimics onload by polling document.styleSheets until it includes the new sheet.
+		var onloadcssdefined = function( cb ){
+			var resolvedHref = ss.href;
+			var i = sheets.length;
+			while( i-- ){
+				if( sheets[ i ].href === resolvedHref ){
+					return cb();
+				}
+			}
+			setTimeout(function() {
+				onloadcssdefined( cb );
+			});
+		};
+
+		function loadCB(){
+			if( ss.addEventListener ){
+				ss.removeEventListener( "load", loadCB );
+			}
+			ss.media = media || "all";
+		}
+
+		// once loaded, set link's media back to `all` so that the stylesheet applies once it loads
+		if( ss.addEventListener ){
+			ss.addEventListener( "load", loadCB);
+		}
+		ss.onloadcssdefined = onloadcssdefined;
+		onloadcssdefined( loadCB );
+		return ss;
+	};
+	// commonjs
+	if( typeof exports !== "undefined" ){
+		exports.loadCSS = loadCSS;
+	}
+	else {
+		w.loadCSS = loadCSS;
+	}
+}( typeof global !== "undefined" ? global : this ));
+
+      /*! loadJS: load a JS file asynchronously. [c]2014 @scottjehl, Filament Group, Inc. (Based on http://goo.gl/REQGQ by Paul Irish). Licensed MIT */
+(function( w ){
+	var loadJS = function( src, cb, ordered ){
+		"use strict";
+		var tmp;
+		var ref = w.document.getElementsByTagName( "script" )[ 0 ];
+		var script = w.document.createElement( "script" );
+
+		if (typeof(cb) === 'boolean') {
+			tmp = ordered;
+			ordered = cb;
+			cb = tmp;
+		}
+
+		script.src = src;
+		script.async = !ordered;
+		ref.parentNode.insertBefore( script, ref );
+
+		if (cb && typeof(cb) === "function") {
+			script.onload = cb;
+		}
+		return script;
+	};
+	// commonjs
+	if( typeof module !== "undefined" ){
+		module.exports = loadJS;
+	}
+	else {
+		w.loadJS = loadJS;
+	}
+}( typeof global !== "undefined" ? global : this ));
+
+
+      // load CSS
+      loadCSS("/css/app.css?v=" + jsVersion);
+    </script>
+    <noscript><link rel="stylesheet" href="/css/app.css?v=1.0.372"></noscript>
+    
+          <script>
+        if (!jsDevMode) {
+            // Google Analytics
+            // (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+            // (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+            // m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+            // })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+            //
+            // ga('create', 'UA-XXXXXXX-X', 'EXAMPLE.com');
+            // ga('send', 'pageview');
+        }
+    </script>
+      <style>{{ source('_critcss/global.css', ignore_missing = true) }}</style>
+      {% block critcss %}{% endblock %}
+    </head>
+    <body {% if bodyClasses|length %}class="{{ bodyClasses|join(' ') }}"{% endif %}>
+      {{ adminbar() }}
+      <div id="page" {% if noVue ?? false %}data-vue="false"{% endif %}>
+        {% block header %}
+            {% include 'partials/page_ui' %}
+        {% endblock %}
+
+          <main id="main">
+
+            <section class="page_wrapper">
+              {% block contentBefore %}{% endblock %}
+              {% block content %}{% endblock %}
+              {% block contentAfter %}{% endblock %}
+            </section>
+          </main>
+
+
+            {% block footer %}
+                {% include 'partials/page_footer' with {noVue: noVue ?? false} %}
+            {% endblock %}
+        </div>
+
+        {% block jsFooter %}
+          <script>loadJS('{{ craft.app.config.general.custom.baseUrl }}js/{{ jsSection }}.js?v=' + jsVersion);</script>
+          <!-- Begin Constant Contact Active Forms -->
+          <script> var _ctct_m = "dc076297b378cd57a49f41255c143d10"; </script>
+          <!-- End Constant Contact Active Forms -->
+          <script type="text/javascript">
+            function googleTranslateElementInit() {
+                new google.translate.TranslateElement({pageLanguage: 'en', includedLanguages: 'af,am,ar,az,be,bg,bn,bs,ca,ceb,co,cs,cy,da,de,el,eo,et,eu,fa,fi,fr,fy,ga,gd,gl,gu,ha,haw,hi,hmn,hr,ht,hu,hy,id,ig,is,it,iw,ja,jv,ka,kk,km,kn,ko,ku,ky,la,lb,lo,lt,lv,mg,mi,mk,ml,mn,mr,ms,mt,my,ne,nl,no,ny,pa,pl,ps,pt,ro,ru,sd,si,sk,sl,sm,sn,so,sq,sr,su,sv,sw,ta,te,tg,th,tl,tr,uk,ur,uz,vi,xh,yi,yo,zh-CN,zh-TW,zu', layout: google.translate.TranslateElement.InlineLayout.HORIZONTAL}, 'google_translate_element');
+            }
+          </script>
+          <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+        {% endblock %}
+    </body>
+</html>
+{% endminify %}

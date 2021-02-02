@@ -1,0 +1,170 @@
+@include critical-split('swiper.css') {
+  .c_values {
+    &_slider {
+      @include margin(large, bottom);
+      position: relative;
+      display: flex;
+      justify-content: center;
+      flex-wrap: nowrap;
+      overflow: hidden;
+      padding-bottom: calculateRem(36);
+      margin-left: calculateRem(15);
+      margin-right: calculateRem(15);
+
+      @include mq(950px) {
+        padding-bottom: 0;
+        margin-left: 0;
+        margin-right: 0;
+      }
+    }
+
+    &_slide {
+      &_container {
+        width: calc(100vw - #{calculateRem(60)});
+
+        @include mq(950px) {
+          display: flex;
+          width: 80%;
+          margin: 0 auto;
+        }
+      }
+
+      &_image {
+        display: none;
+
+        @include mq(950px) {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          margin: 0 calculateRem(90);
+        }
+      }
+
+      &_content {
+        flex-grow: 1;
+
+        @include mq(950px) {
+          margin-right: calculateRem(90);
+        }
+
+        .c_body_copy {
+          padding: 0;
+        }
+      }
+
+      &_header {
+        display: flex;
+        margin-bottom: calculateRem(16);
+
+        &_content {
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          margin-left: calculateRem(30);
+
+          @include mq(950px) {
+            justify-content: start;
+            margin-left: 0;
+          }
+        }
+
+        &_icon {
+          @include mq(950px) {
+            display: none;
+          }
+
+          & > svg {
+            width: 50px;
+            height: 50px;
+          }
+        }
+
+        .c_section_header {
+          margin-bottom: 0;
+        }
+      }
+
+      &_subheader {
+        // Mobile Font Size, Desktop Font Size, Mobile Line Height, Desktop Line Height, Mobile Letter Spacing, Desktop Letter Spacing
+        @include font-size(12, 20, 12, 35, 1.2, 2);
+        text-transform: uppercase;
+        margin-bottom: 0;
+        @include mq(950px) {
+          margin-bottom: calculateRem(5);
+        }
+      }
+    }
+
+    &_icon {
+      display: block;
+      width: 110px;
+      height: 110px;
+
+      & > svg {
+        height: 100%;
+        width: 100%;
+      }
+    }
+
+    &_nav {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      width: 100%;
+      height: 100%;
+      background: none;
+      appearance: none;
+      z-index: 1;
+
+      &:hover {
+        cursor: pointer;
+      }
+
+      &:focus,
+      &:active {
+        border: currentColor dashed calculateRem(2);
+        outline: none;
+      }
+
+      & > svg {
+        width: calculateRem(11);
+        height: calculateRem(12);
+      }
+
+      &_wrapper {
+        position: absolute;
+
+        bottom: 0;
+
+        @include mq(950px) {
+          top: 0;
+          width: 10%;
+          height: 100%;
+          display: flex;
+          align-items: center;
+        }
+
+        &.left {
+          right: calculateRem(58);
+          left: auto;
+
+          @include mq(950px) {
+            justify-content: flex-end;
+            left: 0;
+            right: auto;
+          }
+        }
+
+        &.right {
+          left: auto;
+          right: 0;
+
+          @include mq(950px) {
+            justify-content: flex-start;
+          }
+        }
+      }
+    }
+  }
+}

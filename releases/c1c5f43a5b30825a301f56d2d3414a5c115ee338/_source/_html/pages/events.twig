@@ -1,0 +1,75 @@
+{# @var craft \craft\web\twig\variables\CraftVariable #}
+{# @var entry \craft\elements\Entry #}
+
+{% extends "_layout.twig" %}
+
+{% import 'macros/component.twig' as component %}
+
+{% set pageSection = pageSection ?? 'inside' %}
+
+{% block critcss %}
+    <style>{{ source('_critcss/inside.css') }}</style>
+    <style>{{ source('_critcss/hero.css', ignore_missing = true) }}</style>
+{% endblock %}
+
+{% block content %}
+    {% cache %}
+    {% include 'partials/title_and_breadcrumbs' with {entry_title: entry.title, entry_id: entry.id} %}
+        {% set params = {
+            url: 'https://www.eventbriteapi.com/v3/organizers/15883966864/events/?token=' ~ getenv('CRAFTENV_EVENT_BRITE') ~ '&order_by=start_desc&include_unavailable_events=false',
+            type: 'json',
+            element: 'events',
+            cache: 60,
+        } %}
+
+        {% set feed = craft.feedme.feed(params) %}
+        <div class="content content--full inner_wrapper">
+            <article class="body">
+                {% if entry.eventsContent ?? false %}
+                    <div class="c_text">
+                        {{ entry.eventsContent }}
+                    </div>
+                {% endif %}
+                {% if feed|length %}
+                <div class="events">
+                    <div>
+                        {% for node in feed %}
+                            {# Your template code goes here #}
+                            {% set venueParams = {
+                                url: 'https://www.eventbriteapi.com/v3/venues/' ~ node.venue_id ~ '/?token=' ~ getenv('CRAFTENV_EVENT_BRITE'),
+                                type: 'json',
+                                cache: 60,
+                            } %}
+
+                            {% set venue = craft.feedme.feed(venueParams) %}
+
+                            {% if node.name.text ?? false and node.start.local ?? false %}
+                                <div class="events__event">
+                                    <a href="{{ node.url }}" >
+                                        <div>
+                                            <h5 class="garamond">{{ node.name.text }}</h5>
+                                            <p><span>{{ node.start.local|date('M j, Y') }}</span><span><span class="events__event__nbsp">&nbsp;&nbsp;|&nbsp;&nbsp;</span>{{ venue.address.localized_area_display }}</span></p>
+                                        </div>
+                                        {% import 'macros/component.twig' as component %}
+                                        {% set options = {
+                                            label: 'View Event',
+                                            target: '_blank',
+                                            classes: 'c_button--outline',
+                                            url: node.url,
+                                            elementOverride: 'span',
+                                        } %}
+                                        {{ component.c('button', options) }}
+
+                                    </a>
+                                </div>
+                            {% endif %}
+                        {% endfor %}
+                    </div>
+                </div>
+                {% else %}
+                    <h2 class="c_section_subheader">{{ "There are no events currently planned but check back soon as we are always updating our calendar."|t }}</h2>
+                {% endif %}
+            </article>
+        </div>
+    {% endcache %}
+{% endblock %}

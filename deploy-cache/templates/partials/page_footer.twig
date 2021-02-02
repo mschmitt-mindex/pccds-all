@@ -1,0 +1,66 @@
+{# @var craft \craft\web\twig\variables\CraftVariable #}
+{% cache globally using key "footer" %}
+{% set contactEmail = footer.contactEmail ?? false %}
+{% set contactPhoneNumber = footer.contactPhoneNumber ?? false %}
+{% set onCallPhoneNumbers = footer.onCallPhoneNumbers ?? [] %}
+
+<footer id="footer">
+    <div class="footer inner_wrapper">
+        <div class="footer__third footer__third--first">
+
+            <div class="footer__links">
+                <a aria-hidden="true" class="footer__logo" href="{% if entry is defined and entry.slug == '__home__' %}#main{% else %}{{ siteUrl }}{% endif %}">
+                    <img src="{{ alias('@baseUrl') }}/icon/prime_care_logo.svg" alt="{{ siteName }} - {{ "Home"|t }}" />
+                </a>
+                {% if contactEmail ?? false %}<p><a class="footer__link" href="mailto:{{- contactEmail -}}">{{- contactEmail -}}</a></p>{% endif %}
+                {% if contactPhoneNumber ?? false %}<p><a class="footer__link" href="tel:{{ contactPhoneNumber|replace({'.':'','-':'','(':'',')':''}) }}">{{ contactPhoneNumber }}</a></p>{% endif %}
+                {% if onCallPhoneNumbers|length %}
+                    <div class="footer__on_call">
+                        <br>
+                        <div><h1><strong>Prime Care Coordination On-Call Numbers:</strong></h1></div>
+                        {% for item in onCallPhoneNumbers %}
+                            {% if item.number ?? false %}
+                                <p>{% if item.region ?? false %}{{ item.region }}: {% endif %}<a class="footer__link" href="tel:{{ item.number|replace({'.':'','-':'','(':'',')':''}) }}">{{ item.number }}</a></p>
+                            {% endif %}
+                        {% endfor %}
+                    </div>
+                {% endif %}
+            </div>
+
+        </div>
+        <div class="footer__third footer__third--middle">
+            {% if footer.footerNavigation|length %}
+                <ul class="footer__navigation">
+                {% for entry in footer.footerNavigation.all() %}
+                    <li><a href="{{ entry.url }}">{{ entry.title }}</a></li>
+                {% endfor %}
+                </ul>
+            {% endif %}
+            {% if social.facebookUrl ?? false or social.twitterUrl ?? false or social.linkedinUrl ?? false or social.youtubeUrl ?? false %}
+                {% import 'macros/component.twig' as component %}
+
+                {% set options = {
+                    idPrefix: 'footer',
+                    attributes: 'id="footer-social-links" aria-labelledby="footer-social-links" class="c_social_nav"',
+                    links: {
+                        facebook: social.facebookUrl|length ? social.facebookUrl : null,
+                        twitter: social.twitterUrl|length ? social.twitterUrl : null,
+                        linkedin: social.linkedinUrl|length ? social.linkedinUrl : null,
+                        youtube: social.youtubeUrl|length ? social.youtubeUrl : null,
+                    }
+                } %}
+
+                {{ component.c('social_nav', options) }}
+            {% endif %}
+        </div>
+        <div class="footer__third footer__third--last">
+            <!-- Begin Constant Contact Inline Form Code -->
+            <div class="ctct-inline-form" data-form-id="21201926-c0ee-4924-b749-1dcdbb528bd8"></div>
+            <!-- End Constant Contact Inline Form Code -->
+        </div>
+    </div>
+    <div class="footer__copyright inner_wrapper">
+        <p>{{ include(template_from_string(footer.copyright|raw)) }}</p>
+    </div>
+</footer>
+{% endcache %}

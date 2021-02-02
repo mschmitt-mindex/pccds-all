@@ -1,0 +1,65 @@
+{# @var craft \craft\web\twig\variables\CraftVariable #}
+{# @var entry \craft\elements\Entry #}
+
+<!DOCTYPE html>
+
+{% set jsSection = jsSection ?? 'app' %}
+{% set bodyClasses = ['js-' ~ jsSection] %}
+{% set hideLegacyComponents = (entry is defined and entry.hideLegacyComponents is defined) ? entry.hideLegacyComponents : true %}
+{% set secondaryNav = (entry is defined and craft.entries.section('menu').relatedTo(entry.id).one() ?? false and hideLegacyComponents == false) ? true : false %}
+
+{% if pageSection ?? false %}
+  {% set bodyClasses = bodyClasses|merge(['p-' ~ pageSection]) %}
+{% endif %}
+
+{% minify %}
+<html {% if currentSite.language == 'es' %}lang="es"{% else %}lang="en"{% endif %} class="no-js">
+    <head>
+      <script>
+          window.Promise || document.write(
+              '<script src="/js/corePromise.js"><\/script>'
+          );
+      </script>
+      <%- include('ejs_includes/_head_meta') %>
+      <%- include('ejs_includes/_head_scripts') %>
+      <%- include('ejs_includes/_head_tracking') %>
+      <style>{{ source('_critcss/global.css', ignore_missing = true) }}</style>
+      {% block critcss %}{% endblock %}
+    </head>
+    <body {% if bodyClasses|length %}class="{{ bodyClasses|join(' ') }}"{% endif %}>
+      {{ adminbar() }}
+      <div id="page" {% if noVue ?? false %}data-vue="false"{% endif %}>
+        {% block header %}
+            {% include 'partials/page_ui' %}
+        {% endblock %}
+
+          <main id="main">
+
+            <section class="page_wrapper">
+              {% block contentBefore %}{% endblock %}
+              {% block content %}{% endblock %}
+              {% block contentAfter %}{% endblock %}
+            </section>
+          </main>
+
+
+            {% block footer %}
+                {% include 'partials/page_footer' with {noVue: noVue ?? false} %}
+            {% endblock %}
+        </div>
+
+        {% block jsFooter %}
+          <script>loadJS('{{ craft.app.config.general.custom.baseUrl }}js/{{ jsSection }}.js?v=' + jsVersion);</script>
+          <!-- Begin Constant Contact Active Forms -->
+          <script> var _ctct_m = "dc076297b378cd57a49f41255c143d10"; </script>
+          <!-- End Constant Contact Active Forms -->
+          <script type="text/javascript">
+            function googleTranslateElementInit() {
+                new google.translate.TranslateElement({pageLanguage: 'en', includedLanguages: 'af,am,ar,az,be,bg,bn,bs,ca,ceb,co,cs,cy,da,de,el,eo,et,eu,fa,fi,fr,fy,ga,gd,gl,gu,ha,haw,hi,hmn,hr,ht,hu,hy,id,ig,is,it,iw,ja,jv,ka,kk,km,kn,ko,ku,ky,la,lb,lo,lt,lv,mg,mi,mk,ml,mn,mr,ms,mt,my,ne,nl,no,ny,pa,pl,ps,pt,ro,ru,sd,si,sk,sl,sm,sn,so,sq,sr,su,sv,sw,ta,te,tg,th,tl,tr,uk,ur,uz,vi,xh,yi,yo,zh-CN,zh-TW,zu', layout: google.translate.TranslateElement.InlineLayout.HORIZONTAL}, 'google_translate_element');
+            }
+          </script>
+          <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+        {% endblock %}
+    </body>
+</html>
+{% endminify %}

@@ -1,0 +1,49 @@
+{% set serviceCards = block.serviceCards ?? null %}
+{% if serviceCards is not empty %}
+<div class="c_section c_service_cards">
+   {% for serviceCard in serviceCards.all() %}
+    {% import 'macros/component.twig' as component %}
+    
+    {% set cardImage = serviceCard.cardImage.one() ?? null %}
+
+    {% set position = '50% 50%' %}
+    {% if cardImage.hasFocalPoint %}
+        {% set focalPoint = cardImage.getFocalPoint() %}
+        {% set position = focalPoint.x * 100 ~ '% ' ~ focalPoint.y * 100 ~ '%' %}
+    {% endif %}
+
+    {# imager > media queries > transforms  #}
+    {# figure out proper way to use picture and multiple sources #}
+    {% set options = {
+        image: cardImage,
+        alt: cardImage.altText ?? '',
+        lazyLoad: false,
+        imager: {
+            transforms: [
+                { width: 400, height: 300, jpegQuality: 80, position: position },
+                { width: 150, height: 150, jpegQuality: 65, position: position },
+            ]
+        }
+    } %}
+
+    {% set cardTitle = serviceCard.cardTitle ?? null %}
+    {% set cardUrl = serviceCard.cardUrl ?? null %}
+    <div class="c_service_card">
+        <a href="{{ cardUrl }}" class="c_service_card_link">
+            <div class="c_service_card_image">
+                <div class="c_service_card_image_overlay"></div>
+                {{ component.c('image_bg', { image: options }) }}
+            </div>
+            <div class="c_service_card_content">
+                <h3 class="c_service_card_title">
+                    {{ cardTitle }}
+                </h3>
+            </div>
+            <div class="c_service_card_arrow" aria-hidden="true">
+                {{ svg('@basePath/icon/arrow_right.svg') }}
+            </div>
+        </a>
+    </div>
+    {% endfor %}
+</div> 
+{% endif %}

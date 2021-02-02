@@ -1,0 +1,95 @@
+{# @var craft \craft\web\twig\variables\CraftVariable #}
+
+
+
+
+
+
+
+
+<div class="styles">
+    <div class="styles__menu">
+    
+        <a href="/dev/inv/index">Style Inventory</a>
+    
+        <a href="/dev/inv/globals">Globals</a>
+    
+        <a href="/dev/inv/animations">Animations</a>
+    
+        <a class="active" href="/dev/inv/buttons"><span class="styles__menu__active_spacer"></span>Buttons<span class="styles__menu__active_indicator"></span></a>
+    
+        <a href="/dev/inv/forms">Forms</a>
+    
+        <a href="/dev/inv/grid">Grids</a>
+    
+        <a href="/dev/inv/icons">Icons</a>
+    
+        <a href="/dev/inv/media">Media</a>
+    
+        <a href="/dev/inv/messages">Messages</a>
+    
+        <a href="/dev/inv/nav">Navigation</a>
+    
+        <a href="/dev/inv/overlays">Overlays</a>
+    
+        <a href="/dev/inv/sliders">Sliders</a>
+    
+</div>
+    <div>
+        
+
+        
+            <div class="styles__example">
+                <div class="styles__example__title"><h2>Class</h2></div>
+                <div class="styles__example__description"><p>A call-to-action button, used to encourage user interaction.</p></div>
+                <div class="styles__example__display" style="background-color: #FFFFFF;">
+                  {% import 'macros/component.twig' as component %}
+{{ component.c('button', { label: 'Button', url: 'http://google.com' }) }}
+                </div>
+                <div class="styles__example__code styles__example__code--twig">
+                    {% verbatim %}<pre><code>{% import &#39;macros/component.twig&#39; as component %}
+{{ component.c(&#39;button&#39;, { label: &#39;Button&#39;, url: &#39;http://google.com&#39; }) }}</code></pre>{% endverbatim %}
+                </div>
+                <table class="styles__example__table">
+                    <thead>
+                        <td><b>Name</b></td>
+                        <td><b>Type</b></td>
+                        <td><b>Default</b></td>
+                        <td><b>Description</b></td>
+                    </thead>
+                    <tbody>
+                        
+                            <tr>
+                                <td><b>label</b></td>
+                                <td>string</td>
+                                <td><i>null</i></td>
+                                <td>Text that appears on the button.</td>
+                            </tr>
+                        
+                            <tr>
+                                <td><b>target</b></td>
+                                <td>string</td>
+                                <td><i>null</i></td>
+                                <td>Adds a target attribute to the button.</td>
+                            </tr>
+                        
+                            <tr>
+                                <td><b>url</b></td>
+                                <td>string</td>
+                                <td><i>null</i></td>
+                                <td>URL that th user will be sent to upon clicking button.</td>
+                            </tr>
+                        
+                    </tbody>
+                </table>
+                
+            </div>
+        
+    </div>
+</div>
+
+
+    {% set devStyleJs -%}
+        loadCSS("/css/dev-styles.css?v=1.0.379");
+    {%- endset %}
+    {% js devStyleJs %}

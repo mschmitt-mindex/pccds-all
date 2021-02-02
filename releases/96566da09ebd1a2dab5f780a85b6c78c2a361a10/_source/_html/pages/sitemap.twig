@@ -1,0 +1,38 @@
+{% extends "_layout.twig" %}
+
+{% import 'macros/component.twig' as component %}
+
+{% set pageSection = pageSection ?? 'inside' %}
+
+{% block critcss %}
+    <style>{{ source('_critcss/inside.css') }}</style>
+{% endblock %}
+
+{% block content %}
+    {% cache %}
+        {% set headquartersId = globals.headquarters.one().id %}
+        {% include 'partials/title_and_breadcrumbs' with {entry_title: 'Sitemap'|t } %}
+
+        <div class="content content--full inner_wrapper">
+            <ul class="sitemap">
+                <li><a class="c_section_header" href="{{ craft.entries.section('home').one().url }}">{{ "Home"|t }}</a></li>
+                {% for item in craft.entries.section('menu').level(1).all() %}
+                    {% if item.title|length and (item.linkToAnEntry.one()|length or item.customLink|length) and item.level == 1 %}
+                        <li class="sitemap__item sitemap__item--level_1 {% if loop.first %}sitemap__item--level_1--first{% elseif loop.last %}sitemap__item--level_1--last{% endif %}">
+                            <a class="c_section_header" href="{% if item.customLink|length %}{{ item.customLink }}{% else %}{{ item.linkToAnEntry.one().url }}{% endif %}"  {% if item.openLinkInANewWindow|length %}target="_blank"{% endif %}>{% if not item.customLink|length and item.linkToAnEntry.one().id == headquartersId %}Headquarters{% else %}{{ item.title }}{% endif %}</a>
+                            {% if item.children|length %}
+                                <ul>
+                                    {% for childItem in item.children.all() %}
+                                        <li class="sitemap__item sitemap__item--level_2">
+                                            <a href="{% if childItem.customLink|length %}{{ childItem.customLink }}{% else %}{{ childItem.linkToAnEntry.one().url }}{% endif %}"  {% if childItem.openLinkInANewWindow|length %}target="_blank"{% endif %}>{% if not childItem.customLink|length and childItem.linkToAnEntry.one().id == headquartersId %}Headquarters{% else %}{{ childItem.title }}{% endif %}</a>
+                                        </li>
+                                    {% endfor %}
+                                </ul>
+                            {% endif %}
+                        </li>
+                    {% endif %}
+                {% endfor %}
+            </ul>
+        </div>
+    {% endcache %}
+{% endblock %}

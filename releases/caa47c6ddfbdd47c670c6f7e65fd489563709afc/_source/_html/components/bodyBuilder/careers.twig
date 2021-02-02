@@ -1,0 +1,64 @@
+{% import 'macros/component.twig' as component %}
+
+{% set style = {
+    textAlign: block.style.one().textAlign.value ?? 'center',
+    headingColor: block.style.one().headingColor.value ?? 'dark-red',
+    buttonColor: block.style.one().buttonColor.value ?? 'dark-red',
+} %}
+
+{% set heading = block.heading ?? null %}
+{% set image = block.image.one() ?? null %}
+{% set hideImage = block.hideImage ?? false %}
+{% set text = block.text ?? null %}
+{% set button = block.button.one() ?? null %}
+
+<div class="c_section c_section--full-bleed c_careers_wrapper {% if style.textAlign == 'center' %}text-center{% endif %}">
+    <div class="c_careers">
+        {% if heading|length %}
+            <h2 class="c_section_header text--{{ style.headingColor }}">
+                {{ heading }}
+            </h2>
+        {% endif %}
+        {% if image|length and hideImage != true %}
+            {% import 'macros/component.twig' as component %}
+
+            {% set position = '50% 50%' %}
+            {% if image.hasFocalPoint %}
+                {% set focalPoint = image.getFocalPoint() %}
+                {% set position = focalPoint.x * 100 ~ '% ' ~ focalPoint.y * 100 ~ '%' %}
+            {% endif %}
+
+            {# imager > media queries > transforms  #}
+            {# figure out proper way to use picture and multiple sources #}
+            {% set options = {
+                image: image,
+                alt: image.altText ?? '',
+                lazyLoad: false,
+                imager: {
+                    transforms: [
+                        { width: 890, height: 230, jpegQuality: 80, position: position },
+                        { width: 313, height: 103, jpegQuality: 65, position: position },
+                    ]
+                }
+            } %}
+            <div class="c_image c_careers_image">
+                {{ component.c('image_bg', { image: options }) }}
+            </div>
+        {% endif %}
+        {% if text|length %}
+            <div class="c_text c_careers_text">
+                {{ text|raw }}
+            </div>
+        {% endif %}
+
+        {% if button.buttonUrl.one().url is defined %}
+            {% set options = {
+                label: button.buttonText ?? 'Learn More',
+                ariaLabel: button.buttonText ?? '',
+                url: button.buttonUrl.one().url,
+                classes: 'c_button--' ~ style.buttonColor,
+            } %}
+            {{ component.c('button', options) }}
+        {% endif %}
+    </div>
+</div>

@@ -1,0 +1,36 @@
+.c_heading_text {
+  width: auto;
+  max-width: 90%;
+  padding-left: 0;
+  margin-left: 0;
+  @include mq(950px) {
+    padding: 0 calculateRem($mobileSmallSpacing) 0 0;
+    margin-left: 0;
+    max-width: calc(63% + 8.75rem);
+    margin: 0 auto 6.66667rem;
+  }
+  &--no-text {
+    display: inline-block;
+  }
+
+  .c_heading_text_inner_wrapper {
+    padding: calculateRem(26) calculateRem(15) calculateRem(20);
+    @include mq(950px) {
+      padding: calculateRem(33) calculateRem(100) calculateRem(39);
+    }
+    > *:last-child {
+      margin-bottom: 0;
+    }
+  }
+
+  .c_heading_text_text {
+    // Mobile Font Size, Desktop Font Size, Mobile Line Height, Desktop Line Height, Mobile Letter Spacing, Desktop Letter Spacing
+    @include font-size(12, 17, 23, 26, 0.3, 0.42);
+
+    p strong,
+    a {
+      @include font('proxima_nova__semi_bold');
+      text-decoration: none;
+    }
+  }
+}

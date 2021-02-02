@@ -1,0 +1,27 @@
+.page_wrapper {
+  ul,
+  ol {
+    padding-left: 20px;
+  }
+  ul {
+    list-style-type: disc;
+  }
+  ol {
+    padding-left: 20px;
+    list-style-type: none;
+    li {
+      counter-increment: count-me;
+    }
+    li::before {
+      content: counter(count-me) '. ';
+      display: block;
+      position: relative;
+      max-width: 0px;
+      max-height: 0px;
+      left: -1.3em;
+      top: 0.05em;
+      color: $color_maroon;
+      font-weight: bold;
+    }
+  }
+}

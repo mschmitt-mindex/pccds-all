@@ -1,0 +1,173 @@
+{# @var craft \craft\web\twig\variables\CraftVariable #}
+{% import 'macros/component.twig' as component %}
+
+{% set headquartersId = globals.headquarters.one().id %}
+
+<header id="main-header" class="header" role="banner" aria-labelledby="main-header">
+    <nav id="quick-links" class="visually-hidden" aria-labelledby="quick-links">
+        <ul>
+            <li>
+                <a class="jump-link" href="#main">{{ "Skip to main content"|t }}</a>
+            </li>
+            {% if secondaryNav ?? false %}
+                <li><a href="#sidebar">{{ "Skip to secondary navigation"|t }}</a></li>
+            {% endif %}
+        </ul>
+    </nav>
+    {% if globals.alertBar ?? false and globals.alertBar|length %}
+        {{ component.c('alert_bar_message', { body: globals.alertBar, summary: 'Covid-19 Resources' }) }}
+    {% endif %}
+    {% cache globally using key "navigation-secondary" %}
+        <div id="secondary_menu">
+            <ul>
+                <li class="secondary_menu__google_translate">
+                    <div id="google_translate_element"></div>
+                </li>
+                {% if globals.loginUrl ?? false %}
+                    <li>
+                        <div id="login">
+                            <a href="{{ globals.loginUrl }}">{{ "Login"|t }} <span>{{ svg('@basePath/icon/new_window_icon.svg') }}</span></a>
+                        </div>
+                    </li>
+                {% endif %}
+                <li>
+                    {% if currentSite.language == 'es' %}
+                        <a href="/es/mapa-del-sitio">{{ "Sitemap"|t }}</a>
+                    {% else %}
+                        <a href="/sitemap">{{ "Sitemap"|t }}</a>
+                    {% endif %}
+                </li>
+                <li>
+                    {% set myLocalizedUrls = seomatic.helper.getLocalizedUrls() %}
+                    {% for site in myLocalizedUrls %}
+                        {% if site.id != currentSite.id %}
+                            {% set localizedUrl = site.url %}
+                            {% if craft.app.request.getSegment(2) ?? false and craft.app.request.getSegment(2) == 'archivo' %}
+                                {% if year ?? false %}
+                                    {% set localizedUrl = '/news/archive/' ~ year %}
+                                    {% if month ?? false %}
+                                        {% set localizedUrl = '/news/archive/' ~ year ~ '/' ~ month %}
+                                    {% endif %}
+                                {% endif %}
+                            {% endif %}
+                            {% if craft.app.request.getSegment(2) ?? false and craft.app.request.getSegment(2) == 'archive' %}
+                                {% if year ?? false %}
+                                    {% set localizedUrl = '/es/noticias/archivo/' ~ year %}
+                                    {% if month ?? false %}
+                                        {% set localizedUrl = '/es/noticias/archivo/' ~ year ~ '/' ~ month %}
+                                    {% endif %}
+                                {% endif %}
+                            {% endif %}
+                            {% if craft.app.request.getSegment(1) ?? false and craft.app.request.getSegment(1) == 'mapa-del-sitio' %}
+                                {% set localizedUrl = '/sitemap' %}
+                            {% endif %}
+                            {% if craft.app.request.getSegment(1) ?? false and craft.app.request.getSegment(1) == 'sitemap' %}
+                                {% set localizedUrl = '/es/mapa-del-sitio' %}
+                            {% endif %}
+                            <a href="{{ localizedUrl }}">{% if site.id == 1 %}English{% else %}{{ craft.app.sites.getSiteById(site.id).name }}{% endif %}</a>
+                        {% endif %}
+                    {% endfor %}
+                </li>
+                <li>
+                    {% if social.facebookUrl ?? false or social.twitterUrl ?? false or social.linkedinUrl ?? false or social.youtubeUrl ?? false %}
+                        {% import 'macros/component.twig' as component %}
+
+                        {% set options = {
+                            idPrefix: 'header',
+                            attributes: 'id="header-social-links" aria-labelledby="header-social-links"',
+                            links: {
+                                facebook: social.facebookUrl|length ? social.facebookUrl : null,
+                                twitter: social.twitterUrl|length ? social.twitterUrl : null,
+                                linkedin: social.linkedinUrl|length ? social.linkedinUrl : null,
+                                youtube: social.youtubeUrl|length ? social.youtubeUrl : null,
+                            }
+                        } %}
+
+                        {{ component.c('social_nav', options) }}
+                    {% endif %}
+                </li>
+            </ul>
+        </div>
+    {% endcache %}
+    <div id="main_menu_container">
+
+        <a aria-label="Logo - links to homepage" id="logo" href="{{ siteUrl }}">{{ svg('@basePath/icon/prime_care_logo.svg') }}</a>
+
+        <div id="toggle_contain">
+            <button id="main_menu_toggle" class="navbar-toggle" aria-label="Navbar Toggle" aria-expanded="false">
+                <span class="bar"></span>
+                <span class="visually-hidden">Navbar Toggle</span>
+            </button>
+        </div>
+
+        <nav id="primary-navigation" aria-labelledby="primary-navigation" aria-expanded="false">
+            <ul id="main_menu">
+                <li><a class="visually-hidden" href="{{ siteUrl }}">{{ "Home"|t }}</a></li>
+
+                {% for item in craft.entries.section('menu').level(1).all() %}
+
+                    {% if item.title|length and (item.linkToAnEntry.one()|length or item.customLink|length) and item.level == 1 %}
+
+                        {% set status = "" %}
+                        {% if item.linkToAnEntry|length and craft.app.request.segments|first == item.linkToAnEntry.one().slug %}
+                            {% set status = 'active' %}
+                        {% endif %}
+                        {% for childItem in item.children.all() if item.children|length %}
+                            {% if childItem.linkToAnEntry|length and craft.app.request.segments|first == childItem.linkToAnEntry.one().slug %}
+                                {% set status = 'active' %}
+                            {% endif %}
+                        {% endfor %}
+
+                        <li class="main_menu__item {% if loop.first %}main_menu__item--first{% elseif loop.last %}main_menu__item--last{% endif %} {{status}}">
+
+                            <a href="{% if item.customLink|length %}{{ item.customLink }}{% else %}{{ item.linkToAnEntry.one().url }}{% endif %}"  {% if item.openLinkInANewWindow|length %}target="_blank"{% endif %}>{% if not item.customLink|length and item.linkToAnEntry.one().id == headquartersId %}Headquarters{% else %}{{ item.title }}{% endif %}</a>
+
+                            {% for childItem in item.children.showMenuItem(true).all() %}
+                                {% if loop.first %}
+                                    <ul class="sub_menu">
+                                {% endif %}
+                                    <li class="sub_menu__item {% if childItem.linkToAnEntry|length and craft.app.request.segments|first == childItem.linkToAnEntry.one().slug %}active{% endif %}">
+                                        <a href="{% if childItem.customLink|length %}{{ childItem.customLink }}{% else %}{{ childItem.linkToAnEntry.one().url }}{% endif %}"  {% if childItem.openLinkInANewWindow|length %}target="_blank"{% endif %}>{% if not childItem.customLink|length and childItem.linkToAnEntry.one().id == headquartersId %}Headquarters{% else %}{{ childItem.title }}{% endif %}</a>
+                                    </li>
+                                {% if loop.last %}
+                                </ul>
+                                {% endif %}
+                            {% endfor %}
+
+                        </li>
+                    {% endif %}
+
+                {% endfor %}
+            </ul>
+
+            <div class="mobile-only">
+                <a href="/contact" aria-label="Contact Us" class="c_button c_button--header">
+                    <span class="c_button__content">
+                        <span class="c_button__label">Contact Us</span>
+                    </span>
+                </a>
+
+                {% if footer.contactPhoneNumber ?? false %}
+                    <a class="header__link" href="tel:{{ footer.contactPhoneNumber|replace({'.':'','-':'','(':'',')':''}) }}">{{ footer.contactPhoneNumber }}</a>
+                {% endif %}
+
+                {% if social.facebookUrl ?? false or social.twitterUrl ?? false or social.linkedinUrl ?? false or social.youtubeUrl ?? false %}
+                    {% import 'macros/component.twig' as component %}
+
+                    {% set options = {
+                        idPrefix: 'header',
+                        attributes: 'id="header_social_links" aria-labelledby="header_social_links"',
+                        links: {
+                            facebook: social.facebookUrl|length ? social.facebookUrl : null,
+                            twitter: social.twitterUrl|length ? social.twitterUrl : null,
+                            linkedin: social.linkedinUrl|length ? social.linkedinUrl : null,
+                            youtube: social.youtubeUrl|length ? social.youtubeUrl : null,
+                        }
+                    } %}
+
+                    {{ component.c('social_nav', options) }}
+                {% endif %}
+            </div>
+        </nav>
+    </div>
+</header>

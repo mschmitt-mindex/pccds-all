@@ -1,0 +1,382 @@
+$footer-breakpoint: '750px';
+#footer {
+  background: $color_white_default;
+  padding: calculateRem(20) calculateRem(15);
+  color: $color_dark_gray;
+
+  @include mq($footer-breakpoint) {
+    padding: calculateRem(50) calculateRem(15) calculateRem(30);
+  }
+}
+
+.footer {
+  display: flex;
+  flex-flow: row wrap;
+  text-align: left;
+
+  @include mq($footer-breakpoint) {
+    text-align: left;
+    flex-flow: row nowrap;
+    justify-content: space-between;
+  }
+
+  &__logo img {
+    @include critical-split('global.css') {
+      width: calculateRem(159);
+      margin-bottom: calculateRem(5);
+
+      @include mq($footer-breakpoint) {
+        margin-bottom: calculateRem(26);
+      }
+    }
+  }
+
+  &__on_call {
+    .footer__link {
+      text-decoration: underline;
+    }
+  }
+
+  @at-root #{&}__link {
+    &:hover,
+    &:focus {
+      text-decoration: underline;
+    }
+  }
+
+  @at-root #{&}__third {
+    flex: 0 1 auto;
+    padding: 4% 0;
+    width: 100%;
+
+    @include mq($footer-breakpoint) {
+      flex: 0 1 33.33%;
+      padding: 0 2.5%;
+    }
+
+    &--first {
+      flex: 0 1 100%;
+      padding: 0 2.5% 0;
+      width: 100%;
+
+      @include mq($footer-breakpoint) {
+        flex: 0 1 33.33%;
+        padding-left: 0;
+        padding-right: 2.5%;
+      }
+
+      & > p {
+        padding-top: calculateRem(30);
+        @include mq($footer-breakpoint) {
+          padding-top: calculateRem(60);
+        }
+      }
+    }
+
+    &--middle {
+      text-align: left;
+      flex: 0 1 50%;
+      padding: 0 2.5% 0;
+      width: 50%;
+
+      @include mq($footer-breakpoint) {
+        flex: 0 1 33.33%;
+        padding: 0 2.5%;
+        width: 100%;
+        text-align: center;
+      }
+    }
+
+    &--last {
+      flex: 0 1 50%;
+      padding: 0 2.5%;
+      width: 50%;
+
+      @include mq($footer-breakpoint) {
+        flex: 0 1 33.33%;
+        width: 100%;
+        padding-right: 0;
+        padding-left: 2.5%;
+        text-align: right;
+      }
+    }
+  }
+
+  @at-root #{&}__links {
+    padding-bottom: calculateRem(10);
+
+    p {
+      a {
+        color: $color_dark_gray;
+        font-size: calculateRem(12);
+        letter-spacing: calculateRem(0.3);
+        line-height: 1.92;
+        text-decoration: none;
+        display: inline-block;
+        margin-bottom: calculateRem(0);
+        @include antialias;
+
+        @include mq($footer-breakpoint) {
+          font-size: calculateRem(17);
+          letter-spacing: calculateRem(0.3);
+          line-height: 1.88;
+        }
+      }
+
+      &:last-of-type {
+        a {
+          margin-bottom: 0;
+        }
+      }
+    }
+  }
+
+  @at-root #{&}__navigation {
+    display: inline-block;
+    text-align: left;
+    padding-bottom: calculateRem(25);
+
+    @include mq($footer-breakpoint) {
+      padding-left: calculateRem(15);
+    }
+
+    a {
+      color: $color_dark_gray;
+      text-decoration: none;
+      display: inline-block;
+      font-size: calculateRem(12);
+      letter-spacing: calculateRem(0.3);
+      line-height: 1.92;
+      @include antialias;
+
+      @include mq($footer-breakpoint) {
+        font-size: calculateRem(17);
+        letter-spacing: calculateRem(0.3);
+        line-height: 1.88;
+      }
+
+      // padding-bottom: calculateRem(7);
+      // margin-bottom: calculateRem(7);
+      //
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+  }
+
+  .c_social_nav {
+    margin: 0;
+
+    li {
+      display: inline-block;
+      vertical-align: top;
+      margin-left: 4px;
+
+      &:first-of-type {
+        margin-left: 0;
+      }
+    }
+
+    a {
+      display: flex;
+      flex-flow: row nowrap;
+      justify-content: center;
+      align-items: center;
+      width: 28px;
+      height: 28px;
+      background: $color_dark_gray;
+      border-radius: 20px;
+      text-align: center;
+
+      &:hover {
+        background: $color_light_teal;
+      }
+
+      svg {
+        margin: 0;
+        width: auto;
+        height: auto;
+        max-height: 15px;
+        max-width: 15px;
+        width: 100%;
+        path {
+          fill: $color_white_default;
+        }
+      }
+    }
+  }
+
+  &__copyright {
+    text-align: center;
+    margin-top: calculateRem(10);
+
+    @include mq($footer-breakpoint) {
+      margin-top: calculateRem(45);
+    }
+
+    p {
+      font-size: calculateRem(12);
+      letter-spacing: calculateRem(0.3);
+      line-height: 1.92;
+
+      @include mq($footer-breakpoint) {
+        font-size: calculateRem(13);
+        letter-spacing: calculateRem(0.2);
+        line-height: 1.15;
+      }
+    }
+  }
+}
+
+#footer {
+  .footer {
+    .g-recaptcha {
+      display: none;
+
+      .grecaptcha-badge {
+        position: absolute !important;
+        bottom: -60px !important;
+        width: 70px !important;
+        right: 0 !important;
+        transition: width 0.5s ease, right 0.5s ease !important;
+        overflow: hidden;
+        &:hover {
+          width: 256px !important;
+        }
+      }
+    }
+
+    .ctct-inline-form {
+      position: relative;
+      max-width: calculateRem(175);
+      text-align: left;
+      display: inline-block;
+
+      .ctct-form-defaults {
+        background-color: transparent;
+        padding: 0;
+
+        .ctct-form-header {
+          @include font('proxima_nova');
+          color: $color_dark_gray;
+          font-size: calculateRem(12);
+          letter-spacing: calculateRem(0.3);
+          line-height: 1.92;
+          margin-bottom: calculateRem(5);
+
+          @include mq($footer-breakpoint) {
+            font-size: calculateRem(17);
+            letter-spacing: calculateRem(0.3);
+            line-height: 1.88;
+          }
+        }
+
+        .ctct-form-field {
+          margin-bottom: calculateRem(15);
+
+          .ctct-form-label {
+            color: $color_dark_gray;
+            @include font('proxima_nova');
+            margin-bottom: calculateRem(9);
+            font-size: calculateRem(12);
+            letter-spacing: calculateRem(0.3);
+            line-height: 1.92;
+
+            @include mq($footer-breakpoint) {
+              font-size: calculateRem(17);
+              letter-spacing: calculateRem(0.3);
+              line-height: 1.88;
+            }
+          }
+
+          .ctct-form-element {
+            background-color: $color_offwhite;
+            border: 0;
+            box-shadow: none;
+            border-radius: 0;
+            outline: inherit;
+            border-bottom: 1px solid $color_white_default;
+            color: $color_white_default;
+            padding: calculateRem(5);
+
+            color: $color_dark_gray;
+
+            @include mq($footer-breakpoint) {
+              height: calculateRem(45);
+            }
+
+            &::selection {
+              background-color: $color_light_teal;
+            }
+
+            &:hover,
+            &:focus {
+              outline-color: $color_gray;
+              outline-width: calculateRem(5);
+              outline-offset: calculateRem(-2);
+              outline-style: auto;
+            }
+          }
+        }
+
+        .ctct-form-required:before {
+          display: none;
+        }
+
+        .ctct-form-button {
+          @include buttons_default;
+          border-color: $color_secondary;
+          border-radius: 0;
+          background: $color_secondary;
+          color: $color_white_default;
+          width: auto;
+
+          &:hover,
+          &:focus {
+            border-color: $color_secondary;
+            background: $color_white_default;
+            color: $color_primary;
+          }
+        }
+
+        .ctct-form-field:not(#email_address_field_0),
+        #gdpr_text {
+          height: 0;
+          overflow: hidden;
+          margin-bottom: 0;
+          transition: height 0.5s ease, margin 0.5s ease;
+        }
+
+        #gdpr_text .ctct-gdpr-text {
+          color: $color_dark_gray;
+          font-size: calculateRem(12);
+          letter-spacing: calculateRem(0.3);
+          line-height: 1.3;
+          margin-top: calculateRem(20);
+
+          a:hover,
+          a:focus {
+            color: $color_light_teal;
+          }
+        }
+
+        .ctct-form-footer-link {
+          color: $color_dark_gray;
+        }
+      }
+
+      &.form-focused {
+        .ctct-form-field:not(#email_address_field_0),
+        #gdpr_text {
+          height: auto;
+          overflow: visible;
+          margin-bottom: 0;
+        }
+
+        .ctct-form-button {
+          display: inline-block;
+        }
+      }
+    }
+  }
+}

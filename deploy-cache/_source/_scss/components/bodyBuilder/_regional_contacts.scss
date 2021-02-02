@@ -1,0 +1,319 @@
+.c_regional_contacts {
+  position: relative;
+
+  .c_regional_contacts_list {
+    list-style-type: none;
+    padding-left: 0;
+    margin-left: 0;
+  }
+
+  &_header {
+    background-color: $color_dark_red;
+    padding: calculateRem(24) calculateRem(32);
+    margin-left: calculateRem(-30);
+    display: inline-block;
+    width: calc(100vw - #{calculateRem(30)});
+
+    @include mq(950px) {
+      margin-left: calculateRem(-102);
+      padding-top: calculateRem(34);
+      padding-bottom: calculateRem(34);
+      padding-right: calculateRem(68);
+      // padding-left: calculateRem(152);
+      padding-left: calculateRem(100);
+      width: auto;
+    }
+  }
+
+  &_footer,
+  &_legend {
+    .c_body_copy {
+      padding: 0;
+    }
+  }
+
+  &_footer {
+    margin-top: calculateRem(40);
+
+    .c_body_copy_text {
+      max-width: calculateRem(800);
+    }
+  }
+
+  &_wrapper {
+    display: flex;
+    flex-wrap: wrap;
+
+    @include mq(950px) {
+      flex-wrap: nowrap;
+    }
+  }
+
+  &_contacts,
+  &_mapwrapper {
+    width: 100%;
+
+    @include mq(950px) {
+      width: 50%;
+    }
+  }
+
+  &_contacts {
+    order: 2;
+
+    @include mq(950px) {
+      order: 1;
+    }
+  }
+
+  &__location_regions {
+    // Mobile Font Size, Desktop Font Size, Mobile Line Height, Desktop Line Height, Mobile Letter Spacing, Desktop Letter Spacing
+    @include font-size(12, 17, 23, 26, 0.3, 0.42);
+  }
+
+  &_mapwrapper {
+    order: 1;
+
+    @include mq(950px) {
+      position: absolute;
+      top: 0;
+      right: 0;
+      left: auto;
+      order: 2;
+      display: flex;
+      justify-content: flex-end;
+    }
+
+    &.desktop {
+      display: none;
+
+      @include mq(950px) {
+        display: flex;
+      }
+    }
+
+    &.mobile {
+      @include mq(950px) {
+        display: none;
+      }
+    }
+  }
+
+  &_map {
+    display: inline-block;
+    position: relative;
+    max-width: 100%;
+    width: 100%;
+    margin-top: calculateRem(30);
+    padding-top: calculateRem(50);
+
+    @include mq(950px) {
+      padding-top: 0;
+      margin-top: 0;
+    }
+
+    svg {
+      max-width: 100%;
+      width: 100%;
+      height: auto;
+    }
+  }
+
+  &_nav {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    right: 0;
+    left: auto;
+    top: 0;
+  }
+
+  &_button {
+    border-radius: 100px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 30px;
+    height: 30px;
+    background-color: $color_offwhite;
+    color: $color_dark_red;
+    @include font('proxima_nova__extra_bold');
+    font-weight: 900;
+    transition: background-color 0.2s ease-out;
+    @include mq(600px) {
+      width: 60px;
+      height: 60px;
+      font-size: calculateRem(16);
+    }
+
+    &:not(:last-child) {
+      margin-bottom: calculateRem(20);
+    }
+
+    &:hover,
+    &.is-active {
+      background-color: $color_pink;
+    }
+  }
+
+  &_legend {
+    // position: absolute;
+    position: relative;
+    color: $color_dark_red;
+    bottom: 0;
+    left: 0;
+    max-width: 300px;
+    margin-top: 2em;
+    @include mq(600px) {
+      // bottom: 15%;
+      margin-top: 2em;
+      max-width: 300px;
+    }
+
+    @include mq(950px) {
+      padding-top: 0;
+      display: flex;
+      color: $color_greyish_brown;
+      margin-top: 2em;
+      // max-width: 260px;
+      max-width: 350px;
+      top: 10%;
+      bottom: 10%;
+    }
+
+    &.desktop {
+      display: none;
+
+      @include mq(950px) {
+        display: flex;
+      }
+    }
+
+    &.mobile {
+      @include mq(950px) {
+        display: none;
+      }
+    }
+  }
+
+  .c_section_header {
+    margin-bottom: 0;
+  }
+
+  .c_section_subheader {
+    // margin: calculateRem(38) 0 calculateRem(5);
+    margin: calculateRem(30) 0 calculateRem(5);
+    // Mobile Font Size, Desktop Font Size, Mobile Line Height, Desktop Line Height, Mobile Letter Spacing, Desktop Letter Spacing
+    @include font-size(18, 20, 18, 26, 5.22, 2);
+    text-transform: uppercase;
+  }
+
+  &_list {
+    // Mobile Font Size, Desktop Font Size, Mobile Line Height, Desktop Line Height, Mobile Letter Spacing, Desktop Letter Spacing
+    @include font-size(12, 17, 23, 26, 0.3, 0.42);
+    color: $color_greyish_brown;
+    max-width: calculateRem(430);
+    margin-top: calculateRem(16);
+
+    @include mq(950px) {
+      margin-top: calculateRem(34);
+    }
+
+    &_title {
+      @include font('proxima_nova__bold');
+    }
+
+    &_item {
+      a {
+        color: $color_blue;
+        text-decoration: underline;
+
+        &:hover,
+        &:focus {
+          color: $color_dark_blue;
+        }
+      }
+      &--regions {
+        // Mobile Font Size, Desktop Font Size, Mobile Line Height, Desktop Line Height, Mobile Letter Spacing, Desktop Letter Spacing
+        @include font-size(12, 14, 23, 23, 0.3, 0.42);
+      }
+    }
+  }
+
+  &_more {
+    margin-top: calculateRem(38);
+    margin-bottom: calculateRem(34);
+    min-height: 150px;
+  }
+
+  .c_button {
+    &__icon {
+      position: relative;
+      top: -2px;
+      display: inline-flex;
+      align-items: center;
+      color: $color_dark_red;
+      margin-left: calculateRem(32);
+      transition: transform 0.4s ease-out;
+
+      & > svg {
+        width: 10px;
+        height: 5px;
+
+        [fill] {
+          fill: currentColor;
+          transition: fill 0.2s ease-out;
+        }
+      }
+    }
+
+    &:hover,
+    &:focus,
+    &:active {
+      .c_button__icon {
+        color: $color_white;
+      }
+    }
+
+    &.is-active {
+      .c_button__icon {
+        transform: rotate(180deg);
+      }
+    }
+  }
+
+  &_marker {
+    &:hover {
+      cursor: pointer;
+
+      .c_marker {
+        fill: $color_pink;
+      }
+    }
+
+    &.is-active {
+      .c_marker {
+        fill: $color_pink;
+      }
+    }
+
+    .c_marker {
+      fill: $color_offwhite;
+      transition: fill 0.2s ease-out;
+    }
+
+    &:focus,
+    &:active {
+      z-index: 2;
+      outline: none;
+      .c_marker {
+        outline: $color_pink dashed calculateRem(4);
+        outline-offset: pxConversion(5, rem);
+      }
+    }
+  }
+}
+
+.black_font {
+  @include font('proxima_nova__black');
+}

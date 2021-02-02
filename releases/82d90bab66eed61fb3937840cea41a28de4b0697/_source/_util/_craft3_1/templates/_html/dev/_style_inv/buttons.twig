@@ -1,0 +1,22 @@
+{# @var craft \craft\web\twig\variables\CraftVariable #}
+
+<% const currentSection = 'buttons' %>
+<% const modules = [] %>
+
+<% const intro = false %>
+
+<% modules.push({
+    "title": "Class",
+    "description": "A call-to-action button, used to encourage user interaction.",
+    "background": "light",
+    "twigCode":
+`{% import 'macros/component.twig' as component %}
+{{ component.c('button', { label: 'Button', url: 'http://google.com' }) }}`,
+    "options": [
+        { "name": 'label', "required": false, "type": 'string', "description": `Text that appears on the button.` },
+        { "name": 'target', "required": false, "type": 'string', "description": `Adds a target attribute to the button.` },
+        { "name": 'url', "required": false, "type": 'string', "description": `URL that th user will be sent to upon clicking button.` }
+]
+}); %>
+
+<%- include('../../ejs_includes/style_inventory/_wrapper', {"activeItem": currentSection, "intro": intro, "modules": modules}) %>

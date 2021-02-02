@@ -1,0 +1,59 @@
+{% if content.testimonialSlide is not empty %}
+    {% set options = {
+        direction: 'horizontal',
+        loop: true,
+        slidesPerView: 1,
+        a11y: true,
+        pagination: { el: '.swiper-pagination', clickable: true,},
+        navigation: { nextEl: '.swiper-testimonial-next', prevEl: '.swiper-testimonial-prev',},
+    } %}
+    <swiper v-cloak classes="swiper-testimonial-container c_testimonial_slider"  container=".swiper-testimonial-container" :options="{{ options|json_encode}}">
+        <div class="c_testimonial_slides swiper-wrapper" slot="slides">
+            {%- for slide in content.testimonialSlide.with(['image']).all() -%}
+                {% set textColor = (slide.chooseColor ?? false and slide.chooseColor == '2') ? 'text--blue' : 'text--red' %}
+                <div class="swiper-slide c_testimonial_slide">
+
+                    <div class="c_testimonial_slide_image">
+                        <div class="img is31by21">
+                            <img src="{{- slide.image[0].url -}}" alt="{{- slide.image[0].title -}}">
+                        </div>
+                    </div>
+                    <div class="c_testimonial_slide_content">
+                        {% set header %}
+                            {% if slide.heading ?? false %}
+                                <h2 class="c_section_header">{{ slide.heading }}</h2>
+                            {% endif %}
+                        {% endset %}
+                        {% if header|trim is not empty %}
+                            {{ header|attr({ class: textColor ?? false }) }}
+                        {% endif %}
+                        <div class="c_body_copy">
+                            {% set copy %}
+                                {% if slide.text ?? false %}
+                                    <div class="c_body_copy_text">{{- slide.text -}}</div>
+                                {% endif %}
+                            {% endset %}
+                            {% if copy|trim is not empty %}
+                                {{ copy|attr({ class: textColor ?? false }) }}
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            {%- endfor -%}
+        </div>
+        <div class="c_testimonial_navigation" slot="navigation">
+            <button class="swiper-testimonial-prev c_testimonial_nav">
+                <span class="visually-hidden">Previous Slide</span>
+                {{- svg('@basePath/icon/slider_left.svg') -}}
+            </button>
+            <button class="swiper-testimonial-next c_testimonial_nav">
+                <span class="visually-hidden">Next Slide</span>
+                {{- svg('@basePath/icon/slider_right.svg') -}}
+            </button>
+        </div>
+        <div class="c_testimonial_pagination" slot="pagination">
+            <div class="swiper-pagination"></div>
+        </div>
+        <div class="c_testimonial_flower" slot="flower">{{- svg('@basePath/icon/small-grey-flower-mobile.svg') -}}</div>
+    </swiper>
+{% endif %}

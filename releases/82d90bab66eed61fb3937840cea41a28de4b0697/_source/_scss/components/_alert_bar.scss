@@ -1,0 +1,89 @@
+.c_alert_bar {
+  $self: &;
+
+  position: relative;
+  grid-column: 1/3;
+  width: 100%;
+  max-width: 100%;
+  border-radius: 0px;
+  overflow: hidden;
+  z-index: 999;
+  .page_ui--active & {
+    display: none;
+  }
+  @at-root #{$self}_message {
+    $message: &;
+
+    position: relative;
+    width: 100%;
+
+    @at-root #{$message}_container {
+      display: grid;
+      grid-template-columns: repeat(1, 3fr);
+      grid-template-rows: auto;
+
+      width: 100%;
+      align-items: center;
+      color: #ffffff;
+      font-size: 1.6rem;
+      background-color: #8a1538;
+      justify-content: center;
+      box-shadow: 0 3px 6px 0 rgba(0, 0, 0, 0.16);
+      padding: 0rem;
+    }
+    & .c_button {
+      grid-column: 12/13;
+      background-color: transparent;
+      font-size: 1rem;
+      &:hover {
+        background: transparent;
+        color: #ffffff;
+      }
+    }
+    &:hover {
+      background: none;
+      color: none;
+    }
+    & a {
+      color: #ffffff;
+      font-size: 1.2rem;
+      text-decoration: none;
+    }
+
+    @at-root #{$message}_dismiss {
+      $dismiss: &;
+
+      grid-column: 12/13;
+      max-width: auto;
+      align-self: flex-start;
+      justify-self: flex-end;
+      @at-root #{$dismiss}_icon {
+        font-size: 3.5rem;
+        transform: rotate(180deg);
+      }
+    }
+    @at-root #{$message}__summary {
+      padding: 15px;
+      text-align: center;
+
+      #{$message}--message & {
+        cursor: pointer;
+      }
+    }
+    @at-root #{$message}__content {
+      grid-column: 1/11;
+      transition: 0.33s all ease;
+      overflow: hidden;
+      text-align: center;
+      .c_header {
+        margin-bottom: 1rem;
+      }
+    }
+    @at-root #{$message}__blocks {
+      @extend .c_grid;
+    }
+    .navbar-active & {
+      display: none;
+    }
+  }
+}

@@ -1,0 +1,25 @@
+{% import 'macros/component.twig' as component %}
+
+{% set logos = block.logo.all() ?? [] %}
+
+{% if logos|length %}
+    <div class="c_grid c_grid--6_column c_grid__providers">
+        {% for logo in logos %}
+            <div class="c_grid_item">
+                {% set options = {
+                    image: logo ?? false,
+                    alt: logo.altText ?? logo.title ?? false,
+                    lazyLoad: false,
+                    classes: 'provider_logo',
+                    imager: {
+                        transforms: [
+                            { width: 400, jpegQuality: 80 },
+                            { width: 200, jpegQuality: 80 },
+                        ]
+                    }
+                } %}
+                {{ component.c('image', options) }}
+            </div>
+        {% endfor %}
+    </div>
+{% endif %}

@@ -1,0 +1,11 @@
+{# @var craft \craft\web\twig\variables\CraftVariable #}
+{% import 'macros/component.twig' as component %}
+
+{% set body %}
+    <div class="c_alert_bar_message__content">
+        <a href="/covid-19-response">COVID-19 RESOURCES</a> |
+        <a href="#footer">On-Call Phone Numbers</a>
+    </div>
+{% endset %}
+
+{{ component.c('alert_bar_message', { body: body, summary: 'Covid-19 Resources' }) }}

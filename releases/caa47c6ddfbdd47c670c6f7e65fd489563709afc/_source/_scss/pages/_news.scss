@@ -1,0 +1,111 @@
+@include critical-split('news.css') {
+  div.news_search {
+    padding-bottom: pxConversion(62, rem);
+  }
+  .search_form {
+    .c_section_subheader {
+      margin-bottom: pxConversion(15, rem);
+      display: inline-block;
+    }
+    @at-root #{&}__inputs {
+      display: flex;
+      flex-flow: column nowrap;
+      @include mq(525px) {
+        flex-flow: row nowrap;
+        align-items: center;
+        justify-content: space-between;
+      }
+      & > div {
+        &:first-of-type {
+          flex: 1 1 auto;
+        }
+        &:last-of-type {
+          flex: 0 1 auto;
+          @include mq(525px) {
+            margin-left: pxConversion(20, rem);
+          }
+        }
+      }
+    }
+    .news_search__submit {
+      position: relative;
+      .c_button {
+        padding-right: pxConversion(45, rem);
+        font-size: pxConversion(14, rem);
+      }
+      &__search_icon {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        margin: auto;
+        right: pxConversion(23, rem);
+        width: pxConversion(15, rem);
+        height: pxConversion(15, rem);
+        display: inline-block;
+        svg {
+          max-width: 100%;
+          vertical-align: top;
+        }
+      }
+    }
+  }
+
+  .news_post {
+    padding-top: pxConversion(60, rem);
+    border-top: 1px solid $color_gray;
+    .c_section_header {
+      margin-bottom: 0;
+    }
+    @at-root #{&}__date {
+      margin-bottom: pxConversion(40, rem);
+    }
+    @at-root #{&}__image {
+      margin-bottom: pxConversion(40, rem);
+    }
+    @at-root #{&}__summary {
+      margin-bottom: pxConversion(40, rem);
+    }
+  }
+
+  div.news_post {
+    padding-bottom: pxConversion(70, rem);
+    &--last {
+      padding-bottom: 0;
+    }
+  }
+
+  .archive {
+    ul {
+      list-style-type: none;
+      padding: 0;
+    }
+    @at-root #{&}__year {
+      padding-bottom: pxConversion(40, rem);
+      & > a {
+        text-decoration: none;
+        padding-bottom: pxConversion(20, rem);
+        border-bottom: 1px solid $color_black_default;
+        margin-bottom: 0;
+        display: block;
+        @include font('proxima_nova');
+        &:hover {
+          color: $color_maroon;
+        }
+      }
+    }
+
+    @at-root #{&}__month {
+      padding: pxConversion(5, rem) 0;
+      & > a {
+        display: block;
+        text-decoration: none;
+        color: $color_black_default;
+        padding: pxConversion(10, rem) 0;
+        @include font('proxima_nova__bold');
+        &:hover {
+          text-decoration: underline;
+        }
+      }
+    }
+  }
+}

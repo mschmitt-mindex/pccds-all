@@ -1,0 +1,44 @@
+{% if entry.homeBodyBuilder is not empty %}
+
+{%- for block in entry.homeBodyBuilder.all() -%}
+    {%- switch block.type -%}
+
+        {%- case 'bodyCopy' -%}
+            {%- include 'components/bodyBuilder/body_copy' ignore missing with {
+                content: block,
+            } -%}
+
+        {%- case 'careers' -%}
+            {%- include 'components/bodyBuilder/careers' ignore missing with {
+                content: block,
+            } -%}
+
+        {%- case 'headingText' -%}
+            {%- include 'components/bodyBuilder/heading_text' ignore missing with {
+                content: block,
+            } -%}    
+
+        {%- case 'regionalContactsWidget' -%}
+            {%- include 'components/bodyBuilder/regional_contacts_widget.twig' ignore missing with {
+                content: block,
+            } -%}
+
+        {%- case 'serviceCards' -%}
+            {%- include 'components/bodyBuilder/service_cards' ignore missing with {
+                content: block,
+            } -%}
+
+        {%- case 'testimonialSlider' -%}
+            {%- include 'components/bodyBuilder/testimonial_slider.twig' ignore missing with {
+                content: block,
+            } -%}
+
+        {%- case 'valuesSlider' -%}
+            {%- include 'components/bodyBuilder/values_slider.twig' ignore missing with {
+                content: block,
+            } -%}
+
+    {%- endswitch -%}
+{%- endfor -%}
+
+{% endif %}

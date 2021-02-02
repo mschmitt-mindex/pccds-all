@@ -1,0 +1,17 @@
+{% set statistics = block.statistics ?? null %}
+
+<div class="c_section c_statistics">
+    {% for stat in statistics %}
+        <div class="c_statistics_column">
+            <div class="c_statistics_number">
+                {{ stat.number }}
+            </div>
+            <div class="c_statistics_label">
+                {{ stat.label }}
+            </div>
+        </div>
+    {% endfor %}
+    <div class="c_statistics_svg c_flower_spacer c_flower_spacer--large hide--mobile">
+        {{ svg('@basePath/icon/spacer-flower.svg') }}
+    </div>
+</div>

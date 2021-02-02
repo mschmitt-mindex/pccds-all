@@ -1,0 +1,185 @@
+{# @var craft \craft\web\twig\variables\CraftVariable #}
+
+
+
+
+
+
+
+
+<div class="styles">
+    <div class="styles__menu">
+    
+        <a class="active" href="/dev/inv/index"><span class="styles__menu__active_spacer"></span>Style Inventory<span class="styles__menu__active_indicator"></span></a>
+    
+        <a href="/dev/inv/globals">Globals</a>
+    
+        <a href="/dev/inv/animations">Animations</a>
+    
+        <a href="/dev/inv/buttons">Buttons</a>
+    
+        <a href="/dev/inv/forms">Forms</a>
+    
+        <a href="/dev/inv/grid">Grids</a>
+    
+        <a href="/dev/inv/icons">Icons</a>
+    
+        <a href="/dev/inv/media">Media</a>
+    
+        <a href="/dev/inv/messages">Messages</a>
+    
+        <a href="/dev/inv/nav">Navigation</a>
+    
+        <a href="/dev/inv/overlays">Overlays</a>
+    
+        <a href="/dev/inv/sliders">Sliders</a>
+    
+</div>
+    <div>
+        <div class="styles_example">
+          <div class="styles__example__display">
+            <div class="c_text">
+    <h1 class="c_header">Style Inventory</h1>
+    <p>Websites are marketing tools that evolve as business needs change. A style inventory ensures elements and components stay consistent as code is added and modified over time.</p>
+    <p>For example, a button may be added as link at the bottom of a paragraph, as part of a call to action lockup, and as the submit trigger for a form. In all of these situations we want our audience to understand that that tapping this button performs an action. Instead of styling three different buttons, we can use one style that is used across all places. To see all styles at once, the <a href="dev/inv/buttons">Buttons</a> page in the style inventory shows how these buttons will look—as well as any future variations that may arise.</p>
+    <h2 class="c_subheader">Designers</h2>
+    <p>The style inventory is like a living style guide for the website, and can be referred to when new design elements are needed.</p>
+    <h2 class="c_subheader">Developers</h2>
+    <p>The style inventory uses the `app.css` stylesheet and javascript modules to display elements and components as they would look and work on the website. Copy the markup from the style inventory to add an element or component to the website.</p>
+</div>
+          </div>
+        </div>
+
+        
+            <div class="styles__example">
+                <div class="styles__example__title"><h2>Twig Components</h2></div>
+                <div class="styles__example__description"><p>These options can be added to the configuration of any component that is called through `component.c()`.</p></div>
+                <div class="styles__example__display" style="background-color: #FFFFFF;">
+                  {% import 'macros/component.twig' as component %}
+
+{% set afterTwig -%}
+    ••• AFTER •••
+{%- endset %}
+{% set beforeTwig -%}
+    +++ BEFORE +++
+{%- endset %}
+
+{{ component.c('button', {
+    after: afterTwig,
+    attributes: 'data-hello',
+    before: beforeTwig,
+    classes: 'red',
+    label: 'Example',
+    modifiers: ['red', 'green'],
+    styles: 'background-color: red;',
+    target: '_blank',
+    url: 'http://google.com'
+}) }}
+                </div>
+                <div class="styles__example__code styles__example__code--twig">
+                    {% verbatim %}<pre><code>{% import &#39;macros/component.twig&#39; as component %}
+
+{% set afterTwig -%}
+    ••• AFTER •••
+{%- endset %}
+{% set beforeTwig -%}
+    +++ BEFORE +++
+{%- endset %}
+
+{{ component.c(&#39;button&#39;, {
+    after: afterTwig,
+    attributes: &#39;data-hello&#39;,
+    before: beforeTwig,
+    classes: &#39;red&#39;,
+    label: &#39;Example&#39;,
+    modifiers: [&#39;red&#39;, &#39;green&#39;],
+    styles: &#39;background-color: red;&#39;,
+    target: &#39;_blank&#39;,
+    url: &#39;http://google.com&#39;
+}) }}</code></pre>{% endverbatim %}
+                </div>
+                <table class="styles__example__table">
+                    <thead>
+                        <td><b>Name</b></td>
+                        <td><b>Type</b></td>
+                        <td><b>Default</b></td>
+                        <td><b>Description</b></td>
+                    </thead>
+                    <tbody>
+                        
+                            <tr>
+                                <td><b>after</b></td>
+                                <td>block</td>
+                                <td><i>null</i></td>
+                                <td>Code that&#39;s outputted after the component element.</td>
+                            </tr>
+                        
+                            <tr>
+                                <td><b>attributes</b></td>
+                                <td>string</td>
+                                <td><i>&#39;&#39;</i></td>
+                                <td>Additional attributes added to the component element. This can be used to add Vue functionality to a component.</td>
+                            </tr>
+                        
+                            <tr>
+                                <td><b>before</b></td>
+                                <td>block</td>
+                                <td><i>null</i></td>
+                                <td>Code that&#39;s outputted before the component element.</td>
+                            </tr>
+                        
+                            <tr>
+                                <td><b>classes</b></td>
+                                <td>string</td>
+                                <td><i>&#39;&#39;</i></td>
+                                <td>Add classes to the component element.</td>
+                            </tr>
+                        
+                            <tr>
+                                <td><b>content</b></td>
+                                <td>block</td>
+                                <td><i>null</i></td>
+                                <td>Code that goes directly inside the component element.</td>
+                            </tr>
+                        
+                            <tr>
+                                <td><b>element</b></td>
+                                <td>string</td>
+                                <td><i>&#39;div&#39;</i></td>
+                                <td>Allows you to change the element type of the component.</td>
+                            </tr>
+                        
+                            <tr>
+                                <td><b>id</b></td>
+                                <td>string</td>
+                                <td><i>null</i></td>
+                                <td>The id of the component element.</td>
+                            </tr>
+                        
+                            <tr>
+                                <td><b>modifiers</b></td>
+                                <td>array</td>
+                                <td><i>[]</i></td>
+                                <td>Add component modifier classes. For example, on the &#39;c_button&#39; component, setting modifiers to [&#39;red&#39;] would result in the class &#39;c_button--red&#39; being added.</td>
+                            </tr>
+                        
+                            <tr>
+                                <td><b>styles</b></td>
+                                <td>string</td>
+                                <td><i>&#39;&#39;</i></td>
+                                <td>Adds inline styles to the component element.</td>
+                            </tr>
+                        
+                    </tbody>
+                </table>
+                
+            </div>
+        
+    </div>
+</div>
+
+
+    {% set devStyleJs -%}
+        loadCSS("/css/dev-styles.css?v=1.0.379");
+    {%- endset %}
+    {% js devStyleJs %}

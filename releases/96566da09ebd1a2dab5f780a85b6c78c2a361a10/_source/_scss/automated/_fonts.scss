@@ -1,0 +1,177 @@
+$font_embedded_proxima_nova: false;
+$font_embedded_proxima_nova__light: false;
+$font_embedded_proxima_nova__medium: false;
+$font_embedded_proxima_nova__semi_bold: false;
+$font_embedded_proxima_nova__bold: false;
+$font_embedded_proxima_nova__extra_bold: false;
+$font_embedded_proxima_nova__black: false;
+
+@mixin embed_font($font_name) {
+  @at-root {
+    @if $font_name == 'proxima_nova' {
+      @if $font_embedded_proxima_nova == false {
+        $font_embedded_proxima_nova: true;
+        @font-face {
+          font-family: 'ProximaNova-Regular';
+          src: url('/fonts/368105_11_0.eot');
+          src: url('/fonts/368105_11_0.eot?#iefix') format('embedded-opentype'),
+            url('/fonts/368105_11_0.woff2') format('woff2'), url('/fonts/368105_11_0.woff') format('woff');
+          font-style: normal;
+          font-weight: normal;
+          font-display: swap;
+        }
+      }
+    } @else if $font_name == 'proxima_nova__light' {
+      @if $font_embedded_proxima_nova__light == false {
+        $font_embedded_proxima_nova__light: true;
+        @font-face {
+          font-family: 'ProximaNova-Light';
+          src: url('/fonts/368105_F_0.eot');
+          src: url('/fonts/368105_F_0.eot?#iefix') format('embedded-opentype'),
+            url('/fonts/368105_F_0.woff2') format('woff2'), url('/fonts/368105_F_0.woff') format('woff');
+          font-style: normal;
+          font-weight: normal;
+          font-display: swap;
+        }
+      }
+    } @else if $font_name == 'proxima_nova__medium' {
+      @if $font_embedded_proxima_nova__medium == false {
+        $font_embedded_proxima_nova__medium: true;
+        @font-face {
+          font-family: 'ProximaNova-Medium';
+          src: url('/fonts/368105_E_0.eot');
+          src: url('/fonts/368105_E_0.eot?#iefix') format('embedded-opentype'),
+            url('/fonts/368105_E_0.woff2') format('woff2'), url('/fonts/368105_E_0.woff') format('woff');
+          font-style: normal;
+          font-weight: normal;
+          font-display: swap;
+        }
+      }
+    } @else if $font_name == 'proxima_nova__semi_bold' {
+      @if $font_embedded_proxima_nova__semi_bold == false {
+        $font_embedded_proxima_nova__semi_bold: true;
+        @font-face {
+          font-family: 'ProximaNova-Semibold';
+          src: url('/fonts/368105_15_0.eot');
+          src: url('/fonts/368105_15_0.eot?#iefix') format('embedded-opentype'),
+            url('/fonts/368105_15_0.woff2') format('woff2'), url('/fonts/368105_15_0.woff') format('woff');
+          font-style: normal;
+          font-weight: normal;
+          font-display: swap;
+        }
+      }
+    } @else if $font_name == 'proxima_nova__bold' {
+      @if $font_embedded_proxima_nova__bold == false {
+        $font_embedded_proxima_nova__bold: true;
+        @font-face {
+          font-family: 'ProximaNova-Bold';
+          src: url('/fonts/368105_6_0.eot');
+          src: url('/fonts/368105_6_0.eot?#iefix') format('embedded-opentype'),
+            url('/fonts/368105_6_0.woff2') format('woff2'), url('/fonts/368105_6_0.woff') format('woff');
+          font-style: normal;
+          font-weight: normal;
+          font-display: swap;
+        }
+      }
+    } @else if $font_name == 'proxima_nova__extra_bold' {
+      @if $font_embedded_proxima_nova__extra_bold == false {
+        $font_embedded_proxima_nova__extra_bold: true;
+        @font-face {
+          font-family: 'ProximaNova-Extrabld';
+          src: url('/fonts/368105_8_0.eot');
+          src: url('/fonts/368105_8_0.eot?#iefix') format('embedded-opentype'),
+            url('/fonts/368105_8_0.woff2') format('woff2'), url('/fonts/368105_8_0.woff') format('woff');
+          font-style: normal;
+          font-weight: normal;
+          font-display: swap;
+        }
+      }
+    } @else if $font_name == 'proxima_nova__black' {
+      @if $font_embedded_proxima_nova__black == false {
+        $font_embedded_proxima_nova__black: true;
+        @font-face {
+          font-family: 'ProximaNova-Black';
+          src: url('/fonts/368105_2_0.eot');
+          src: url('/fonts/368105_2_0.eot?#iefix') format('embedded-opentype'),
+            url('/fonts/368105_2_0.woff2') format('woff2'), url('/fonts/368105_2_0.woff') format('woff');
+          font-style: normal;
+          font-weight: normal;
+          font-display: swap;
+        }
+      }
+    }
+  }
+}
+
+// Embed fonts from font service or hosted locally
+@mixin font($font_name) {
+  $font_family: '';
+  $font_fallbacks: sans-serif !default;
+  $font_weight: normal !default;
+  $font_style: normal !default;
+
+  @if $font_name == 'apple' {
+    $font_family: -apple-system;
+    $font_fallbacks: BlinkMacSystemFont, 'Avinir Next', 'Avinir', Helvetica, Arial, sans-serif;
+    $font_style: normal;
+    $font_weight: normal;
+  } @else if $font_name == 'apple_bold' {
+    $font_family: -apple-system;
+    $font_fallbacks: BlinkMacSystemFont, 'Avinir Next', 'Avinir', Helvetica, Arial, sans-serif;
+    $font_style: normal;
+    $font_weight: 700;
+  } @else if $font_name == 'apple_italic' {
+    $font_family: -apple-system;
+    $font_fallbacks: BlinkMacSystemFont, 'Avinir Next', 'Avinir', Helvetica, Arial, sans-serif;
+    $font_style: italic;
+    $font_weight: normal;
+  } @else if $font_name == 'apple_bold_italic' {
+    $font_family: -apple-system;
+    $font_fallbacks: BlinkMacSystemFont, 'Avinir Next', 'Avinir', Helvetica, Arial, sans-serif;
+    $font_style: italic;
+    $font_weight: 700;
+  } @else if $font_name == 'proxima_nova' {
+    $font_family: 'ProximaNova-Regular';
+    $font_fallbacks: Helvetica, Arial, sans-serif;
+    $font_style: normal;
+    $font_weight: normal;
+  } @else if $font_name == 'proxima_nova__light' {
+    $font_family: 'ProximaNova-Light';
+    $font_fallbacks: Helvetica, Arial, sans-serif;
+    $font_style: normal;
+    $font_weight: normal;
+  } @else if $font_name == 'proxima_nova__medium' {
+    $font_family: 'ProximaNova-Medium';
+    $font_fallbacks: Helvetica, Arial, sans-serif;
+    $font_style: normal;
+    $font_weight: normal;
+  } @else if $font_name == 'proxima_nova__semi_bold' {
+    $font_family: 'ProximaNova-Semibold';
+    $font_fallbacks: Helvetica, Arial, sans-serif;
+    $font_style: normal;
+    $font_weight: normal;
+  } @else if $font_name == 'proxima_nova__bold' {
+    $font_family: 'ProximaNova-Bold';
+    $font_fallbacks: Helvetica, Arial, sans-serif;
+    $font_style: normal;
+    $font_weight: normal;
+  } @else if $font_name == 'proxima_nova__extra_bold' {
+    $font_family: 'ProximaNova-Extrabld';
+    $font_fallbacks: Helvetica, Arial, sans-serif;
+    $font_style: normal;
+    $font_weight: normal;
+  } @else if $font_name == 'proxima_nova__black' {
+    $font_family: 'ProximaNova-Black';
+    $font_fallbacks: Helvetica, Arial, sans-serif;
+    $font_style: normal;
+    $font_weight: normal;
+  }
+
+  font: {
+    family: $font_family, $font_fallbacks;
+    weight: $font_weight;
+    style: $font_style;
+  }
+
+  @include embed_font($font_name);
+}

@@ -1,0 +1,100 @@
+{# @var craft \craft\web\twig\variables\CraftVariable #}
+
+
+
+
+
+
+
+
+<div class="styles">
+    <div class="styles__menu">
+    
+        <a href="/dev/inv/index">Style Inventory</a>
+    
+        <a href="/dev/inv/globals">Globals</a>
+    
+        <a href="/dev/inv/animations">Animations</a>
+    
+        <a href="/dev/inv/buttons">Buttons</a>
+    
+        <a href="/dev/inv/forms">Forms</a>
+    
+        <a href="/dev/inv/grid">Grids</a>
+    
+        <a href="/dev/inv/icons">Icons</a>
+    
+        <a href="/dev/inv/media">Media</a>
+    
+        <a href="/dev/inv/messages">Messages</a>
+    
+        <a class="active" href="/dev/inv/nav"><span class="styles__menu__active_spacer"></span>Navigation<span class="styles__menu__active_indicator"></span></a>
+    
+        <a href="/dev/inv/overlays">Overlays</a>
+    
+        <a href="/dev/inv/sliders">Sliders</a>
+    
+</div>
+    <div>
+        
+
+        
+            <div class="styles__example">
+                <div class="styles__example__title"><h2>Pager</h2></div>
+                <div class="styles__example__description"><p>Navigate through pages of news items and other content types.</p></div>
+                <div class="styles__example__display" style="background-color: #FFFFFF;">
+                  {% import 'macros/component.twig' as component %}
+
+{% paginate craft.entries.limit(20) as pageInfo, pageEntries %}
+{% for item in pageEntries %}
+    {{ item.title }}<br>
+{% endfor %}
+
+{{ component.c('pager', { pageInfo: pageInfo, maxLinks: 5 }) }}
+                </div>
+                <div class="styles__example__code styles__example__code--twig">
+                    {% verbatim %}<pre><code>{% import &#39;macros/component.twig&#39; as component %}
+
+{% paginate craft.entries.limit(20) as pageInfo, pageEntries %}
+{% for item in pageEntries %}
+    {{ item.title }}&lt;br&gt;
+{% endfor %}
+
+{{ component.c(&#39;pager&#39;, { pageInfo: pageInfo, maxLinks: 5 }) }}</code></pre>{% endverbatim %}
+                </div>
+                <table class="styles__example__table">
+                    <thead>
+                        <td><b>Name</b></td>
+                        <td><b>Type</b></td>
+                        <td><b>Default</b></td>
+                        <td><b>Description</b></td>
+                    </thead>
+                    <tbody>
+                        
+                            <tr>
+                                <td><b>pageInfo</b> (required)</td>
+                                <td>pageInfo object from `paginate` tag</td>
+                                <td><i>null</i></td>
+                                <td>The info used to let the pager know what the current page is.</td>
+                            </tr>
+                        
+                            <tr>
+                                <td><b>maxLinks</b></td>
+                                <td>integer</td>
+                                <td><i>5</i></td>
+                                <td>The amount of links to show in the middle of the pager.</td>
+                            </tr>
+                        
+                    </tbody>
+                </table>
+                
+            </div>
+        
+    </div>
+</div>
+
+
+    {% set devStyleJs -%}
+        loadCSS("/css/dev-styles.css?v=1.0.379");
+    {%- endset %}
+    {% js devStyleJs %}

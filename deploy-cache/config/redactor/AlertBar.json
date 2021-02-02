@@ -1,0 +1,7 @@
+{
+  "buttons": ["link","file"],
+  "toolbarFixed": true,
+  "linkNewTab": true,
+  "paragraphize": false,
+  "linebreaks": false
+}

@@ -1,0 +1,593 @@
+// ENV VARIABLES
+$release: 'development' !default;
+
+// SASS FUNCTIONS
+@function rwd_ratio_width($object_px, $container_px) {
+  @return $object_px / $container_px * 100%;
+}
+
+// SITE VARIABLES
+// ANIMATIONS
+$anim_duration_default: 0.3s;
+$anim_duration_fade: $anim_duration_default;
+$anim_duration_slide: $anim_duration_default;
+
+// COLORS
+$color_white_default: rgb(255, 255, 255);
+$color_black_default: rgb(51, 51, 51);
+$color_alert_success: rgb(45, 176, 51);
+$color_alert_error: rgb(176, 25, 22);
+$color_alert_warning: rgb(238, 199, 0);
+
+$color_primary: rgb(0, 97, 120);
+$color_secondary: rgb(0, 103, 127);
+$color_maroon: rgb(138, 23, 57);
+$color_light_teal: rgb(126, 221, 211);
+$color_red: rgb(213, 0, 50);
+$color_gray: rgb(225, 225, 225);
+$color_dark_gray: rgb(82, 82, 82);
+$color_light_blue_gray: rgb(233, 242, 241);
+$color_offwhite: rgb(245, 245, 245);
+
+$color_brand_facebook: rgb(59, 89, 152);
+$color_brand_twitter: rgb(29, 161, 242);
+$color_brand_linkedin: rgb(0, 119, 181);
+$color_brand_youtube_red: rgb(255, 0, 0);
+$color_brand_youtube_black: rgb(40, 40, 40);
+
+// New colors
+$color_white: $color_white_default;
+$color_black: $color_black_default;
+$color_offwhite: rgb(245, 245, 245);
+$color_offwhite_opaque: rgba(245, 245, 245, 0.95);
+$color_light_gray: rgb(181, 181, 181);
+$color_light_blue: rgb(126, 221, 211);
+$color_light_blue_alt: rgb(205, 227, 234);
+$color_blue: rgb(0, 103, 127);
+$color_pink: rgb(250, 186, 205);
+$color_red: rgb(213, 0, 50);
+$color_dark_red: rgb(138, 21, 56);
+$color_dark_blue: rgb(1, 76, 93);
+$color_dark_gray: rgb(82, 82, 82);
+$color_greyish_brown: rgb(82, 82, 82);
+
+// LAYOUT
+$grid_gap_default: 20px;
+$margin_bottom_default: 30px;
+
+// MEDIA QUERIES
+$mq_grid_start: 700px;
+$mq_menu_mobile: 1180px;
+
+$base_font_size: 0.9375rem;
+$base_font_size_numeric: 0.9375;
+
+// SITE MIXINS
+// BUTTONS
+@mixin buttons_default {
+  @include font('proxima_nova__semi_bold');
+  // Mobile Font Size, Desktop Font Size, Mobile Line Height, Desktop Line Height, Mobile Letter Spacing, Desktop Letter Spacing
+  @include font-size(14, 15, 7, 27, 2.1, 2.25);
+  padding: calculateRem(14) calculateRem(30) calculateRem(13);
+  @include mq(950px) {
+    padding: calculateRem(11) calculateRem(34) calculateRem(12);
+  }
+  display: inline-block;
+  border: 1px solid transparent;
+  text-align: center;
+  text-decoration: none;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: color 0.2s ease-out, background-color 0.2s ease-out;
+}
+
+@mixin radio_and_checkboxes {
+  fieldset div {
+    display: flex;
+    flex-flow: row nowrap;
+    align-items: center;
+    margin-bottom: pxconversion(10, rem);
+  }
+  fieldset label {
+    padding-bottom: 0;
+    padding-left: pxConversion(10, rem);
+  }
+}
+
+// FONTS
+// For the font() mixin, see _source/automated/_fonts
+// If this file is empty, run `gulp first` to populate it
+
+// Set scalable font size (in vw units) and set fallback
+// @include fz(7, 5rem, 700px);
+// $font_vw_unit = value for vw unit
+// $font_fallback_size = fallback size used if vw units are not supported by the browser
+// $font_fallback_mq = at this width, the texrt will stop scaling up
+@mixin fz($font_vw_unit, $font_fallback_size: '', $font_fallback_mq: '') {
+  @if $font_fallback_size != '' {
+    font-size: $font_fallback_size;
+  }
+  font-size: $font_vw_unit + vw;
+
+  @if $font_fallback_mq != '' {
+    @include mq($font_fallback_mq) {
+      font-size: $font_fallback_size;
+    }
+  }
+}
+
+@function strip-unit($number) {
+  @if type-of($number) == 'number' and not unitless($number) {
+    @return $number / ($number * 0 + 1);
+  }
+
+  @return $number;
+}
+
+@function pxConversion($pxValue, $remOrEm) {
+  $pxValue: strip-unit($pxValue);
+  $returnValue: '';
+  @if $pxValue != '' {
+    $returnValue: $pxValue / 16;
+  }
+
+  $returnValue: $returnValue * $base_font_size_numeric + $remOrEm;
+
+  @return $returnValue;
+}
+
+@mixin font-size(
+  $mobileFontSize,
+  $desktopFontSize,
+  $mobileLineHeight,
+  $desktopLineHeight,
+  $mobileLetterSpacing: 0,
+  $desktopLetterSpacing: 0
+) {
+  font-size: $mobileFontSize + px;
+  font-size: $mobileFontSize / 15 + rem;
+  line-height: $mobileLineHeight + px;
+  line-height: $mobileLineHeight / 15 + rem;
+  letter-spacing: $mobileLetterSpacing + px;
+  letter-spacing: $mobileLetterSpacing / 15 + rem;
+
+  @include mq(950px) {
+    font-size: $desktopFontSize + px;
+    font-size: $desktopFontSize / 15 + rem;
+    line-height: $desktopLineHeight + px;
+    line-height: $desktopLineHeight / 15 + rem;
+    letter-spacing: $desktopLetterSpacing + px;
+    letter-spacing: $desktopLetterSpacing / 15 + rem;
+  }
+}
+
+@function calculateRem($size) {
+  $remSize: $size / 15;
+  @return #{$remSize}rem;
+}
+
+@function vwConversion($pxVal, $baseWidth) {
+  $vw-context: ($baseWidth * 0.01);
+  @return ($pxVal / $vw-context);
+}
+
+// LAYOUT
+// Places centers three divs with a background, middle, and foreground layers
+@mixin layout_centered_image_text {
+  position: relative;
+
+  @at-root #{&}__background,
+    #{&}__middle,
+    #{&}__foreground,
+    #{&}__url_mask {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+  }
+  @at-root #{&}__background {
+    z-index: 1;
+  }
+  @at-root #{&}__middle {
+    z-index: 2;
+  }
+  @at-root #{&}__foreground {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 3;
+  }
+  @at-root #{&}__url_mask {
+    z-index: 4;
+  }
+}
+
+// MEDIA QUERIES
+// Quickly write simple media queries
+// @include mq(600px) {  }
+@mixin mq_handler($mq_min_max, $mq_direction, $breakpoint, $additional_media: '') {
+  @if $additional_media != '' {
+    @media (#{$mq_min_max}-#{$mq_direction}: $breakpoint, $additional_media) {
+      @content;
+    }
+  } @else {
+    @media (#{$mq_min_max}-#{$mq_direction}: $breakpoint) {
+      @content;
+    }
+  }
+}
+
+@mixin mq($breakpoint, $additional_media: '') {
+  @include mq_handler('min', 'width', $breakpoint, $additional_media) {
+    @content;
+  }
+}
+
+@mixin mq_max($breakpoint, $additional_media: '') {
+  @include mq_handler('max', 'width', $breakpoint, $additional_media) {
+    @content;
+  }
+}
+
+@mixin mq_v($breakpoint, $additional_media: '') {
+  @include mq_handler('min', 'height', $breakpoint, $additional_media) {
+    @content;
+  }
+}
+
+@mixin mq_vmax($breakpoint, $additional_media: '') {
+  @include mq_handler('max', 'height', $breakpoint, $additional_media) {
+    @content;
+  }
+}
+
+@mixin bg_2x {
+  @media only screen and (-webkit-min-device-pixel-ratio: 2), only screen and (min-resolution: 192dpi) {
+    @content;
+  }
+}
+
+// PLACEHOLDER
+// Style placeholder
+@mixin placeholder {
+  ::-webkit-input-placeholder {
+    @content;
+  }
+  :-moz-placeholder {
+    @content;
+  }
+  ::-moz-placeholder {
+    @content;
+  }
+}
+
+// TEXT
+// Hide text for things like buttons or links that are replaced with a background image
+@mixin text_modifiers($self) {
+  @at-root #{$self}--center {
+    text-align: center;
+  }
+  @at-root #{$self}--color--primary {
+    color: $color_primary;
+  }
+  @at-root #{$self}--color--maroon {
+    color: $color_maroon;
+  }
+  @at-root #{$self}--color--light_teal {
+    color: $color_light_teal;
+  }
+  @at-root #{$self}--color--red {
+    color: $color_red;
+  }
+  @at-root #{$self}--color--white {
+    color: $color_white_default;
+  }
+  @at-root #{$self}--color--black {
+    color: $color_black_default;
+  }
+}
+
+@mixin hide_text {
+  text-indent: -99999px;
+}
+
+@mixin antialias {
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+// TRANSITIONS/ANIMATIONS
+@mixin transition($property, $duration: $anim_duration_default, $delay: 0, $timing: ease-out) {
+  transition-property: $property;
+  transition-duration: $duration;
+  transition-delay: $delay;
+  transition-timing-function: $timing;
+}
+
+// PLACEHOLDERS
+// Put clearfix on wrapper elements for floats
+%clearfix {
+  &:before,
+  &:after {
+    content: '\0020';
+    display: block;
+    height: 0;
+    overflow: hidden;
+  }
+  &:after {
+    clear: both;
+  }
+  & {
+    zoom: 1;
+  }
+}
+
+%margin-bottom {
+  margin-bottom: $margin_bottom_default;
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+}
+
+// Spacing Mixins for Components
+// Both the padding() and margin() mixins work the same way
+// @param {string} Just pass a spacing size value: small or large
+// @param {string}: then pass in which side you need: top, bottom, top-bottom, sides (both left and right), left, right
+// @param {boolean}: If you need half values then pass in: true, false is the default
+
+// Values in pixels
+$mobileSmallSpacing: 30;
+$desktopSmallSpacing: 40;
+$mobileLargeSpacing: 75;
+$desktopLargeSpacing: 100;
+
+@mixin padding($size: small, $sides: all, $half: false) {
+  $divider: 1;
+  @if $half == true {
+    $divider: 2;
+  }
+  // used for related components
+  @if $size == small {
+    @if $sides == all {
+      padding: calculateRem($mobileSmallSpacing / $divider);
+
+      @include mq(950px) {
+        padding: calculateRem($desktopSmallSpacing / $divider);
+      }
+    }
+    @elseif $sides == top {
+      padding-top: calculateRem($mobileSmallSpacing / $divider);
+
+      @include mq(950px) {
+        padding-top: calculateRem($desktopSmallSpacing / $divider);
+      }
+    }
+    @elseif $sides == bottom {
+      padding-bottom: calculateRem($mobileSmallSpacing / $divider);
+
+      @include mq(950px) {
+        padding-bottom: calculateRem($desktopSmallSpacing / $divider);
+      }
+    }
+    @elseif $sides == top-bottom {
+      padding-top: calculateRem($mobileSmallSpacing / $divider);
+      padding-bottom: calculateRem($mobileSmallSpacing / $divider);
+
+      @include mq(950px) {
+        padding-top: calculateRem($desktopSmallSpacing / $divider);
+        padding-bottom: calculateRem($desktopSmallSpacing / $divider);
+      }
+    }
+    @elseif $sides == sides {
+      padding-right: calculateRem($mobileSmallSpacing / $divider);
+      padding-left: calculateRem($mobileSmallSpacing / $divider);
+
+      @include mq(950px) {
+        padding-right: calculateRem($desktopSmallSpacing / $divider);
+        padding-left: calculateRem($desktopSmallSpacing / $divider);
+      }
+    }
+    @elseif $sides == left {
+      padding-left: calculateRem($mobileSmallSpacing / $divider);
+
+      @include mq(950px) {
+        padding-left: calculateRem($desktopSmallSpacing / $divider);
+      }
+    }
+    @elseif $sides == right {
+      padding-right: calculateRem($mobileSmallSpacing / $divider);
+
+      @include mq(950px) {
+        padding-right: calculateRem($desktopSmallSpacing / $divider);
+      }
+    }
+    // used for spacing between components
+  } @else {
+    @if $sides == all {
+      padding: calculateRem($mobileLargeSpacing / $divider);
+
+      @include mq(950px) {
+        padding: calculateRem($desktopLargeSpacing / $divider);
+      }
+    }
+    @elseif $sides == top {
+      padding-top: calculateRem($mobileLargeSpacing / $divider);
+
+      @include mq(950px) {
+        padding-top: calculateRem($desktopLargeSpacing / $divider);
+      }
+    }
+    @elseif $sides == bottom {
+      padding-bottom: calculateRem($mobileLargeSpacing / $divider);
+
+      @include mq(950px) {
+        padding-bottom: calculateRem($desktopLargeSpacing / $divider);
+      }
+    }
+    @elseif $sides == top-bottom {
+      padding-top: calculateRem($mobileLargeSpacing / $divider);
+      padding-bottom: calculateRem($mobileLargeSpacing / $divider);
+
+      @include mq(950px) {
+        padding-top: calculateRem($desktopLargeSpacing / $divider);
+        padding-bottom: calculateRem($desktopLargeSpacing / $divider);
+      }
+    }
+    @elseif $sides == sides {
+      padding-right: calculateRem($mobileLargeSpacing / $divider);
+      padding-left: calculateRem($mobileLargeSpacing / $divider);
+
+      @include mq(950px) {
+        padding-right: calculateRem($desktopLargeSpacing / $divider);
+        padding-left: calculateRem($desktopLargeSpacing / $divider);
+      }
+    }
+    @elseif $sides == left {
+      padding-left: calculateRem($mobileLargeSpacing / $divider);
+
+      @include mq(950px) {
+        padding-left: calculateRem($desktopLargeSpacing / $divider);
+      }
+    }
+    @elseif $sides == right {
+      padding-right: calculateRem($mobileLargeSpacing / $divider);
+
+      @include mq(950px) {
+        padding-right: calculateRem($desktopLargeSpacing / $divider);
+      }
+    }
+  }
+}
+
+@mixin margin($size: small, $sides: all, $half: false) {
+  $divider: 1;
+  @if $half == true {
+    $divider: 2;
+  }
+  // used for related components
+  @if $size == small {
+    @if $sides == all {
+      margin: calculateRem($mobileSmallSpacing / $divider);
+
+      @include mq(950px) {
+        margin: calculateRem($desktopSmallSpacing / $divider);
+      }
+    }
+    @elseif $sides == top {
+      margin-top: calculateRem($mobileSmallSpacing / $divider);
+
+      @include mq(950px) {
+        margin-top: calculateRem($desktopSmallSpacing / $divider);
+      }
+    }
+    @elseif $sides == bottom {
+      margin-bottom: calculateRem($mobileSmallSpacing / $divider);
+
+      @include mq(950px) {
+        margin-bottom: calculateRem($desktopSmallSpacing / $divider);
+      }
+    }
+    @elseif $sides == top-bottom {
+      margin-top: calculateRem($mobileSmallSpacing / $divider);
+      margin-bottom: calculateRem($mobileSmallSpacing / $divider);
+
+      @include mq(950px) {
+        margin-top: calculateRem($desktopSmallSpacing / $divider);
+        margin-bottom: calculateRem($desktopSmallSpacing / $divider);
+      }
+    }
+    @elseif $sides == sides {
+      margin-right: calculateRem($mobileSmallSpacing / $divider);
+      margin-left: calculateRem($mobileSmallSpacing / $divider);
+
+      @include mq(950px) {
+        margin-right: calculateRem($desktopSmallSpacing / $divider);
+        margin-left: calculateRem($desktopSmallSpacing / $divider);
+      }
+    }
+    // used for spacing between components
+  } @else {
+    @if $sides == all {
+      margin: calculateRem($mobileLargeSpacing / $divider);
+
+      @include mq(950px) {
+        margin: calculateRem($desktopLargeSpacing / $divider);
+      }
+    }
+    @elseif $sides == top {
+      margin-top: calculateRem($mobileLargeSpacing / $divider);
+
+      @include mq(950px) {
+        margin-top: calculateRem($desktopLargeSpacing / $divider);
+      }
+    }
+    @elseif $sides == bottom {
+      margin-bottom: calculateRem($mobileLargeSpacing / $divider);
+
+      @include mq(950px) {
+        margin-bottom: calculateRem($desktopLargeSpacing / $divider);
+      }
+    }
+    @elseif $sides == top-bottom {
+      margin-top: calculateRem($mobileLargeSpacing / $divider);
+      margin-bottom: calculateRem($mobileLargeSpacing / $divider);
+
+      @include mq(950px) {
+        margin-top: calculateRem($desktopLargeSpacing / $divider);
+        margin-bottom: calculateRem($desktopLargeSpacing / $divider);
+      }
+    }
+    @elseif $sides == sides {
+      margin-right: calculateRem($mobileLargeSpacing / $divider);
+      margin-left: calculateRem($mobileLargeSpacing / $divider);
+
+      @include mq(950px) {
+        margin-right: calculateRem($desktopLargeSpacing / $divider);
+        margin-left: calculateRem($desktopLargeSpacing / $divider);
+      }
+    }
+  }
+}
+
+// Let's use a mixin to generate some text/background color utilities
+$colors: (
+  white: $color_white_default,
+  off-white: $color_offwhite,
+  light-gray: $color_light_gray,
+  light-blue: $color_light_blue,
+  blue: $color_blue,
+  pink: $color_pink,
+  red: $color_red,
+  dark-red: $color_dark_red,
+  dark-blue: $color_dark_blue,
+  dark-gray: $color_dark_gray,
+  greyish-brown: $color_greyish_brown,
+);
+
+@mixin color-modifiers($type) {
+  @each $name, $hex in $colors {
+    &--#{$name} {
+      #{$type}: $hex;
+      @if $type == 'border-color' {
+        border-width: 1px;
+        border-style: solid;
+      }
+    }
+  }
+}
+
+// CRITICAL CSS
+@mixin critical-split($file) {
+  @if ($release == 'development') {
+    @content;
+  } @else {
+    @if $file {
+      @critical #{$file} {
+        @content;
+      }
+    }
+  }
+}

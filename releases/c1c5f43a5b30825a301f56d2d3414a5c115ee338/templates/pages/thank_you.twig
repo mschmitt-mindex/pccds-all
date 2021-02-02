@@ -1,0 +1,21 @@
+{% extends "_layout.twig" %}
+
+{% import 'macros/component.twig' as component %}
+
+{% set pageSection = pageSection ?? 'inside' %}
+
+{% block critcss %}
+    <style>{{ source('_critcss/inside.css', ignore_missing = true) }}</style>
+    <style>{{ source('_critcss/hero.css', ignore_missing = true) }}</style>
+{% endblock %}
+
+{% block content %}
+    {% cache %}
+        <div class="content content--full inner_wrapper">
+            <article>
+                <h1 class="c_section_header">{{ craft.entries.slug(originPage).one().thankYouPageTitle }}</h1>
+                {{ craft.entries.slug(originPage).one().thankYouPageContent }}
+            </article>
+        </div>
+    {% endcache %}
+{% endblock content %}

@@ -1,0 +1,87 @@
+{# @var craft \craft\web\twig\variables\CraftVariable #}
+
+
+
+{% if image[0] ?? false %}
+    {% import 'macros/component.twig' as component %}
+
+    {% set heroImage = shuffle(image)[0] %}
+
+    {% set position = '50% 50%' %}
+    {% if heroImage.hasFocalPoint %}
+        {% set focalPoint = heroImage.getFocalPoint() %}
+        {% set position = focalPoint.x * 100 ~ '% ' ~ focalPoint.y * 100 ~ '%' %}
+    {% endif %}
+
+    {% if legacyFullWidth ?? false %}
+        {# imager > media queries > transforms  #}
+        {# figure out proper way to use picture and multiple sources #}
+        {% set options = {
+            image: heroImage,
+            alt: heroImage.altText ?? '',
+            lazyLoad: false,
+            imager: {
+                transforms: [
+                    { width: 1500, height: 600, jpegQuality: 90, position: position },
+                    { width: 1000, height: 400, jpegQuality: 80, position: position },
+                    { width: 800, height: 320, jpegQuality: 80, position: position },
+                    { width: 600, height: 240, jpegQuality: 65, position: position },
+                    { width: 400, height: 160, jpegQuality: 65, position: position },
+                ]
+            }
+        } %}
+
+        <div class="hero--legacy">
+            <div class="hero__image  {% if imagePadding %}hero__image__{{imagePadding}}{% endif %}">
+                {{ component.c('image_bg', { image: options }) }}
+            </div>
+        </div>
+    {% else %}
+        <div class="hero">
+            {# imager > media queries > transforms  #}
+            {# figure out proper way to use picture and multiple sources #}
+            {% set options = {
+                image: heroImage,
+                alt: heroImage.altText ?? '',
+                lazyLoad: false,
+                imager: {
+                    transforms: [
+                        { width: 1762, height: 1272, jpegQuality: 90, position: position },
+                        { width: 881, height: 636, jpegQuality: 80, position: position },
+                        { width: 440, height: 318, jpegQuality: 65, position: position },
+                    ]
+                }
+            } %}
+            <div class="hero__image  {% if imagePadding %}hero__image__{{imagePadding}}{% endif %}">
+                {{ component.c('image_bg', { image: options }) }}
+                {% if curvedDesign ?? false %}<div class="hero__overlay__color"></div>{% endif %}
+            </div>
+
+            {% set heroStyle = "" %}
+            {% if style %}
+                {% set heroStyle = "hero__content__style-" ~ style %}
+            {% endif %}
+
+            <div class="hero__content {{ heroStyle }}">
+
+                <div class="hero__content__headings">
+                    {% if smallHeader ?? false %}<span class="hero__content__small-header" aria-label="Hero Content Small Header">{{- smallHeader -}}</span>{% endif %}
+
+                    {% if header ?? false %}<h1 class="hero__content__h2">{{- header -}}</h1>{% endif %}
+                </div>
+
+                {% if text ?? false %}<p class="hero__content__text">{{ text|nl2br|raw }}</p>{% endif %}
+
+                {% if ctaLink ?? false and ctaText ?? false and ctaAriaLabel ?? false %}
+                    <div class="hero__content__cta">
+                        <a href="{{ ctaLink }}" aria-label="{{ ctaAriaLabel }}" class="c_button c_button--hero">
+                            <span class="c_button__content">
+                                <span class="c_button__label">{{ ctaText }}</span>
+                            </span>
+                        </a>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+    {% endif %}
+{% endif %}

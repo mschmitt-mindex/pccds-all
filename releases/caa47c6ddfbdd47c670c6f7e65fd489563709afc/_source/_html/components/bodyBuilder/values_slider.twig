@@ -1,0 +1,68 @@
+{% set iconBase = '@basePath/icon/prime_care_logo_icon_' %}
+
+{% if content.valuesSlide is not empty %}
+    {% set options = {
+        direction: 'horizontal',
+        loop: true,
+        slidesPerView: 1,
+        a11y: true,
+        navigation: { nextEl: '.swiper-values-next', prevEl: '.swiper-values-prev',},
+    } %}
+    <swiper v-cloak classes="swiper-values-container c_values_slider" container=".swiper-values-container" :options="{{ options|json_encode}}">
+        <div class="swiper-wrapper c_values_slides" slot="slides">
+            {% for slide in content.valuesSlide.all() %}
+                {%- switch slide.flowerStyle.value -%}
+                    {% case 'fullColor' %}
+                        {% set svgIcon = iconBase ~ 'color.svg' %}
+                    {% case 'color1' %}
+                        {% set svgIcon = iconBase ~ 'color1.svg' %}
+                    {% case 'color2' %}
+                        {% set svgIcon = iconBase ~ 'color2.svg' %}
+                    {% case 'color3' %}
+                        {% set svgIcon = iconBase ~ 'color3.svg' %}
+                    {% case 'color4' %}
+                        {% set svgIcon = iconBase ~ 'color4.svg' %}
+                    {% default %}
+                        {% set svgIcon = iconBase ~ 'color.svg' %}
+                {%- endswitch -%}
+                <div class="swiper-slide c_values_slide">
+                    <div class="c_values_slide_container">
+                        <div class="c_values_slide_image">
+                            <div class="c_values_icon">
+                                {{- svg(svgIcon) -}}
+                            </div>
+                        </div>
+                        <div class="c_values_slide_content">
+                            <div class="c_values_slide_header">
+                                <div class="c_values_slide_header_icon">
+                                    {{- svg(svgIcon) -}}
+                                </div>
+                                <div class="c_values_slide_header_content">
+                                    <h3 class="c_values_slide_subheader text--greyish-brown">{{- slide.heading -}}</h3>
+                                    <h2 class="c_section_header text--blue">{{- slide.subHeading -}}</h2>
+                                </div>
+                            </div>
+                            <div class="c_body_copy">
+                                <div class="c_body_copy_text">
+                                    {{- slide.text -}}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+        <div class="c_values_nav_wrapper left" slot="previous">
+            <button class="swiper-values-prev c_values_nav">
+                <span class="visually-hidden">Previous Slide</span>
+                {{- svg('@basePath/icon/slider_left.svg') -}}
+            </button>
+        </div>
+        <div class="c_values_nav_wrapper right" slot="next">
+            <button class="swiper-values-next c_values_nav">
+                <span class="visually-hidden">Next Slide</span>
+                {{- svg('@basePath/icon/slider_right.svg') -}}
+            </button>
+        </div>
+    </swiper>
+{% endif %}

@@ -1,0 +1,31 @@
+.location_information {
+  font-size: pxConversion(22, rem);
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: space-between;
+  a {
+    text-decoration: none;
+    color: $color_maroon;
+    &:hover {
+      color: $color_red;
+    }
+  }
+}
+
+.location__map {
+  margin-top: pxConversion(50, rem);
+  &__info__title {
+    color: $color_maroon;
+    font-size: 1rem;
+    font-weight: 600;
+    margin-bottom: pxConversion(5, rem);
+  }
+  &__info__address {
+    p {
+      margin-bottom: pxConversion(5, rem);
+      &:last-of-type {
+        margin-bottom: pxConversion(15, rem);
+      }
+    }
+  }
+}
